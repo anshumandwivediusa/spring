@@ -129,6 +129,39 @@ Database / External System
    }
    ```
    - One of the most common uses of @ResponseBody is building REST APIs or converting Java Objects into JSON
+   - @ResponseBody with String
+   ```
+   @GetMapping("/hello")
+   @ResponseBody
+   public String hello() {
+       return "Hello World";
+   }
+   Result: Hello World
+  ```
+- @ResponseBody with Collections
+  ```
+  @GetMapping("/users")
+   @ResponseBody
+   public List<User> getUsers() {
+       return List.of(
+           new User(1, "John"),
+           new User(2, "Mary")
+       );
+   }
+   Result:
+   [
+     {
+       "id": 1,
+       "name": "John"
+     },
+     {
+       "id": 2,
+       "name": "Mary"
+     }
+   ]
+  ```
+  - Method-Level: Only this method returns data directly.
+  - Class-Level: All handler methods behave as if they have @ResponseBody.
 
 - **@RestController**  
   - Specialized controller for **RESTful APIs**.  
