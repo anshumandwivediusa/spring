@@ -128,6 +128,7 @@ Database / External System
        }
    }
    ```
+   - One of the most common uses of @ResponseBody is building REST APIs or converting Java Objects into JSON
 
 - **@RestController**  
   - Specialized controller for **RESTful APIs**.  
