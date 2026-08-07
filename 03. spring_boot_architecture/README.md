@@ -257,7 +257,7 @@ Database / External System
 - **@Valid** in controllers triggers automatic validation of incoming request data.  
 - Lombok and validation annotations **work together seamlessly**: Lombok generates the code, validation enforces rules.
 
-### 1. **Entity/DTO Definition**
+#### 1. **Entity/DTO Definition**
 - Use Lombok annotations like `@Data`, `@Builder`, `@AllArgsConstructor`, `@NoArgsConstructor`.  
 - Add validation annotations on fields.  
 
@@ -275,7 +275,12 @@ public class UserDTO {
 }
 ```
 
-### 2. **Controller Layer**
+When designing DTOs in Spring Boot, **optional fields** are simply those without strict validation constraints like `@NotNull` or `@NotBlank`. Lombok can generate the boilerplate code (getters, setters, constructors) while the Bean Validation API handles rules for mandatory fields. If a field is optional, you either leave it without validation annotations or use flexible ones like `@Size(min=0)` or `@Nullable`. This way, when a client omits the field in a JSON payload, validation still passes and the property remains `null` or empty. For query parameters, you can mark them optional with **@RequestParam(required=false)** or provide a **defaultValue**, while for path variables you need multiple URL mappings to support optionality. In short, optional fields in DTOs allow APIs to accept partial data gracefully without breaking validation, while still enforcing rules on critical fields.
+
+Note: 
+_In Spring validation, the difference between **null** and **blank** is important when designing DTOs. A field is **null** when it is completely absent or not provided in the request payload, and you enforce its presence with **@NotNull**. A field is **blank** when it exists but contains an empty string (`""`) or only whitespace, and you enforce meaningful content with **@NotBlank**. In practice, `@NotNull` ensures the property is supplied, while `@NotBlank` ensures it has actual characters. Together, they help distinguish between missing values and empty inputs, allowing you to design DTOs that clearly separate **mandatory fields** from **optional ones** and enforce stricter rules only where necessary.
+_
+#### 2. **Controller Layer**
 - Use `@Valid` with `@RequestBody` or `@RequestParam`.  
 - Spring automatically validates incoming data before executing logic.  
 ```java
@@ -285,13 +290,13 @@ public ResponseEntity<String> createUser(@Valid @RequestBody UserDTO user) {
 }
 ```
 
-### 3. **Validation Flow**
+#### 3. **Validation Flow**
 - Client sends JSON → Spring maps to DTO using Jackson.  
 - `@Valid` triggers validation via Hibernate Validator.  
 - If constraints fail → Spring returns **400 Bad Request** with error details.  
 - If valid → Controller executes normally.
 
-### 4. **Error Handling**
+#### 4. **Error Handling**
 - Use `BindingResult` for manual error handling.  
 - Or define a **@ControllerAdvice** class for global exception handling.  
 ```java
@@ -301,7 +306,7 @@ public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidExcep
 }
 ```
 
-## 🔑 Summary
+### Summary
 - Lombok simplifies DTO/entity creation.  
 - Validation annotations enforce rules.  
 - `@Valid` integrates both, ensuring **clean code + robust validation**.  
