@@ -330,7 +330,7 @@ Application Ready
 ### 1. Core Spring Boot Annotations
 
 - **@SpringBootApplication**  
-  Combines `@SpringBootConfiguration`, `@EnableAutoConfiguration`, and `@ComponentScan`. Entry point for Boot apps.  
+  Combines `@SpringBootConfiguration`, `@ComponentScan`, and `@EnableAutoConfiguration`. Entry point for Boot apps.  
 
 - **@SpringBootConfiguration**  
   Specialized form of `@Configuration`. Marks the class as a source of bean definitions.  
