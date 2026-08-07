@@ -1,6 +1,6 @@
 # Spring Boot Architectures
 
-## Spring Boot Architecture Overview
+## 1. Spring Boot Architecture Overview
 ### 1. **Core Layer**
 - **Spring Boot Starter Parent** → Provides dependency and plugin management.  
 - **Spring Boot Dependencies BOM** → Ensures consistent versions across modules.  
@@ -41,7 +41,7 @@
 6. Embedded server startup → Tomcat/Jetty/Undertow.  
 7. Actuator endpoints exposed → Monitoring ready.  
 
-## Architecture Layers Summary
+## 2. Architecture Layers Summary
 
 | **Layer** | **Components** | **Purpose** |
 |--|-|-|
