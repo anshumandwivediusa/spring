@@ -325,15 +325,4 @@ Run CommandLineRunner/ApplicationRunner
 Application Ready
 ```
 
-### Key improvements made
 
-* Corrected the startup order to better match Spring's internal lifecycle.
-* Distinguished **bean definition registration** from **bean instantiation**.
-* Added the **environment preparation** phase (`application.properties`, environment variables, command-line arguments).
-* Mentioned the different `ApplicationContext` implementations Spring Boot chooses.
-* Expanded the list of conditional annotations commonly used in auto-configuration.
-* Clarified that **AOP proxies** are created during bean initialization.
-* Included the complete sequence of major application events.
-* Updated the startup flow diagram to reflect the actual lifecycle more accurately.
-
-This version is more aligned with how Spring Boot starts internally while remaining concise enough for interview preparation and study notes.
