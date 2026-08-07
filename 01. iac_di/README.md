@@ -6,13 +6,13 @@
 
 ## 1. Core Foundations of Spring Framework
 
-### **Dependency Injection (DI) & Inversion of Control (IoC)**
+### A. **Dependency Injection (DI) & Inversion of Control (IoC)**
 * **Inversion of Control (IoC)** is the _principle_ in which the framework manages the creation, configuration, and lifecycle of application objects (beans).
 * **Dependency Injection (DI)** is the _mechanism_ Spring uses to implement IoC by automatically providing the required dependencies to objects.
 * This approach promotes **loose coupling**, improves maintainability, and makes applications easier to test.
 * **Example:** A service class does not create its repository using `new`. Instead, Spring injects the repository into the service through constructor, setter, or field injection.
 
-### **Modular Architecture**
+### B. **Modular Architecture**
 Spring is divided into ~20 modules grouped into:
 - **Core Container** → `spring-core`, `spring-context`, `spring-beans` (DI, IoC).  
 - **Data Access/Integration** → JDBC, ORM, Transactions.  
@@ -21,15 +21,15 @@ Spring is divided into ~20 modules grouped into:
 - **Messaging** → Integration with JMS, Kafka, RabbitMQ.  
 - **Testing** → JUnit/TestNG support.  [docs.spring.io](https://docs.spring.io/spring-framework/docs/4.3.26.RELEASE/spring-framework-reference/html/overview.html)  
 
-### **POJO-based Development**
+### C. **POJO-based Development**
 - Applications are built using **Plain Old Java Objects**.  
 - Enterprise services (transactions, security, messaging) can be applied without forcing inheritance from framework classes.
 
-### **Spring MVC & WebFlux**
+### D. **Spring MVC & WebFlux**
 - **Spring MVC** → Servlet-based, synchronous request handling.  
 - **Spring WebFlux** → Reactive, non-blocking, built on Reactor for high scalability.
 
-### **Integration with Java EE/Jakarta EE**
+### E. **Integration with Java EE/Jakarta EE**
 - Spring complements EE by integrating selected APIs (JPA, JMS, JMX) rather than adopting the full specification.  [docs.spring.io](https://docs.spring.io/spring-framework/reference/overview.html)  
 
 ## 2. Inversion of Control (IoC)
@@ -42,7 +42,7 @@ Spring is divided into ~20 modules grouped into:
 </p>
 
 
-### Two Main Approaches
+### A. Two Main Approaches
 1. **Dependency Injection (DI)**  
    - Framework injects dependencies into objects.  
    - Types:  
@@ -105,7 +105,7 @@ Spring is divided into ~20 modules grouped into:
      - **Factory Pattern** → Factory class creates and supplies objects. Example: ConnectionFactory.createConnection().
       - **JNDI Lookup Pattern** → Java Naming and Directory Interface used to fetch resources. Example: ctx.lookup("java:comp/env/jdbc/MyDB").
 
-### Comparison Table
+### B. Comparison Table
 
 | Aspect | **Dependency Injection (DI)** | **Dependency Lookup (DL)** |
 |--------|-------------------------------|-----------------------------|
@@ -114,7 +114,7 @@ Spring is divided into ~20 modules grouped into:
 | Testability | High | Lower |
 | Examples | Spring IoC container | Service Locator, JNDI |
 
-### Quick Notes
+### C. Quick Notes
 - **IoC Principle:** Framework controls object lifecycle.  
 - **DI vs DL:** DI is *passive* (dependencies given), DL is *active* (dependencies fetched).  
 - **Spring Framework:** Popular for DI (constructor, setter).  
@@ -153,7 +153,7 @@ Spring is divided into ~20 modules grouped into:
 
 **Spring Boot** is a project built on top of the Spring Framework that makes it easier to create stand‑alone, production‑ready Spring applications with minimal configuration. It eliminates boilerplate setup and provides opinionated defaults, so developers can focus on business logic rather than infrastructure.  
 
-### Key Features of Spring Boot
+### A. Key Features of Spring Boot
 
 - **Auto-Configuration**  
   Automatically configures beans based on classpath settings, properties, and environment.  
@@ -168,6 +168,11 @@ Spring is divided into ~20 modules grouped into:
 
 - **Embedded Servers**  
   Ships with Tomcat, Jetty, or Undertow embedded, so you can run apps with `java -jar` without external server setup.
+
+- **Standalone Applications**
+   No need for external servers (like Tomcat).
+   Comes with embedded servers (Tomcat, Jetty, or Undertow).
+   Runs as a self-contained JAR (Java Archive) with java -jar.
 
 - **Spring Boot CLI**  
   Command-line tool to quickly prototype apps using Groovy scripts.
