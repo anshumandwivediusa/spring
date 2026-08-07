@@ -212,3 +212,11 @@ Spring is divided into ~20 modules grouped into:
   - **Default Properties** → Provides default encoding, Java version, and resource filtering.
   - **Inheritance** → Child projects inherit these defaults, reducing boilerplate.
 
+   ```maven
+   <parent>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-parent</artifactId>
+       <version>3.3.0</version>
+       <relativePath/> <!-- lookup parent from repository -->
+   </parent>
+   ```
