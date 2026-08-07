@@ -87,3 +87,50 @@ Client Request
    ▼
 Database / External System
 ```
+
+## 3. Presentation Layer
+
+### A. Presentation Layer Components (Spring)
+
+- **@Controller**  
+  - Handles incoming **http/web requests**.  
+  - Returns **views** (HTML, JSP, Thymeleaf templates).  
+  - Typically used in **MVC applications**.
+
+     ```
+      @Controller
+      public class HomeController {
+      
+          @GetMapping("/")
+          public String home() {
+              return "home"; // Renders home.html (or another configured view)
+          }
+      }
+     ```
+
+- **@RestController**  
+  - Specialized controller for **RESTful APIs**.  
+  - Combines `@Controller` + `@ResponseBody`.  
+  - Returns **JSON/XML** directly instead of views.  
+
+- **DispatcherServlet**  
+  - The **front controller** in Spring MVC.  
+  - Routes requests to the appropriate controller.  
+  - Manages request lifecycle (mapping, view resolution, exception handling).  
+
+- **ViewResolver**  
+  - Resolves logical view names returned by controllers into actual templates.  
+  - Example: `"home"` → `/WEB-INF/views/home.jsp` or `home.html` (Thymeleaf).  
+
+- **@RequestMapping**  
+  - Maps **URLs** (and HTTP methods) to controller methods.  
+  - Example: `@RequestMapping("/users")` → handles requests to `/users`.  
+  - Variants: `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`.  
+
+## 🔑 Summary
+The **Presentation Layer** in Spring:
+- Accepts client requests (via controllers).  
+- Uses `DispatcherServlet` to route them.  
+- Maps URLs with `@RequestMapping`.  
+- Returns either **views** (via `ViewResolver`) or **JSON/XML** (via `@RestController`).  
+
