@@ -159,6 +159,9 @@ Spring is divided into ~20 modules grouped into:
   Automatically configures beans based on classpath settings, properties, and environment.  
   Example: If `spring-boot-starter-data-jpa` is on the classpath, it configures JPA automatically.
 
+- **No XML Configuration**
+  Uses Java-based annotations (@SpringBootApplication) instead of XML.
+
 - **Spring Boot Starters**  
   Predefined dependency bundles for common use cases.  
   Examples: `spring-boot-starter-web`, `spring-boot-starter-data-jpa`, `spring-boot-starter-security`.
