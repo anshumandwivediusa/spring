@@ -47,6 +47,7 @@ Spring is divided into ~20 modules grouped into:
    - Framework injects dependencies into objects.  
    - Types:  
      - **Constructor Injection** → Dependencies passed via constructor.  
+     - **Field Injection** → Dependencies set via fields.  
      - **Setter Injection** → Dependencies set via setter methods.  
      - **Method Injection** → Dependencies passed via specific methods.  
 
