@@ -251,4 +251,60 @@ Database / External System
    }
 ```
 
+### C. Lombok + Validation Overview
+- **Lombok** reduces boilerplate code (getters, setters, constructors, builders).  
+- **Validation annotations** (`@NotNull`, `@NotBlank`, `@Email`, `@Size`) come from **Bean Validation API (JSR‑380)**.  
+- **@Valid** in controllers triggers automatic validation of incoming request data.  
+- Lombok and validation annotations **work together seamlessly**: Lombok generates the code, validation enforces rules.
+
+### 1. **Entity/DTO Definition**
+- Use Lombok annotations like `@Data`, `@Builder`, `@AllArgsConstructor`, `@NoArgsConstructor`.  
+- Add validation annotations on fields.  
+
+```java
+@Data
+public class UserDTO {
+    @NotBlank(message = "Name is mandatory")
+    private String name;
+
+    @Email(message = "Invalid email format")
+    private String email;
+
+    @Size(min = 8, message = "Password must be at least 8 characters")
+    private String password;
+}
+```
+
+### 2. **Controller Layer**
+- Use `@Valid` with `@RequestBody` or `@RequestParam`.  
+- Spring automatically validates incoming data before executing logic.  
+```java
+@PostMapping("/users")
+public ResponseEntity<String> createUser(@Valid @RequestBody UserDTO user) {
+    return ResponseEntity.ok("User created: " + user.getName());
+}
+```
+
+### 3. **Validation Flow**
+- Client sends JSON → Spring maps to DTO using Jackson.  
+- `@Valid` triggers validation via Hibernate Validator.  
+- If constraints fail → Spring returns **400 Bad Request** with error details.  
+- If valid → Controller executes normally.
+
+### 4. **Error Handling**
+- Use `BindingResult` for manual error handling.  
+- Or define a **@ControllerAdvice** class for global exception handling.  
+```java
+@ExceptionHandler(MethodArgumentNotValidException.class)
+public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidException ex) {
+    return ResponseEntity.badRequest().body("Validation failed: " + ex.getMessage());
+}
+```
+
+## 🔑 Summary
+- Lombok simplifies DTO/entity creation.  
+- Validation annotations enforce rules.  
+- `@Valid` integrates both, ensuring **clean code + robust validation**.  
+- Together, they make Spring Boot APIs **concise, maintainable, and safe**.  
+
 
