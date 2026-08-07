@@ -325,4 +325,58 @@ Run CommandLineRunner/ApplicationRunner
 Application Ready
 ```
 
+## 5 Annotations used in this chapter  
 
+### 1. Core Spring Boot Annotations
+
+- **@SpringBootApplication**  
+  Combines `@SpringBootConfiguration`, `@EnableAutoConfiguration`, and `@ComponentScan`. Entry point for Boot apps.  
+
+- **@SpringBootConfiguration**  
+  Specialized form of `@Configuration`. Marks the class as a source of bean definitions.  
+
+- **@EnableAutoConfiguration**  
+  Triggers Spring Boot’s auto-configuration based on classpath and conditions.  
+
+- **@ComponentScan**  
+  Scans packages for beans annotated with `@Component`, `@Service`, `@Repository`, `@Controller`, etc.  
+
+### 2. Stereotype Annotations (Component Scanning)
+
+- **@Component** → Generic Spring-managed bean.  
+- **@Service** → Business logic layer beans.  
+- **@Repository** → DAO layer, exception translation.  
+- **@Controller** → MVC controllers.  
+- **@RestController** → Combines `@Controller` + `@ResponseBody` for REST APIs.  
+- **@Configuration** → Defines beans via `@Bean` methods.  
+
+### 3. Dependency Injection Annotations
+
+- **@Autowired** → Injects dependencies (constructor, setter, field).  
+- **@Qualifier** → Resolves ambiguity when multiple beans of same type exist.  
+- **@Value** → Injects values from properties or environment.  
+
+### 4. Conditional & Auto-Config Annotations
+
+- **@ConditionalOnClass** → Activates config if a class is on classpath.  
+- **@ConditionalOnMissingBean** → Creates bean only if not already defined.  
+- **@ConditionalOnProperty** → Enables config if a property is set.  
+- **@ConditionalOnWebApplication** → Activates config only for web apps.  
+
+### 5. Lifecycle & Event Annotations
+
+- **@PostConstruct** → Runs after bean initialization.  
+- **@PreDestroy** → Runs before bean destruction.  
+- **@EventListener** → Listens to application events (e.g., `ApplicationReadyEvent`).  
+
+### 6. Runner Interfaces
+
+- **CommandLineRunner** → Executes logic after startup with command-line args.  
+- **ApplicationRunner** → Similar, but uses `ApplicationArguments`.  
+
+### 7. How They Fit Into Startup Flow
+1. `@SpringBootApplication` → Entry point, triggers auto-config + scanning.  
+2. Stereotype annotations (`@Component`, `@Service`, etc.) → Beans discovered during scanning.  
+3. Conditional annotations → Auto-config beans created only if conditions match.  
+4. Lifecycle annotations (`@PostConstruct`) → Run during context refresh.  
+5. Runner interfaces → Execute after the app is fully started.  
