@@ -132,8 +132,59 @@ Spring is divided into ~20 modules grouped into:
 | **Messaging** | Messaging | Async messaging, WebSocket/STOMP |
 | **Testing** | Test | JUnit/TestNG integration, context caching |
 
-## Historical Context
+## 4. Historical Context
 - **Introduced in 2003** to simplify the complexity of J2EE.  
 - Became popular for its lightweight container and ease of testing.  
 - **Spring 6.0 (2022)** requires **Java 17+**, aligning with modern JVM features.  [docs.spring.io](https://docs.spring.io/spring-framework/reference/overview.html)  
+
+| **Version** | **Year** | **Java Support** | **Key Features** |
+| --- | --- | --- | --- |
+| **Spring 1.0** | 2004 | JDK 1.3 | IoC, DI, AOP, MVC |
+| **Spring 2.0** | 2006 | JDK 1.4 | AspectJ, XML config, JPA/JMS |
+| **Spring 3.0** | 2009 | JDK 5 | REST, SpEL, annotations |
+| **Spring 4.0** | 2013 | JDK 6–8 | Java 8, WebSocket, caching |
+| **Spring 5.0** | 2017 | JDK 8–11 | WebFlux, Kotlin, reactive |
+| **Spring 5.3** | 2020 | JDK 8–21 | LTS, Java EE 8 |
+| **Spring 6.0** | 2022 | JDK 17–21 | Jakarta EE 9+, cloud-native |
+| **Spring 6.2** | 2025 | JDK 17–25 | Performance, observability |
+| **Spring 7.0** | 2026 | JDK 25 | Jakarta EE 11, modern reactive |
+
+## Spring Boot
+
+**Spring Boot** is a project built on top of the Spring Framework that makes it easier to create stand‑alone, production‑ready Spring applications with minimal configuration. It eliminates boilerplate setup and provides opinionated defaults, so developers can focus on business logic rather than infrastructure.  
+
+### Key Features of Spring Boot
+
+- **Auto-Configuration**  
+  Automatically configures beans based on classpath settings, properties, and environment.  
+  Example: If `spring-boot-starter-data-jpa` is on the classpath, it configures JPA automatically.
+
+- **Spring Boot Starters**  
+  Predefined dependency bundles for common use cases.  
+  Examples: `spring-boot-starter-web`, `spring-boot-starter-data-jpa`, `spring-boot-starter-security`.
+
+- **Embedded Servers**  
+  Ships with Tomcat, Jetty, or Undertow embedded, so you can run apps with `java -jar` without external server setup.
+
+- **Spring Boot CLI**  
+  Command-line tool to quickly prototype apps using Groovy scripts.
+
+- **Actuator**  
+  Provides production-ready features like health checks, metrics, auditing, and monitoring endpoints.
+
+- **Spring Boot DevTools**  
+  Enables hot reloading, live reload, and developer productivity enhancements.
+
+- **Externalized Configuration**  
+  Centralized configuration via `application.properties` or `application.yml`, environment variables, and command-line arguments.
+
+### Spring Boot vs Spring Framework
+
+| **Aspect** | **Spring Framework** | **Spring Boot** |
+|------------|----------------------|-----------------|
+| **Setup** | Manual configuration | Auto-configuration |
+| **Dependencies** | Add individually | Starters bundle dependencies |
+| **Server** | Needs external server | Embedded Tomcat/Jetty/Undertow |
+| **Monitoring** | Manual setup | Actuator endpoints |
+| **Focus** | Flexible, modular | Rapid development, production-ready |
 
