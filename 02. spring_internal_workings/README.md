@@ -1,6 +1,6 @@
 # Internal Working of Spring Boot
 
-## 1 What Happens When We Start a Spring Boot Application?
+## 1. What Happens When We Start a Spring Boot Application?
 
 A typical Spring Boot application starts with the following code:
 
