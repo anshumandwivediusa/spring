@@ -149,7 +149,7 @@ Spring is divided into ~20 modules grouped into:
 | **Spring 6.2** | 2025 | JDK 17–25 | Performance, observability |
 | **Spring 7.0** | 2026 | JDK 25 | Jakarta EE 11, modern reactive |
 
-## Spring Boot
+## 5. Spring Boot
 
 **Spring Boot** is a project built on top of the Spring Framework that makes it easier to create stand‑alone, production‑ready Spring applications with minimal configuration. It eliminates boilerplate setup and provides opinionated defaults, so developers can focus on business logic rather than infrastructure.  
 
@@ -186,7 +186,7 @@ Spring is divided into ~20 modules grouped into:
 - **Externalized Configuration**  
   Centralized configuration via `application.properties` or `application.yml`, environment variables, and command-line arguments.
 
-### Spring Boot vs Spring Framework
+## 6. Spring Boot vs Spring Framework
 
 | **Aspect** | **Spring Framework** | **Spring Boot** |
 |------------|----------------------|-----------------|
@@ -195,4 +195,20 @@ Spring is divided into ~20 modules grouped into:
 | **Server** | Needs external server | Embedded Tomcat/Jetty/Undertow |
 | **Monitoring** | Manual setup | Actuator endpoints |
 | **Focus** | Flexible, modular | Rapid development, production-ready |
+
+| **Spring Boot Version** | **Release Year** | **Spring Framework Version** | **Java Support** | **Key Features** |
+| --- | --- | --- | --- | --- |
+| **[Spring Boot 1.x](ca://s?q=Spring_Boot_1.x_Features)** | 2014–2016 | Spring Framework 4.x | Java 6–8 | Initial release, embedded Tomcat/Jetty, auto-configuration |
+| **[Spring Boot 2.x](ca://s?q=Spring_Boot_2.x_Features)** | 2018–2020 | Spring Framework 5.x | Java 8–14 | WebFlux (reactive), Kotlin support, actuator improvements |
+| **[Spring Boot 2.7](ca://s?q=Spring_Boot_2.7_Features)** | 2022 | Spring Framework 5.3.x | Java 8–17 | Last 2.x branch, long-term support |
+| **[Spring Boot 3.0](ca://s?q=Spring_Boot_3.0_Features)** | 2022 | Spring Framework 6.0 | Java 17+ | Migration to ``jakarta.*``, native image support, observability |
+| **[Spring Boot 3.2](ca://s?q=Spring_Boot_3.2_Features)** | 2024 | Spring Framework 6.1 | Java 17–21 | Enhanced AOT (Ahead-of-Time) compilation, improved observability |
+| **[Spring Boot 3.3](ca://s?q=Spring_Boot_3.3_Features)** | 2025 | Spring Framework 6.2 | Java 17–25 | Performance tuning, cloud-native enhancements |
+| **[Spring Boot 7.x](ca://s?q=Spring_Boot_7.x_Features)** | 2026 | Spring Framework 7.0 | Java 25 | Latest release, Jakarta EE 11 support, advanced reactive features |
+
+## 7. Features of Spring Boot Parent
+  - **Dependency Management** → Automatically manages versions of Spring and third-party libraries.
+  - **Plugin Management** → Configures Maven plugins like maven-compiler-plugin, maven-surefire-plugin.
+  - **Default Properties** → Provides default encoding, Java version, and resource filtering.
+  - **Inheritance** → Child projects inherit these defaults, reducing boilerplate.
 
