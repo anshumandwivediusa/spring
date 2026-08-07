@@ -114,12 +114,23 @@ Spring is divided into ~20 modules grouped into:
 | Testability | High | Lower |
 | Examples | Spring IoC container | Service Locator, JNDI |
 
-### 📌 Quick Notes
+### Quick Notes
 - **IoC Principle:** Framework controls object lifecycle.  
 - **DI vs DL:** DI is *passive* (dependencies given), DL is *active* (dependencies fetched).  
 - **Spring Framework:** Popular for DI (constructor, setter).  
 - **Service Locator:** Considered an anti-pattern in modern design (hides dependencies).  
 - **Factory Pattern:** Still widely used for controlled object creation.  
+
+## Spring Core Modules
+| **Module Group** | **Key Modules** | **Features** |
+| --- | --- | --- |
+| **Core Container** | Core, Beans, Context, SpEL | IoC, DI, bean lifecycle, runtime expressions |
+| **Data Access** | JDBC, ORM, OXM, JMS, Transactions | Database access, ORM integration, messaging, transactions |
+| **Web** | Web, MVC, WebFlux, WebSocket, Web Services | Traditional & reactive web apps, REST/SOAP, real-time communication |
+| **AOP** | Spring AOP, AspectJ | Cross-cutting concerns, declarative transactions |
+| **Instrumentation** | Instrument | Class instrumentation, classloader support |
+| **Messaging** | Messaging | Async messaging, WebSocket/STOMP |
+| **Testing** | Test | JUnit/TestNG integration, context caching |
 
 ## Historical Context
 - **Introduced in 2003** to simplify the complexity of J2EE.  
