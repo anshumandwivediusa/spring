@@ -220,3 +220,14 @@ Spring is divided into ~20 modules grouped into:
        <relativePath/> <!-- lookup parent from repository -->
    </parent>
    ```
+
+## 8. When to use What?
+
+| **Choice** | **Best Use Case** | **Why It Fits** |
+| --- | --- | --- |
+| **[Spring Framework](ca://s?q=Spring_Framework_Use_Cases)** | Full control over configurations | You want to manually configure beans, XML, or annotations for maximum flexibility |
+|  | Working with legacy systems requiring XML | Many older enterprise apps still rely on XML-based configuration |
+|  | Building highly customized architectures | Complex, non-standard setups where Boot’s opinionated defaults don’t fit |
+| **[Spring Boot](ca://s?q=Spring_Boot_Use_Cases)** | Rapid prototyping or microservices development | Auto-configuration + starters make setup fast |
+|  | Avoiding boilerplate configuration | Boot removes repetitive XML/Java config |
+|  | Need embedded servers or Actuator for monitoring | Run apps with ``java ``-jar`` and get health/metrics endpoints out of the box |
