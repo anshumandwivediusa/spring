@@ -57,7 +57,45 @@ Spring is divided into ~20 modules grouped into:
       | **[Method Injection](ca://s?q=Method_Injection_in_Spring)** | Dependencies via specific method | Rare cases, prototype beans |
       | **[Field Injection](ca://s?q=Field_Injection_in_Spring)** | Dependencies injected directly into fields | Quick setup, simple apps, but less testable |
 
-
+      ```java
+      import org.springframework.beans.factory.annotation.Autowired;
+      import org.springframework.stereotype.Component;
+      
+      @Component
+      public class DemoService {
+      
+          // Field Injection → dependency injected directly into the field
+          @Autowired
+          private FieldDependency fieldDependency;
+      
+          private final ConstructorDependency constructorDependency;
+          private SetterDependency setterDependency;
+      
+          // Constructor Injection → mandatory dependency
+          @Autowired
+          public DemoService(ConstructorDependency constructorDependency) {
+              this.constructorDependency = constructorDependency;
+          }
+      
+          // Setter Injection → optional dependency
+          @Autowired
+          public void setSetterDependency(SetterDependency setterDependency) {
+              this.setterDependency = setterDependency;
+          }
+      
+          // Method Injection → dependency passed into a specific method
+          @Autowired
+          public void performTask(MethodDependency methodDependency) {
+              constructorDependency.execute();
+              if (setterDependency != null) {
+                  setterDependency.run();
+              }
+              fieldDependency.process();
+              methodDependency.doWork();
+          }
+      }
+      
+      ```
 2. **Dependency Lookup (DL)**  
    - Objects actively look up dependencies from a container/service.  
    - Patterns:  
