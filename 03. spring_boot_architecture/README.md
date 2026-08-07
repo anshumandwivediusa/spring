@@ -194,5 +194,37 @@ Database / External System
   - Example: `@RequestMapping("/users")` → handles requests to `/users`.  
   - Variants: `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`.  
 
+### B. Presentation Layer Components (Request/Response)
+
+
+| **Aspect** | **[@RequestParam](ca://s?q=RequestParam_annotation)** | **[@RequestBody](ca://s?q=RequestBody_annotation)** |
+| --- | --- | --- |
+| **Source of Data** | Query string (``?id=1&name=Anshuman``) or form fields | Request body (JSON, XML, plain text) |
+| **Typical HTTP Method** | Commonly used with **GET** (but can also be used with POST if form data is sent as parameters) | Commonly used with **POST/PUT/PATCH** (methods that carry payloads) |
+| **Data Type** | Simple values (String, int, boolean) | Complex objects (POJOs, lists, arrays) |
+| **Conversion** | Spring automatically converts query parameters to method arguments | Uses **HttpMessageConverters** (e.g., Jackson) to map JSON/XML → Java object |
+| **Example Request** | ``GET ``/users?id=1&name=Anshuman`` | ``POST ``/users`` with body: ``{"id":1,"name":"Anshuman"}`` |
+| **Example Code** | ``java ``@GetMapping("/users") ``public ``User ``getUser(@RequestParam ``Long ``id, ``@RequestParam ``String ``name) ``{ ``return ``new ``User(id, ``name); ``}`` | ``java ``@PostMapping("/users") ``public ``User ``createUser(@RequestBody ``User ``user) ``{ ``return ``user; ``}`` |
+
+| **Aspect** | **[@PathVariable](ca://s?q=PathVariable_annotation)** | **[@RequestParam](ca://s?q=RequestParam_annotation)** |
+| --- | --- | --- |
+| **Source of Data** | Extracts values from the **URL path** | Extracts values from the **query string** or form data |
+| **Typical Use Case** | Identifying a specific resource by ID or name | Filtering, searching, or passing optional parameters |
+| **Example Request** | ``GET ``/users/10`` | ``GET ``/users?id=10&active=true`` |
+| **Example Code** | ``java ``@GetMapping("/users/{id}") ``public ``User ``getUser(@PathVariable ``Long ``id) ``{ ``return ``userService.findById(id); ``}`` | ``java ``@GetMapping("/users") ``public ``User ``getUser(@RequestParam ``Long ``id, ``@RequestParam ``boolean ``active) ``{ ``return ``userService.findByIdAndStatus(id, ``active); ``}`` |
+| **Data Type** | Usually single identifiers (IDs, slugs, names) | Simple values (String, int, boolean) |
+| **Optional Support** | Always required unless marked with ``required=false`` | Can be optional with ``required=false`` or ``defaultValue`` |
+| **REST Style** | Fits **RESTful design** (resources identified in path) | Fits query-based filtering or optional inputs |
+
+```java
+   /users?id=10&active=true
+
+   @GetMapping("/users/{id}")
+   public User getUser(
+       @PathVariable Long id,
+       @RequestParam(defaultValue = "false") boolean active) {
+       return userService.findByIdAndStatus(id, active);
+   }
+```
 
 
