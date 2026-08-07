@@ -108,6 +108,27 @@ Database / External System
       }
      ```
 
+- **@ResponseBody**
+   - @ResponseBody is a Spring MVC annotation that tells Spring to write the return value of a controller method directly into the HTTP response body instead of treating it as a view name.
+   - Why is @ResponseBody Needed? Normally, @Controller methods are associated with view resolution.
+   - If we use @Controller,
+        - Spring interprets return "home"; as: view "home";
+        - Return Value --> View Name = "home" --> ViewResolver --> home.html / JSP
+     else we use @RestController/@ResponseBody,
+        - Spring interprets the return value as: Return Value
+        - Return Value --> @ResponseBody --> HttpMessageConverter --> HTTP Response Body
+  ```
+   @Controller
+   public class UserController {
+   
+       @GetMapping("/user")
+       @ResponseBody
+       public User getUser() {
+           return new User(101, "John");
+       }
+   }
+   ```
+
 - **@RestController**  
   - Specialized controller for **RESTful APIs**.  
   - Combines `@Controller` + `@ResponseBody`.  
@@ -127,10 +148,5 @@ Database / External System
   - Example: `@RequestMapping("/users")` → handles requests to `/users`.  
   - Variants: `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`.  
 
-## 🔑 Summary
-The **Presentation Layer** in Spring:
-- Accepts client requests (via controllers).  
-- Uses `DispatcherServlet` to route them.  
-- Maps URLs with `@RequestMapping`.  
-- Returns either **views** (via `ViewResolver`) or **JSON/XML** (via `@RestController`).  
+
 
