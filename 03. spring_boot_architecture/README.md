@@ -225,6 +225,21 @@ Database / External System
        @RequestParam(defaultValue = "false") boolean active) {
        return userService.findByIdAndStatus(id, active);
    }
+
+   @GetMapping("/search") //required = false
+   public String search(@RequestParam(required = false) String keyword) {
+       return keyword != null ? "Searching for: " + keyword : "No keyword provided";
+   }
+
+   @GetMapping("/search") //defaultValue
+   public String search(@RequestParam(defaultValue = "all") String keyword) {
+       return "Searching for: " + keyword;
+   }
+
+   @GetMapping({"/users", "/users/{id}"})
+   public String getUser(@PathVariable(required = false) Long id) {
+       return id != null ? "User ID: " + id : "All users";
+   }
 ```
 
 
