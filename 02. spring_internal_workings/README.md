@@ -15,7 +15,7 @@ public class MyApplication {
 
 The call to `SpringApplication.run()` initiates the Spring Boot startup process. It creates and configures the Spring application, initializes the Spring IoC container, applies auto-configuration, and starts the application.
 
-## 2 Step-by-Step Startup Process
+## 2. Step-by-Step Startup Process
 
 ### Step 1: `@SpringBootApplication`
 
@@ -273,11 +273,11 @@ Tomcat started on port(s): 8080
 Started MyApplication in 2.341 seconds
 ```
 
-## 3 Interview Summary
+## 3. Interview Summary
 
 > When a Spring Boot application starts, `SpringApplication.run()` bootstraps the application. It prepares the environment, creates the appropriate `ApplicationContext`, performs component scanning, registers bean definitions, and applies auto-configuration based on the application's dependencies. During the context refresh phase, Spring creates beans, injects dependencies, initializes lifecycle callbacks, and applies AOP proxies where needed. For web applications, Spring Boot starts an embedded web server such as Tomcat and registers the `DispatcherServlet`. Once initialization is complete, the application is ready to handle incoming requests.
 
-## 4 Startup Flow Diagram
+## 4. Startup Flow Diagram
 
 ```text
 @SpringBootApplication
@@ -325,7 +325,7 @@ Run CommandLineRunner/ApplicationRunner
 Application Ready
 ```
 
-## 5 Annotations used in this chapter  
+## 5. Annotations used in this chapter  
 
 ### 1. Core Spring Boot Annotations
 
