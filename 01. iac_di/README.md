@@ -50,12 +50,13 @@ Spring is divided into ~20 modules grouped into:
      - **Setter Injection** → Dependencies set via setter methods.  
      - **Method Injection** → Dependencies passed via specific methods.  
 
-      | Injection Type | How It Works | Best Use Case |
-      | --- | --- | --- |
-      | **[Constructor Injection](ca://s?q=Constructor_Injection_in_Spring)** | Dependencies via constructor | Mandatory dependencies, immutability |
-      | **[Setter Injection](ca://s?q=Setter_Injection_in_Spring)** | Dependencies via setter methods | Optional dependencies, reconfiguration |
-      | **[Method Injection](ca://s?q=Method_Injection_in_Spring)** | Dependencies via specific method | Rare cases, prototype beans |
-      | **[Field Injection](ca://s?q=Field_Injection_in_Spring)** | Dependencies injected directly into fields | Quick setup, simple apps, but less testable |
+
+      | **Injection Type** | **How It Works** | **Best Use Case** | **Time of Execution** |
+      | --- | --- | --- | --- |
+      | **[Constructor Injection](ca://s?q=Constructor_Injection_in_Spring)** | Dependencies via constructor | Mandatory dependencies, immutability | **At bean instantiation (first step)** |
+      | **[Field Injection](ca://s?q=Field_Injection_in_Spring)** | Dependencies injected directly into fields | Quick setup, simple apps, but less testable | **After construction, via reflection before initialization** |
+      | **[Setter Injection](ca://s?q=Setter_Injection_in_Spring)** | Dependencies via setter methods | Optional dependencies, reconfiguration | **After construction, during dependency population** |
+      | **[Method Injection](ca://s?q=Method_Injection_in_Spring)** | Dependencies via specific method | Rare cases, prototype beans | **On method call (runtime, not at bean creation)** |
 
       ```java
       import org.springframework.beans.factory.annotation.Autowired;
