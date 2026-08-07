@@ -50,31 +50,13 @@ Spring is divided into ~20 modules grouped into:
      - **Setter Injection** → Dependencies set via setter methods.  
      - **Method Injection** → Dependencies passed via specific methods.  
 
+      | Injection Type | How It Works | Best Use Case |
+      | --- | --- | --- |
+      | **[Constructor Injection](ca://s?q=Constructor_Injection_in_Spring)** | Dependencies via constructor | Mandatory dependencies, immutability |
+      | **[Setter Injection](ca://s?q=Setter_Injection_in_Spring)** | Dependencies via setter methods | Optional dependencies, reconfiguration |
+      | **[Method Injection](ca://s?q=Method_Injection_in_Spring)** | Dependencies via specific method | Rare cases, prototype beans |
+      | **[Field Injection](ca://s?q=Field_Injection_in_Spring)** | Dependencies injected directly into fields | Quick setup, simple apps, but less testable |
 
-| Spring Era | Approach | Example |
-| --- | --- | --- |
-| **Spring 3.x** | XML config with ``autowire="constructor"`` | ``<bean ``id="userService" ``class="UserService" ``autowire="constructor"/>`` |
-| **Spring 4.x** | Annotation‑based ``@Autowired`` on constructors | ``@Autowired ``public ``UserService(UserRepository ``repo)`` |
-| **Spring Boot 2+** | Constructor injection is **preferred**; ``@Autowired`` optional if only one constructor | ``public ``UserService(UserRepository ``repo)`` |
-| **Spring Boot 3+** | Same, but with modern DSLs and records support | ``public ``record ``UserService(UserRepository ``repo) ``{}`` |
-
-```java
-@Service
-public class UserService {
-
-    private final UserRepository userRepository;
-
-    // Constructor-based autowiring
-    @Autowired   // optional if only one constructor
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public String getUserName(Long id) {
-        return userRepository.findById(id).getUsername();
-    }
-}
-```
 
 2. **Dependency Lookup (DL)**  
    - Objects actively look up dependencies from a container/service.  
