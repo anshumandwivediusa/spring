@@ -197,13 +197,22 @@ Database / External System
 ### B. Presentation Layer Components (Request/Response)
 
 
+- **@PathVariable**  
+  `@PathVariable` is used to bind values directly from the **URI path** into method parameters, making RESTful endpoints expressive by embedding identifiers in the URL (e.g., `/users/10`). By default, it is **required**, but can be marked optional with `required=false` if multiple URL patterns are defined. It is ideal for resource identifiers such as IDs, slugs, or names, and Spring automatically converts the path segment into the correct parameter type.
+
+- **@RequestParam**  
+  `@RequestParam` extracts values from the **query string** (`?id=10&active=true`) or form data and maps them to method parameters. Parameters are required by default, but can be made optional with `required=false` or given a fallback using `defaultValue`. It is best suited for simple inputs like filters, search keywords, or flags, and works seamlessly with primitive types and strings.
+
+- **@RequestBody**  
+  `@RequestBody` binds the **HTTP request body** (JSON, XML, or plain text) to a Java object, using Spring’s **HttpMessageConverters** (e.g., Jackson for JSON). It is commonly used in **POST, PUT, or PATCH** requests where clients send structured payloads. It supports complex POJOs, lists, and arrays, and can be combined with `@Valid` for automatic validation of incoming data.
+
 | **Aspect** | **[@RequestParam](ca://s?q=RequestParam_annotation)** | **[@RequestBody](ca://s?q=RequestBody_annotation)** |
 | --- | --- | --- |
-| **Source of Data** | Query string (``?id=1&name=Anshuman``) or form fields | Request body (JSON, XML, plain text) |
+| **Source of Data** | Query string (`?id=1&name=Anshuman`) or form fields | Request body (JSON, XML, plain text) |
 | **Typical HTTP Method** | Commonly used with **GET** (but can also be used with POST if form data is sent as parameters) | Commonly used with **POST/PUT/PATCH** (methods that carry payloads) |
 | **Data Type** | Simple values (String, int, boolean) | Complex objects (POJOs, lists, arrays) |
 | **Conversion** | Spring automatically converts query parameters to method arguments | Uses **HttpMessageConverters** (e.g., Jackson) to map JSON/XML → Java object |
-| **Example Request** | ``GET ``/users?id=1&name=Anshuman`` | ``POST ``/users`` with body: ``{"id":1,"name":"Anshuman"}`` |
+| **Example Request** | ```GET ``/users?id=1&name=Anshuman`` | ``POST ``/users`` with body: ``{"id":1,"name":"Anshuman"}`` |
 | **Example Code** | ``java ``@GetMapping("/users") ``public ``User ``getUser(@RequestParam ``Long ``id, ``@RequestParam ``String ``name) ``{ ``return ``new ``User(id, ``name); ``}`` | ``java ``@PostMapping("/users") ``public ``User ``createUser(@RequestBody ``User ``user) ``{ ``return ``user; ``}`` |
 
 | **Aspect** | **[@PathVariable](ca://s?q=PathVariable_annotation)** | **[@RequestParam](ca://s?q=RequestParam_annotation)** |
