@@ -32,6 +32,72 @@ Spring is divided into ~20 modules grouped into:
 ### **Integration with Java EE/Jakarta EE**
 - Spring complements EE by integrating selected APIs (JPA, JMS, JMX) rather than adopting the full specification.  [docs.spring.io](https://docs.spring.io/spring-framework/reference/overview.html)  
 
+## 2. Inversion of Control (IoC)
+- **Definition:** A design principle where the control of object creation and dependency management is inverted from the application code to a container/framework.  
+- **Goal:** Decoupling components, improving testability, and flexibility.  
+
+<p align = "center">
+<img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/44b1f90d-ab49-4ab3-a1cd-fa44cf1edf46" />
+</p>
+
+
+### Two Main Approaches
+1. **Dependency Injection (DI)**  
+   - Framework injects dependencies into objects.  
+   - Types:  
+     - **Constructor Injection** → Dependencies passed via constructor.  
+     - **Setter Injection** → Dependencies set via setter methods.  
+     - **Method Injection** → Dependencies passed via specific methods.  
+
+
+| Spring Era | Approach | Example |
+| --- | --- | --- |
+| **Spring 3.x** | XML config with ``autowire="constructor"`` | ``<bean ``id="userService" ``class="UserService" ``autowire="constructor"/>`` |
+| **Spring 4.x** | Annotation‑based ``@Autowired`` on constructors | ``@Autowired ``public ``UserService(UserRepository ``repo)`` |
+| **Spring Boot 2+** | Constructor injection is **preferred**; ``@Autowired`` optional if only one constructor | ``public ``UserService(UserRepository ``repo)`` |
+| **Spring Boot 3+** | Same, but with modern DSLs and records support | ``public ``record ``UserService(UserRepository ``repo) ``{}`` |
+
+```java
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    // Constructor-based autowiring
+    @Autowired   // optional if only one constructor
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public String getUserName(Long id) {
+        return userRepository.findById(id).getUsername();
+    }
+}
+```
+
+2. **Dependency Lookup (DL)**  
+   - Objects actively look up dependencies from a container/service.  
+   - Patterns:  
+     - **Service Locator Pattern** → Central registry provides dependencies. Example: ServiceLocator.getService("PaymentService")  
+     - **Factory Pattern** → Factory class creates and supplies objects. Example: ConnectionFactory.createConnection().
+      - **JNDI Lookup Pattern** → Java Naming and Directory Interface used to fetch resources. Example: ctx.lookup("java:comp/env/jdbc/MyDB").
+
+### Comparison Table
+
+| Aspect | **Dependency Injection (DI)** | **Dependency Lookup (DL)** |
+|--------|-------------------------------|-----------------------------|
+| Control | Framework injects dependencies | Object requests dependencies |
+| Coupling | Loose coupling | Tighter coupling |
+| Testability | High | Lower |
+| Examples | Spring IoC container | Service Locator, JNDI |
+
+### 📌 Exam Quick Notes
+- **IoC Principle:** Framework controls object lifecycle.  
+- **DI vs DL:** DI is *passive* (dependencies given), DL is *active* (dependencies fetched).  
+- **Spring Framework:** Popular for DI (constructor, setter).  
+- **Service Locator:** Considered an anti-pattern in modern design (hides dependencies).  
+- **Factory Pattern:** Still widely used for controlled object creation.  
+
 ## Historical Context
 - **Introduced in 2003** to simplify the complexity of J2EE.  
 - Became popular for its lightweight container and ease of testing.  
