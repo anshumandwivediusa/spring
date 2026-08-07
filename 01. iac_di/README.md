@@ -114,7 +114,7 @@ Spring is divided into ~20 modules grouped into:
 | Testability | High | Lower |
 | Examples | Spring IoC container | Service Locator, JNDI |
 
-### 📌 Exam Quick Notes
+### 📌 Quick Notes
 - **IoC Principle:** Framework controls object lifecycle.  
 - **DI vs DL:** DI is *passive* (dependencies given), DL is *active* (dependencies fetched).  
 - **Spring Framework:** Popular for DI (constructor, setter).  
