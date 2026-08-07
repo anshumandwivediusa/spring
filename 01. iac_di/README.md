@@ -34,7 +34,8 @@ Spring is divided into ~20 modules grouped into:
 
 ## 2. Inversion of Control (IoC)
 - **Definition:** A design principle where the control of object creation and dependency management is inverted from the application code to a container/framework.  
-- **Goal:** Decoupling components, improving testability, and flexibility.  
+- **Impact:** Instead of classes instantiating their dependencies directly, the framework provides them.
+- **Benefit:** Promotes loose coupling, easier testing, and better separation of concerns.
 
 <p align = "center">
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/44b1f90d-ab49-4ab3-a1cd-fa44cf1edf46" />
