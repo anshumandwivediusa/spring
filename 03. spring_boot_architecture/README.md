@@ -163,6 +163,18 @@ Database / External System
   - Method-Level: Only this method returns data directly.
   - Class-Level: All handler methods behave as if they have @ResponseBody.
 
+- **@RequestBody**  
+  - @RequestBody is used in Spring MVC and Spring Boot to bind the HTTP request body (JSON, XML, or plain text) directly to a Java object.
+  - Converts incoming request data into a Java object using HttpMessageConverters (e.g., Jackson for JSON).
+  - Simplifies handling of REST API requests.
+  - Eliminates manual parsing of request payloads.
+
+| Annotation      | Direction       | Purpose                          |
+| --------------- | --------------- | -------------------------------- |
+| `@RequestBody`  | Client → Server | HTTP request body → Java object  |
+| `@ResponseBody` | Server → Client | Java object → HTTP response body |
+
+
 - **@RestController**  
   - Specialized controller for **RESTful APIs**.  
   - Combines `@Controller` + `@ResponseBody`.  
