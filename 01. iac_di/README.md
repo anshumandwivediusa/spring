@@ -121,7 +121,7 @@ Spring is divided into ~20 modules grouped into:
 - **Service Locator:** Considered an anti-pattern in modern design (hides dependencies).  
 - **Factory Pattern:** Still widely used for controlled object creation.  
 
-## Spring Core Modules
+## 3. Spring Core Modules
 | **Module Group** | **Key Modules** | **Features** |
 | --- | --- | --- |
 | **Core Container** | Core, Beans, Context, SpEL | IoC, DI, bean lifecycle, runtime expressions |
