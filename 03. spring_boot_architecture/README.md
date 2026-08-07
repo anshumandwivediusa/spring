@@ -210,10 +210,10 @@ Database / External System
 | --- | --- | --- |
 | **Source of Data** | Extracts values from the **URL path** | Extracts values from the **query string** or form data |
 | **Typical Use Case** | Identifying a specific resource by ID or name | Filtering, searching, or passing optional parameters |
-| **Example Request** | ``GET ``/users/10`` | ``GET ``/users?id=10&active=true`` |
-| **Example Code** | ``java ``@GetMapping("/users/{id}") ``public ``User ``getUser(@PathVariable ``Long ``id) ``{ ``return ``userService.findById(id); ``}`` | ``java ``@GetMapping("/users") ``public ``User ``getUser(@RequestParam ``Long ``id, ``@RequestParam ``boolean ``active) ``{ ``return ``userService.findByIdAndStatus(id, ``active); ``}`` |
+| **Example Request** | `GET /users/10` | `GET /users?id=10&active=true` |
+| **Example Code** | ```java @GetMapping("/users/{id}") public User getUser(@PathVariable Long id) { return userService.findById(id); }``` | ```java @GetMapping("/users") public User getUser(@RequestParam Long id, @RequestParam boolean active) { return userService.findByIdAndStatus(id, active); }``` |
 | **Data Type** | Usually single identifiers (IDs, slugs, names) | Simple values (String, int, boolean) |
-| **Optional Support** | Always required unless marked with ``required=false`` | Can be optional with ``required=false`` or ``defaultValue`` |
+| **Optional Support** | Always required unless marked with `required=false` | Can be optional with `required=false` or `defaultValue` |
 | **REST Style** | Fits **RESTful design** (resources identified in path) | Fits query-based filtering or optional inputs |
 
 ```java
