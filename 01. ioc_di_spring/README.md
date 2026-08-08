@@ -411,7 +411,99 @@ class DemoController {
     }
 }
 ```
-# Spring Configuration
+
+## Spring Bean Lifecycle — Complete Notes
+
+**The Spring Bean Lifecycle describes the journey of a bean inside the IoC container: from instantiation, dependency injection, initialization, usage, and finally destruction. Understanding this sequence is critical for managing resources, debugging autowiring issues, and customizing bean behavior.**
+
+### Lifecycle Phases
+1. **Instantiation**  
+   - Bean object is created via constructor or factory method.  
+   - At this stage, dependencies are not yet injected.
+
+2. **Dependency Injection**  
+   - Spring injects required dependencies (constructor, setter, or field injection).  
+   - Autowired fields are populated here.
+
+3. **Aware Callbacks**  
+   - If bean implements `BeanNameAware`, `ApplicationContextAware`, etc., Spring calls these methods to provide contextual information.
+
+4. **BeanPostProcessor Pre-Initialization**  
+   - `postProcessBeforeInitialization()` runs.  
+   - Framework-level hooks (e.g., proxy preparation) happen here.
+
+5. **Initialization Callbacks**  
+   - `@PostConstruct` annotated methods run.  
+   - `InitializingBean.afterPropertiesSet()` executes if implemented.  
+   - Custom init method (`@Bean(initMethod="...")`) runs.  
+   - Bean is now fully initialized.
+
+6. **BeanPostProcessor Post-Initialization**  
+   - `postProcessAfterInitialization()` runs.  
+   - AOP proxies are often created here.
+
+7. **Bean Ready for Use**  
+   - Application can call business methods on the bean.
+
+8. **Destruction Callbacks**  
+   - Triggered when the container shuts down.  
+   - `@PreDestroy` annotated methods run.  
+   - `DisposableBean.destroy()` executes if implemented.  
+   - Custom destroy method (`@Bean(destroyMethod="...")`) runs.  
+   - Resources (threads, DB connections) are released.
+
+
+### Lifecycle Summary Table
+
+| Phase | Description | Example |
+|-------|-------------|---------|
+| **Instantiation** | Bean object created | Constructor call |
+| **Dependency Injection** | Dependencies injected | `@Autowired` fields |
+| **Aware Callbacks** | Context info provided | `ApplicationContextAware` |
+| **Pre-Init** | Before init processing | `postProcessBeforeInitialization()` |
+| **Initialization** | Bean setup | `@PostConstruct`, `afterPropertiesSet()` |
+| **Post-Init** | After init processing | AOP proxy creation |
+| **Usage** | Bean ready | Business logic execution |
+| **Destruction** | Cleanup | `@PreDestroy`, `destroy()` |
+
+
+### Example Code
+
+```java
+@Component
+public class MyBean implements InitializingBean, DisposableBean {
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Bean initialized");
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        System.out.println("afterPropertiesSet called");
+    }
+
+    @PreDestroy
+    public void cleanup() {
+        System.out.println("Bean cleanup");
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("DisposableBean destroy called");
+    }
+}
+```
+
+
+### Notes Points
+- **Default scope = singleton** → created once at container startup, destroyed at shutdown.  
+- **Prototype scope** → new instance per request; destruction callbacks not called automatically.  
+- **Lifecycle hooks** → `@PostConstruct` and `@PreDestroy` are most recommended.  
+- **BeanPostProcessor** → critical for framework features like AOP and proxy creation.  
+
+
+## Spring Configuration
 - can be XML or java based
 - Externalized from the bean class → separation of concerns
 
