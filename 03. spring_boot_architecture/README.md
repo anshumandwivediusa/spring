@@ -310,25 +310,25 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      Request: `GET /orders?id=55` → `"Order ID: 55"`
 
    - 4. Provide fallback with `defaultValue`
-    ```java
-    @GetMapping("/users")
-    public String getUsers(@RequestParam(defaultValue = "10") int limit) {
-        return "Fetching " + limit + " users";
-    }
-    ```
-    Request: `GET /users` → `"Fetching 10 users"`  
-    Request: `GET /users?limit=5` → `"Fetching 5 users"`
+     ```java
+     @GetMapping("/users")
+     public String getUsers(@RequestParam(defaultValue = "10") int limit) {
+         return "Fetching " + limit + " users";
+     }
+     ```
+     Request: `GET /users` → `"Fetching 10 users"`  
+     Request: `GET /users?limit=5` → `"Fetching 5 users"`
 
    - 5. Best suited for simple inputs
      - **Filters** → `/search?keyword=java`  
      - **Flags** → `/users?active=true`  
      - **Pagination** → `/products?page=2&size=20`
-      ```java
-      @GetMapping("/users")
-      public String getUsers(@RequestParam boolean active) {
-          return active ? "Active users" : "Inactive users";
-      }
-      ```
+     ```java
+     @GetMapping("/users")
+     public String getUsers(@RequestParam boolean active) {
+         return active ? "Active users" : "Inactive users";
+     }
+     ```
 
    - Summary
      - `@RequestParam` binds **query string or form data** to method parameters.  
