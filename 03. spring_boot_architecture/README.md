@@ -351,7 +351,7 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      Request: `GET /search?keyword=java&page=2`  
      Response: `"Searching for: java on page 2"`
 
-   - Parameters are required by default
+   - 2. Parameters are required by default
      ```java
      @GetMapping("/products")
      public String getProduct(@RequestParam String code) {
@@ -361,7 +361,7 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      Request: `GET /products` → ❌ Error: MissingServletRequestParameterException  
      Request: `GET /products?code=ABC123` → ✅ `"Product code: ABC123"`
 
-   - Make optional with `required=false`
+   - 3. Make optional with `required=false`
      ```java
      @GetMapping("/orders")
      public String getOrder(@RequestParam(required = false) Long id) {
