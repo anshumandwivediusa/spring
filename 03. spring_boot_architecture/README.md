@@ -138,7 +138,7 @@ Database / External System
    }
    Result: Hello World
   ```
-- @ResponseBody with Collections
+  @ResponseBody with Collections
   ```
   @GetMapping("/users")
    @ResponseBody
