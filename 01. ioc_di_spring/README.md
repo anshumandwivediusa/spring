@@ -237,7 +237,7 @@ Spring is divided into ~20 modules grouped into:
 |  | Need embedded servers or Actuator for monitoring | Run apps with ``java ``-jar`` and get health/metrics endpoints out of the box |
 
 
-## Spring ApplicationContext — Complete Notes
+## 9. Spring ApplicationContext — Complete Notes
 
 ### Definition
 - **ApplicationContext** is the **central interface** in Spring for providing configuration information to the application.  
