@@ -380,34 +380,34 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDto) {
          userDto.setId(id);
          return ResponseEntity.ok(userDto);
-    }
-    ```
+     }
+     ```
 
    - Supports complex POJOs, lists, arrays
-   ```java
-   @PostMapping("/bulkUsers")
-   public ResponseEntity<List<User>> createUsers(@RequestBody List<UserDTO> users) {
-      return ResponseEntity.ok(users.stream()
-          .map(u -> new User(u.getId(), u.getName()))
-          .toList());
-  }
-  ```
-  Request JSON:
-  ```json
-  [
-    { "id": 1, "name": "John" },
-    { "id": 2, "name": "Mary" }
-  ]
-  ```
+     ```java
+     @PostMapping("/bulkUsers")
+     public ResponseEntity<List<User>> createUsers(@RequestBody List<UserDTO> users) {
+        return ResponseEntity.ok(users.stream()
+            .map(u -> new User(u.getId(), u.getName()))
+            .toList());
+     }
+     ```
+     Request JSON:
+     ```json
+     [
+       { "id": 1, "name": "John" },
+       { "id": 2, "name": "Mary" }
+     ]
+     ```
 
    - Combine with `@Valid` for validation
-   ```java
-   @PostMapping("/users")
-   public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDto) {
-       return ResponseEntity.ok(new User(userDto.getId(), userDto.getName()));
-   }
-   ```
-   If `userDto` violates constraints (`@NotBlank`, `@Email`, etc.), Spring automatically returns **400 Bad Request** with validation errors.
+     ```java
+     @PostMapping("/users")
+     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDto) {
+         return ResponseEntity.ok(new User(userDto.getId(), userDto.getName()));
+     }
+     ```
+     If `userDto` violates constraints (`@NotBlank`, `@Email`, etc.), Spring automatically returns **400 Bad Request** with validation errors.
 
    - Summary
     - `@RequestBody` binds **payload → Java object**.  
