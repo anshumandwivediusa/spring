@@ -231,7 +231,7 @@ Database / External System
 - **@PathVariable**  
   `@PathVariable` is used to bind values directly from the **URI path** into method parameters, making RESTful endpoints expressive by embedding identifiers in the URL (e.g., `/users/10`). By default, it is **required**, but can be marked optional with `required=false` if multiple URL patterns are defined. It is ideal for resource identifiers such as IDs, slugs, or names, and Spring automatically converts the path segment into the correct parameter type.
 
-   - **1. Bind values directly from URI path**
+   - **Bind values directly from URI path**
       ```java
       @GetMapping("/users/{id}")
       public String getUser(@PathVariable Long id) {
@@ -241,7 +241,7 @@ Database / External System
       Request: `GET /users/10`  
       Response: `"User ID: 10"`
    
-   - **2. By default, it is required**
+   - **By default, it is required**
       ```java
       @GetMapping("/products/{code}")
       public String getProduct(@PathVariable String code) {
@@ -252,7 +252,7 @@ Database / External System
       Request: `GET /products/ABC123` → ✅ `"Product code: ABC123"`
    
   
-   - **3. Mark optional with `required=false` (needs multiple URL patterns)**
+   - **Mark optional with `required=false` (needs multiple URL patterns)**
       ```java
       @GetMapping({"/orders_1", "/orders_2/{id}"})
       public String getOrder(@PathVariable(required = false) Long id) {
@@ -263,7 +263,7 @@ Database / External System
       Request: `GET /orders_2/55` → `"Order ID: 55"`
    
   
-   -  **4. Ideal for resource identifiers (IDs, slugs, names)**
+   -  **Ideal for resource identifiers (IDs, slugs, names)**
       ```java
       @GetMapping("/blog/{slug}")
       public String getPost(@PathVariable String slug) {
@@ -273,7 +273,7 @@ Database / External System
       Request: `GET /blog/spring-boot-pathvariable`  
       Response: `"Fetching blog post: spring-boot-pathvariable"`
    
-   -  **5. Automatic type conversion**
+   -  **Automatic type conversion**
       ```java
       @GetMapping("/users/{id}/active/{status}")
       public String userStatus(@PathVariable Long id, @PathVariable boolean status) {
