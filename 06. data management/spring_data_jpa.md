@@ -1,6 +1,6 @@
 # Spring Data JPA
 
-## 1 Overview
+## 1. Overview
 
 **Spring Data JPA** is part of the larger Spring Data family. It simplifies the implementation of data access layers by:
 Spring Data JPA is a module of the larger Spring Data family. It simplifies the implementation of data access layers by providing abstractions over JPA (Java Persistence API).
@@ -27,13 +27,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
-## 2 How Spring Data JPA and Hibernate are related?
+## 2. How Spring Data JPA and Hibernate are related?
 
 You’ve got the analogy exactly right — JPA is the **specification**, Hibernate is one of the **implementations**, and Spring Data JPA is the **abstraction layer** that makes using JPA/Hibernate much easier in Spring applications. Let’s break it down clearly:
 
----
-
-## 🔗 Relationship Between JPA, Hibernate, and Spring Data JPA
+## Relationship Between JPA, Hibernate, and Spring Data JPA
 
 - **JPA**  
   - A specification (rulebook) for ORM in Java.  
@@ -103,7 +101,7 @@ Database
 ```
 
 
-## 3 What is ORM Framework?
+## 3. What is ORM Framework?
 
 **ORM = Object-Relational Mapping**
 
@@ -180,7 +178,7 @@ class Order {
 ![ORM Diagram](imgs/orm.png)
 
 
-## 4 Entity, Repository, CrudRepository, JpaRepository
+## 4. Entity, Repository, CrudRepository, JpaRepository
 
 ### `@Entity`
 Represents a table in the database.
@@ -212,7 +210,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 ```
 
 
-## 5 JPQL and Native Queries
+## 5. JPQL and Native Queries
 
 ### JPQL (Java Persistence Query Language)
 Object-oriented query language — works with entity names & fields.
@@ -231,7 +229,7 @@ User findByEmailNative(String email);
 ```
 
 
-## 6 Database Configuration
+## 6. Database Configuration
 
 ### H2 (In-memory database, great for dev/test)
 
@@ -263,7 +261,7 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 ```
 
 
-## 7 Spring Boot with Hibernate
+## 7. Spring Boot with Hibernate
 
 Hibernate is the default JPA implementation used in Spring Boot.
 
@@ -281,7 +279,7 @@ Hibernate maps Java objects to relational DB tables and handles:
 - Lazy vs Eager fetching
 
 
-## 8 DTOs and Model Mapping
+## 8. DTOs and Model Mapping
 
 ### Why Use DTOs (Data Transfer Objects)?
 - Avoid exposing full entity structure
@@ -320,7 +318,7 @@ Add dependency:
 ```
 
 
-## 9 Summary Table
+## 9. Summary Table
 
 | Concept              | Key Role                                      |
 |----------------------|-----------------------------------------------|
@@ -333,9 +331,9 @@ Add dependency:
 | ModelMapper          | Auto-map between Entity & DTO                 |
 
 
-## 10 Spring Data JPA Annotations – Detailed Explanation
+## 10. Spring Data JPA Annotations – Detailed Explanation
 
-### 🔹 `@Entity`
+### `@Entity`
 - **Purpose**: Marks a class as a JPA entity (mapped to a database table).
 - **Use Case**: Any class you want persisted in the database.
 - **Example**:
@@ -349,7 +347,7 @@ Add dependency:
   }
   ```
 
-### 🔹 `@Id`
+### `@Id`
 - **Purpose**: Specifies the primary key of an entity.
 - **Use Case**: Required for each JPA entity.
 - **Example**:
@@ -358,7 +356,7 @@ Add dependency:
   private Long id;
   ```
 
-### 🔹 `@GeneratedValue`
+### `@GeneratedValue`
 - **Purpose**: Specifies how the primary key is generated (auto, identity, sequence).
 - **Use Case**: When you want the database to generate primary keys automatically.
 - **Example**:
@@ -368,7 +366,7 @@ Add dependency:
   private Long id;
   ```
 
-### 🔹 `@Table`
+### `@Table`
 - **Purpose**: Specifies the name of the table that the entity maps to.
 - **Use Case**: Use when the table name is different from the class name.
 - **Example**:
@@ -378,7 +376,7 @@ Add dependency:
   public class User { ... }
   ```
 
-### 🔹 `@Column`
+### `@Column`
 - **Purpose**: Specifies the details of the column in the table.
 - **Use Case**: Customize column names, nullability, length, etc.
 - **Example**:
@@ -387,7 +385,7 @@ Add dependency:
   private String name;
   ```
 
-### 🔹 `@OneToOne`
+### `@OneToOne`
 - **Purpose**: One-to-one relationship between two entities.
 - **Use Case**: User has one profile.
 - **Example**:
@@ -397,7 +395,7 @@ Add dependency:
   private Profile profile;
   ```
 
-### 🔹 `@OneToMany`
+### `@OneToMany`
 - **Purpose**: One-to-many relationship.
 - **Use Case**: A user has many orders.
 - **Example**:
@@ -406,7 +404,7 @@ Add dependency:
   private List<Order> orders;
   ```
 
-### 🔹 `@ManyToOne`
+### `@ManyToOne`
 - **Purpose**: Many entities relate to one entity.
 - **Use Case**: Many orders belong to one user.
 - **Example**:
@@ -416,7 +414,7 @@ Add dependency:
   private User user;
   ```
 
-### 🔹 `@ManyToMany`
+### `@ManyToMany`
 - **Purpose**: Many-to-many relationship.
 - **Use Case**: A student can enroll in many courses and vice versa.
 - **Example**:
@@ -428,7 +426,7 @@ Add dependency:
   private List<Course> courses;
   ```
 
-### 🔹 `@JoinColumn`
+### `@JoinColumn`
 - **Purpose**: Specifies the foreign key column.
 - **Use Case**: Required in relationships to define how tables are linked.
 - **Example**:
@@ -438,7 +436,7 @@ Add dependency:
   private User user;
   ```
 
-### 🔹 `@Repository`
+### `@Repository`
 - **Purpose**: Marks a class as a DAO and enables exception translation into Spring's DataAccessException.
 - **Use Case**: On interfaces or classes that perform DB operations.
 - **Example**:
