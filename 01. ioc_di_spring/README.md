@@ -297,3 +297,127 @@ service.doWork();
 - Supports **DI, events, profiles, i18n, environment access**.  
 - Can be used in **unit tests** for lightweight context loading.  
 - Eliminates need for a **full Java EE server**.
+
+## Bean Scopes
+- Spring manages lifecycle of beans, each bean has its scope
+- Default scope is singleton - one instance per application context
+- If none of the Spring scopes is appropriate, custom scopes can be defined
+- Scope can be defined by @Scope (eg. @Scope(BeanDefinition.SCOPE_SINGLETON)) annotation on the class-level of bean class
+
+#### Available Scopes
+
+- **Singleton**  
+  *One instance per ApplicationContext (default).*  
+  🔹 Example: A **database connection pool manager** or **service class** like `UserService`.  
+  → You want one shared instance across the app to avoid multiple pools or duplicate logic.
+
+- **Prototype**  
+  *New instance every time bean is requested.*  
+  🔹 Example: A **PDF generator** or **email builder**.  
+  → Each request needs a fresh object with different content, so prototype scope makes sense.
+
+- **Request** (Web only)  
+  *One instance per HTTP request.*  
+  🔹 Example: A **form‑backing bean** in a Spring MVC controller.  
+  → Each HTTP request gets its own bean to hold request‑specific data.
+
+- **Session** (Web only)  
+  *One instance per user session.*  
+  🔹 Example: A **shopping cart bean** in an e‑commerce site.  
+  → Each user’s cart persists across multiple requests until the session ends.
+
+- **Global‑Session** (Portlet environment only)  
+  *One global session shared among all portlets.*  
+  🔹 Example: A **user profile bean** shared across multiple portlets in a portal application.  
+  → Rarely used today, but relevant in legacy portlet systems.
+
+- **Custom Scope**  
+  *Define your own lifecycle rules.*  
+  🔹 Example: A **tenant‑specific bean** in a multi‑tenant SaaS app.  
+  → Each tenant gets its own bean instance, managed by a custom scope.
+
+- **Additional Scopes (Spring Web Flow)**  
+  *Conversation scope, etc.*  
+  🔹 Example: A **wizard‑style form bean** that persists across multiple steps in a flow.  
+  → Not needed for certification, but useful in complex workflows.
+
+
+#### Quick Cheat Sheet
+
+| Scope | Real‑World Example | Why Useful |
+|-------|-------------------|------------|
+| Singleton | Database pool, Service class | Shared, efficient |
+| Prototype | Report generator, Email builder | Fresh per use |
+| Request | Form bean | Request‑specific data |
+| Session | Shopping cart | User session persistence |
+| Global‑Session | User profile in portlets | Shared across portlets |
+| Custom | Tenant‑specific bean | Multi‑tenant lifecycle |
+
+
+```java
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class ScopeWebDemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ScopeWebDemoApplication.class, args);
+    }
+}
+
+@Component
+@Scope("singleton")   // default
+class SingletonBean {
+    private int counter = 0;
+    public int increment() { return ++counter; }
+}
+
+@Component
+@Scope("request")     // new bean per HTTP request
+class RequestBean {
+    private int counter = 0;
+    public int increment() { return ++counter; }
+}
+
+@Component
+@Scope(WebApplicationContext.SCOPE_SESSION) // one bean per user session
+class SessionBean {
+    private int counter = 0;
+    public int increment() { return ++counter; }
+}
+
+@RestController
+@RequiredArgsConstructor   // Lombok generates constructor for final fields
+//Since Spring 4.3, in Spring Boot, if a bean is a constructor parameter of another bean, Spring automatically injects it — no @Autowired needed.
+class DemoController {
+    private final SingletonBean singletonBean;
+    private final RequestBean requestBean;
+    private final SessionBean sessionBean;
+
+    @GetMapping("/test")
+    public String testScopes() {
+        return "Singleton: " + singletonBean.increment() +
+               " | Request: " + requestBean.increment() +
+               " | Session: " + sessionBean.increment();
+    }
+}
+```
+# Spring Configuration
+- can be XML or java based
+- Externalized from the bean class → separation of concerns
+
+   | Configuration Type | Example | Usage |
+   | --- | --- | --- |
+   | XML | ``<bean ``id="..."/>`` | Legacy apps |
+   | Annotation | ``@Component``, ``@Service`` | Modern apps |
+   | Java Config | ``@Configuration ``+ ``@Bean`` | Explicit bean definitions |
+   | Auto-Config | Starter dependencies | Spring Boot defaults |
