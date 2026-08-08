@@ -225,7 +225,7 @@ Database / External System
   - Example: `@RequestMapping("/users")` → handles requests to `/users`.  
   - Variants: `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`.  
 
-### B. Presentation Layer Components (Request/Response)
+### B. Presentation Layer Component: Request
 
 
 - **@PathVariable**  
@@ -521,6 +521,10 @@ public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidExcep
 - Validation annotations enforce rules.  
 - `@Valid` integrates both, ensuring **clean code + robust validation**.  
 - Together, they make Spring Boot APIs **concise, maintainable, and safe**.  
+
+## Presentation Layer Components: Response
+
+
 
 ## Business Layer
 In a typical **Spring Boot layered architecture**, the **Business Layer** (also called the **Service Layer**) sits between the **Controller Layer** and the **Data Access Layer (Repository/DAO)**. Its role is to encapsulate the **business logic** of the application — the rules, workflows, and operations that define how data should be processed beyond simple CRUD.
