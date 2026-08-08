@@ -160,6 +160,16 @@ Database / External System
      }
    ]
   ```
+  ```java
+  @GetMapping("/usersMap")
+   @ResponseBody
+   public Map<Integer, User> getUsersMap() {
+       Map<Integer, User> users = new HashMap<>();
+       users.put(1, new User(1, "John"));
+       users.put(2, new User(2, "Mary"));
+       return users;
+   }
+   ```
   - Method-Level: Only this method returns data directly.
   - Class-Level: All handler methods behave as if they have @ResponseBody.
 
