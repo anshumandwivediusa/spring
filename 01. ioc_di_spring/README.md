@@ -503,7 +503,7 @@ public class MyBean implements InitializingBean, DisposableBean {
 - **BeanPostProcessor** → critical for framework features like AOP and proxy creation.  
 
 
-## Spring Configuration
+## 12. Spring Configuration
 - can be XML or java based
 - Externalized from the bean class → separation of concerns
 
@@ -513,3 +513,87 @@ public class MyBean implements InitializingBean, DisposableBean {
    | Annotation | ``@Component``, ``@Service`` | Modern apps |
    | Java Config | ``@Configuration ``+ ``@Bean`` | Explicit bean definitions |
    | Auto-Config | Starter dependencies | Spring Boot defaults |
+
+The **`@Value` annotation** in Spring is used to inject values into fields, method parameters, or constructor arguments directly from property sources (like `application.properties`, environment variables, or even SpEL expressions). It’s one of the simplest ways to externalize configuration.
+
+
+## 13. `@Value` Annotation — Complete Notes
+
+### Purpose
+- **Property Injection** → Inject values from `application.properties` or `application.yml`.  
+- **Environment Variables** → Read system/env variables.  
+- **SpEL Expressions** → Evaluate Spring Expression Language (SpEL).  
+- **Default Values** → Provide fallback if property is missing.
+
+
+### Usage Examples
+
+#### 1. **Injecting from `application.properties`**
+```properties
+app.name=MySpringApp
+app.timeout=5000
+```
+
+```java
+@Component
+public class MyService {
+    @Value("${app.name}")
+    private String appName;
+
+    @Value("${app.timeout}")
+    private int timeout;
+}
+```
+
+
+#### 2. **Default Values**
+```java
+@Value("${app.version:1.0}")
+private String version; // Defaults to 1.0 if not set
+```
+
+
+#### 3. **Environment Variables**
+```java
+@Value("${JAVA_HOME}")
+private String javaHome;
+```
+
+
+#### 4. **SpEL (Spring Expression Language)**
+```java
+@Value("#{2 * 1024}")
+private int bufferSize; // 2048
+
+@Value("#{systemProperties['user.name']}")
+private String userName;
+```
+
+
+#### 5. **Injecting Lists/Arrays**
+```properties
+app.servers=server1,server2,server3
+```
+
+```java
+@Value("${app.servers}")
+private List<String> servers;
+```
+
+
+### Summary Table
+
+| Feature | Example | Description |
+|---------|---------|-------------|
+| **Property Injection** | `@Value("${app.name}")` | Reads from `application.properties` |
+| **Default Values** | `@Value("${app.version:1.0}")` | Fallback if missing |
+| **Environment Variables** | `@Value("${JAVA_HOME}")` | Reads system env |
+| **SpEL Expressions** | `@Value("#{2*1024}")` | Dynamic evaluation |
+
+
+### Exam-Oriented Notes
+- `@Value` is **field-level injection** (simpler than `@ConfigurationProperties`).  
+- Best for **simple values** (strings, numbers, booleans).  
+- For **complex structured configs**, prefer `@ConfigurationProperties`.  
+- Supports **SpEL**, making it very flexible.  
+- Works with **constructor injection** too.
