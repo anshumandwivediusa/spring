@@ -275,9 +275,66 @@ Database / External System
       - **Best for identifiers** → IDs, slugs, names.  
       - **Type conversion** → Strings, numbers, booleans auto‑converted.  
 
-
 - **@RequestParam**  
   `@RequestParam` extracts values from the **query string** (`?id=10&active=true`) or form data and maps them to method parameters. Parameters are required by default, but can be made optional with `required=false` or given a fallback using `defaultValue`. It is best suited for simple inputs like filters, search keywords, or flags, and works seamlessly with primitive types and strings.
+Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate each point with examples so you can see how it works in practice:
+
+   - 1. Extract values from query string or form data
+     ```java
+     @GetMapping("/search")
+     public String search(@RequestParam String keyword, @RequestParam int page) {
+         return "Searching for: " + keyword + " on page " + page;
+     }
+     ```
+     Request: `GET /search?keyword=java&page=2`  
+     Response: `"Searching for: java on page 2"`
+
+   - Parameters are required by default
+     ```java
+     @GetMapping("/products")
+     public String getProduct(@RequestParam String code) {
+         return "Product code: " + code;
+     }
+     ```
+     Request: `GET /products` → ❌ Error: MissingServletRequestParameterException  
+     Request: `GET /products?code=ABC123` → ✅ `"Product code: ABC123"`
+
+   - Make optional with `required=false`
+     ```java
+     @GetMapping("/orders")
+     public String getOrder(@RequestParam(required = false) Long id) {
+         return id != null ? "Order ID: " + id : "All orders";
+     }
+     ```
+     Request: `GET /orders` → `"All orders"`  
+     Request: `GET /orders?id=55` → `"Order ID: 55"`
+
+   - 4. Provide fallback with `defaultValue`
+    ```java
+    @GetMapping("/users")
+    public String getUsers(@RequestParam(defaultValue = "10") int limit) {
+        return "Fetching " + limit + " users";
+    }
+    ```
+    Request: `GET /users` → `"Fetching 10 users"`  
+    Request: `GET /users?limit=5` → `"Fetching 5 users"`
+
+   - 5. Best suited for simple inputs
+     - **Filters** → `/search?keyword=java`  
+     - **Flags** → `/users?active=true`  
+     - **Pagination** → `/products?page=2&size=20`
+      ```java
+      @GetMapping("/users")
+      public String getUsers(@RequestParam boolean active) {
+          return active ? "Active users" : "Inactive users";
+      }
+      ```
+
+   - Summary
+     - `@RequestParam` binds **query string or form data** to method parameters.  
+     - Required by default, but can be made optional or given defaults.  
+     - Ideal for **simple inputs** like filters, flags, or pagination.  
+     - Works seamlessly with **primitive types and strings**, with automatic type conversion.  
 
 - **@RequestBody**  
   `@RequestBody` binds the **HTTP request body** (JSON, XML, or plain text) to a Java object, using Spring’s **HttpMessageConverters** (e.g., Jackson for JSON). It is commonly used in **POST, PUT, or PATCH** requests where clients send structured payloads. It supports complex POJOs, lists, and arrays, and can be combined with `@Valid` for automatic validation of incoming data.
