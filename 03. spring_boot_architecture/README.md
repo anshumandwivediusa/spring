@@ -239,13 +239,13 @@ Database / External System
   
    - **3. Mark optional with `required=false` (needs multiple URL patterns)**
       ```java
-      @GetMapping({"/orders", "/orders/{id}"})
+      @GetMapping({"/orders_1", "/orders_2/{id}"})
       public String getOrder(@PathVariable(required = false) Long id) {
           return id != null ? "Order ID: " + id : "All orders";
       }
       ```
-      Request: `GET /orders` → `"All orders"`  
-      Request: `GET /orders/55` → `"Order ID: 55"`
+      Request: `GET /orders_1` → `"All orders"`  
+      Request: `GET /orders_2/55` → `"Order ID: 55"`
    
   
    -  **4. Ideal for resource identifiers (IDs, slugs, names)**
