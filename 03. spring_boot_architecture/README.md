@@ -169,6 +169,12 @@ Database / External System
        users.put(2, new User(2, "Mary"));
        return users;
    }
+
+  {
+  "1": { "id": 1, "name": "John" },
+  "2": { "id": 2, "name": "Mary" }
+   }
+
    ```
   - Method-Level: Only this method returns data directly.
   - Class-Level: All handler methods behave as if they have @ResponseBody.
