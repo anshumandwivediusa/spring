@@ -12,6 +12,21 @@ Spring Data JPA is a module of the larger Spring Data family. It simplifies the 
  - Pagination & Sorting → Easy handling of large datasets.
  - Auditing → Track created/updated timestamps automatically.
 
+```java
+public interface UserRepository extends JpaRepository<User, Long> {
+    // Derived query method
+    List<User> findByName(String name);
+
+    // Custom JPQL query
+    @Query("SELECT u FROM User u WHERE u.email = ?1")
+    User findByEmail(String email);
+
+    // Native SQL query
+    @Query(value = "SELECT * FROM users WHERE active = true", nativeQuery = true)
+    List<User> findActiveUsers();
+}
+```
+
 ## 7.2 How Spring Data JPA and Hibernate are related?
 
 ### JPA (Java Persistence API)
