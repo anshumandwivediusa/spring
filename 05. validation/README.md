@@ -15,7 +15,6 @@ Add the dependency (if not already included via Spring Boot Starter Web):
 
 ## Common Validation Annotations
 
-
 | Annotation             | Purpose                                         | Example                                               |
 | ---------------------- | ----------------------------------------------- | ----------------------------------------------------- |
 | **`@NotNull`**         | Value must not be `null`                        | `@NotNull private String name;`                       |
@@ -42,7 +41,7 @@ Add the dependency (if not already included via Spring Boot Starter Web):
 | **`@FutureOrPresent`** | Date/time must be future or present             | `@FutureOrPresent private LocalDate startDate;`       |
 
 
-## 📌 Example DTO
+## Example DTO
 ```java
 public class UserDTO {
     @NotNull(message = "ID cannot be null")
@@ -59,9 +58,7 @@ public class UserDTO {
 }
 ```
 
----
-
-## 📌 Controller Example
+## Controller Example
 ```java
 @RestController
 @RequestMapping("/users")
@@ -75,9 +72,7 @@ public class UserController {
 }
 ```
 
----
-
-## 📌 Handling Validation Errors
+## Handling Validation Errors
 Spring Boot automatically returns a **400 Bad Request** with error messages.  
 You can customize error handling using `@ControllerAdvice`:
 
@@ -95,7 +90,7 @@ public class GlobalExceptionHandler {
 }
 ```
 
-➡️ Example Response:
+Example Response:
 ```json
 {
   "name": "Name is required",
@@ -103,14 +98,9 @@ public class GlobalExceptionHandler {
 }
 ```
 
----
-
-## 🔑 Summary
+## Summary
 - Use **Bean Validation annotations** on DTOs/entities.  
 - Apply **@Valid** in controller methods to trigger validation.  
 - Customize error responses with **@ControllerAdvice**.  
 - Ensures **clean, safe, and predictable API inputs**.  
 
----
-
-👉 Would you like me to also prepare a **visual diagram showing the flow**: *Client Request → Validation → Controller → Error Handler → Response*? That would make the lifecycle crystal clear.
