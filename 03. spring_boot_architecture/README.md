@@ -312,4 +312,45 @@ public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidExcep
 - `@Valid` integrates both, ensuring **clean code + robust validation**.  
 - Together, they make Spring Boot APIs **concise, maintainable, and safe**.  
 
+## Business Layer
+In a typical **Spring Boot layered architecture**, the **Business Layer** (also called the **Service Layer**) sits between the **Controller Layer** and the **Data Access Layer (Repository/DAO)**. Its role is to encapsulate the **business logic** of the application — the rules, workflows, and operations that define how data should be processed beyond simple CRUD.
+
+### Business Layer Responsibilities
+- **Business Logic** → Implements core rules of the application (e.g., calculating discounts, validating transactions, applying workflows).  
+- **Service Classes** → Typically annotated with `@Service` to indicate business logic components.  
+- **Transaction Management** → Handles transactional boundaries (`@Transactional`) to ensure data consistency.  
+- **Integration** → Coordinates between multiple repositories, external APIs, or other services.  
+- **Validation** → Performs domain‑specific checks beyond simple DTO validation.  
+- **Abstraction** → Shields controllers from persistence details, ensuring separation of concerns.  
+
+### Example
+```java
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Transactional
+    public User registerUser(User user) {
+        // Business rule: email must be unique
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Email already registered");
+        }
+        return userRepository.save(user);
+    }
+}
+```
+
+### Layered Architecture Flow
+1. **Controller Layer** → Handles HTTP requests (`@RestController`).  
+2. **Business Layer** → Applies business rules (`@Service`).  
+3. **Data Access Layer** → Interacts with database (`@Repository`).  
+
+### Summary
+The **Business Layer** is the **heart of the application**, where rules and workflows live. It ensures controllers remain thin (focused on request/response handling) and repositories remain simple (focused on persistence). This separation makes applications **cleaner, testable, and maintainable**.  
+
 
