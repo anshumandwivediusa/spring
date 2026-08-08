@@ -235,3 +235,65 @@ Spring is divided into ~20 modules grouped into:
 | **[Spring Boot](ca://s?q=Spring_Boot_Use_Cases)** | Rapid prototyping or microservices development | Auto-configuration + starters make setup fast |
 |  | Avoiding boilerplate configuration | Boot removes repetitive XML/Java config |
 |  | Need embedded servers or Actuator for monitoring | Run apps with ``java ``-jar`` and get health/metrics endpoints out of the box |
+
+
+## Spring ApplicationContext — Complete Notes
+
+### Definition
+- **ApplicationContext** is the **central interface** in Spring for providing configuration information to the application.  
+- It manages **Spring beans**, their lifecycle, and dependencies.  
+- It’s an advanced version of **BeanFactory** with extra enterprise features.
+
+
+### Key Responsibilities
+- **Bean Factory** → Manages bean creation and lifecycle.  
+- **Dependency Injection** → Automatically wires dependencies.  
+- **Event Propagation** → Publishes and listens to application events.  
+- **Internationalization** → Supports message sources for i18n.  
+- **Environment Access** → Provides property values (`application.properties`).  
+- **Profiles** → Activates beans conditionally using `@Profile`.
+
+
+### Creating ApplicationContext
+#### Spring Boot Style
+```java
+ApplicationContext context = SpringApplication.run(AppConfig.class);
+ApplicationContext context = SpringApplication.run(AppConfig.class, args);
+
+SpringApplication app = new SpringApplication(AppConfig.class);
+context = app.run(args);
+```
+
+#### Traditional Ways
+- **AnnotationConfigApplicationContext** → `new AnnotationConfigApplicationContext(AppConfig.class)`  
+- **ClassPathXmlApplicationContext** → `new ClassPathXmlApplicationContext("com/example/app-config.xml")`  
+- **FileSystemXmlApplicationContext** → `new FileSystemXmlApplicationContext("C:/Users/app-config.xml")`
+
+
+### Obtaining Beans
+```java
+MyService service = context.getBean(MyService.class);
+service.doWork();
+```
+- Beans can be fetched by **type** or **name**.  
+- Each bean has a **unique identifier**.
+
+
+### Summary Table
+
+| Feature | Description |
+|---------|-------------|
+| **Bean Factory** | Manages bean lifecycle |
+| **Dependency Injection** | Injects dependencies automatically |
+| **Event Propagation** | Publishes/listens to events |
+| **Internationalization** | Supports i18n message sources |
+| **Environment Access** | Reads properties |
+| **Profiles** | Conditional bean activation |
+
+
+### Exam-Oriented Points
+- ApplicationContext is **container + enterprise features**.  
+- Ensures beans are created in the **right order**.  
+- Supports **DI, events, profiles, i18n, environment access**.  
+- Can be used in **unit tests** for lightweight context loading.  
+- Eliminates need for a **full Java EE server**.
