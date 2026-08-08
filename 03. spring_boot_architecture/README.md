@@ -185,6 +185,68 @@ Database / External System
   - Simplifies handling of REST API requests.
   - Eliminates manual parsing of request payloads.
 
+  - Binds HTTP request body
+    ```java
+    @PostMapping("/users")
+    public ResponseEntity<User> createUser(@RequestBody UserDTO userDto) {
+        return ResponseEntity.ok(new User(userDto.getId(), userDto.getName()));
+    }
+    ```
+    Request JSON:
+    ```json
+    {
+      "id": 1,
+      "name": "John"
+    }
+    ```
+    Spring uses **HttpMessageConverters** (Jackson for JSON) to map this payload into `UserDTO`.
+
+  - 2. Commonly used in POST, PUT, PATCH
+    - **POST** → Create new resource  
+    - **PUT** → Replace existing resource  
+    - **PATCH** → Update part of a resource  
+
+    ```java
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDto) {
+        userDto.setId(id);
+        return ResponseEntity.ok(userDto);
+    }
+    ```
+
+  - 3. Supports complex POJOs, lists, arrays
+    ```java
+   @PostMapping("/bulkUsers")
+   public ResponseEntity<List<User>> createUsers(@RequestBody List<UserDTO> users) {
+       return ResponseEntity.ok(users.stream()
+           .map(u -> new User(u.getId(), u.getName()))
+           .toList());
+   }
+   ```
+   Request JSON:
+   ```json
+   [
+     { "id": 1, "name": "John" },
+     { "id": 2, "name": "Mary" }
+   ]
+   ```
+
+  - 4. Combine with `@Valid` for validation
+   ```java
+   @PostMapping("/users")
+   public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDto) {
+       return ResponseEntity.ok(new User(userDto.getId(), userDto.getName()));
+   }
+   ```
+   If `userDto` violates constraints (`@NotBlank`, `@Email`, etc.), Spring automatically returns **400 Bad Request** with validation errors.
+
+  - Summary
+   - `@RequestBody` binds **payload → Java object**.  
+   - Essential for **structured data** in POST/PUT/PATCH.  
+   - Works with **POJOs, lists, arrays**.  
+   - Combine with **@Valid** for automatic validation.  
+
+
 | Annotation      | Direction       | Purpose                          |
 | --------------- | --------------- | -------------------------------- |
 | `@RequestBody`  | Client → Server | HTTP request body → Java object  |
