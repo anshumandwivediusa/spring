@@ -412,7 +412,7 @@ class DemoController {
 }
 ```
 
-## Spring Bean Lifecycle 
+## 11. Bean Lifecycle 
 
 **The Spring Bean Lifecycle describes the journey of a bean inside the IoC container: from instantiation, dependency injection, initialization, usage, and finally destruction. Understanding this sequence is critical for managing resources, debugging autowiring issues, and customizing bean behavior.**
 
