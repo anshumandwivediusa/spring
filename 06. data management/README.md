@@ -3,11 +3,14 @@
 ## 7.1 Overview
 
 **Spring Data JPA** is part of the larger Spring Data family. It simplifies the implementation of data access layers by:
-- Eliminating boilerplate DAO code
-- Providing powerful abstractions for CRUD operations
-- Supporting custom queries with JPQL or native SQL
+Spring Data JPA is a module of the larger Spring Data family. It simplifies the implementation of data access layers by providing abstractions over JPA (Java Persistence API).
 
----
+### Key Benefits
+ - Eliminates boilerplate DAO code → No need to write repetitive CRUD logic.
+ - Powerful abstractions → Built‑in repository interfaces for CRUD operations.
+ - Custom queries → Supports JPQL, native SQL, and derived query methods.
+ - Pagination & Sorting → Easy handling of large datasets.
+ - Auditing → Track created/updated timestamps automatically.
 
 ## 7.2 How Spring Data JPA and Hibernate are related?
 
@@ -49,7 +52,6 @@ It provides:
 
 It works with any JPA provider (Hibernate, EclipseLink, OpenJPA, etc.)
 
----
 
 ### 🧠 Key Idea
 
@@ -59,7 +61,6 @@ Hibernate = Implementation (Engine)
 
 Spring Data JPA = Automation Layer (Ease of Use)
 
----
 
 ### Summary Table
 
@@ -69,7 +70,6 @@ Spring Data JPA = Automation Layer (Ease of Use)
 | Hibernate        | Implementation of JPA     | Actual ORM behavior            |
 | Spring Data JPA  | Abstraction on top of JPA | Repositories, less boilerplate |
 
----
 
 ### Relationship Flow
 
@@ -85,7 +85,6 @@ JDBC
 Database
 ```
 
----
 
 ## 7.3 What is ORM Framework?
 
@@ -93,7 +92,6 @@ Database
 
 In simple words: ORM is a translator between your Java objects and database tables.
 
----
 
 ### The Problem ORM Solves
 
@@ -104,7 +102,6 @@ In simple words: ORM is a translator between your Java objects and database tabl
 
 > ORM is the bridge that automatically converts between these two different worlds!
 
----
 
 ### Simple Benefits:
 
@@ -114,7 +111,6 @@ In simple words: ORM is a translator between your Java objects and database tabl
 - **Fewer errors** – No typos in SQL strings
 - **Database independent** – Same code works with MySQL, PostgreSQL, Oracle
 
----
 
 ### ORM – The Translator
 
@@ -138,7 +134,6 @@ class User {
 | 1  | John  | j@mail.com  |
 | 2  | Alice | a@mail.com  |
 
----
 
 ##### Order Object → ORDERS Table
 
@@ -158,18 +153,15 @@ class Order {
 | 1  | 1       | 99.99  |
 | 2  | 1       | 59.99  |
 
----
 
 > **Java Reference ──► ◄── Foreign Key**
 >
 > In Java, relationships are represented as object references (e.g., `User user` inside `Order`).
 > In the database, the same relationship is represented as a **Foreign Key** (`user_id` column in ORDERS table).
 
----
 
 ![ORM Diagram](imgs/orm.png)
 
----
 
 ## 7.4 Entity, Repository, CrudRepository, JpaRepository
 
@@ -202,7 +194,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
----
 
 ## 7.5 JPQL and Native Queries
 
@@ -222,7 +213,6 @@ Direct SQL queries on the actual database tables.
 User findByEmailNative(String email);
 ```
 
----
 
 ## 7.6 Database Configuration
 
@@ -255,7 +245,6 @@ spring.datasource.password=admin
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 ```
 
----
 
 ## 7.7 Spring Boot with Hibernate
 
@@ -274,7 +263,6 @@ Hibernate maps Java objects to relational DB tables and handles:
 - Query translation (JPQL to SQL)
 - Lazy vs Eager fetching
 
----
 
 ## 7.8 DTOs and Model Mapping
 
@@ -314,7 +302,6 @@ Add dependency:
 </dependency>
 ```
 
----
 
 ## 7.9 Summary Table
 
@@ -328,7 +315,6 @@ Add dependency:
 | DTO                  | Transfers specific data to avoid entity leaks |
 | ModelMapper          | Auto-map between Entity & DTO                 |
 
----
 
 ## 7.10 Spring Data JPA Annotations – Detailed Explanation
 
@@ -446,4 +432,3 @@ Add dependency:
   }
   ```
 
----
