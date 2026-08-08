@@ -341,7 +341,7 @@ Database / External System
   `@RequestParam` extracts values from the **query string** (`?id=10&active=true`) or form data and maps them to method parameters. Parameters are required by default, but can be made optional with `required=false` or given a fallback using `defaultValue`. It is best suited for simple inputs like filters, search keywords, or flags, and works seamlessly with primitive types and strings.
 Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate each point with examples so you can see how it works in practice:
 
-   - 1. Extract values from query string or form data
+   - Extract values from query string or form data
      ```java
      @GetMapping("/search")
      public String search(@RequestParam String keyword, @RequestParam int page) {
@@ -351,7 +351,7 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      Request: `GET /search?keyword=java&page=2`  
      Response: `"Searching for: java on page 2"`
 
-   - 2. Parameters are required by default
+   - Parameters are required by default
      ```java
      @GetMapping("/products")
      public String getProduct(@RequestParam String code) {
@@ -361,7 +361,7 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      Request: `GET /products` → ❌ Error: MissingServletRequestParameterException  
      Request: `GET /products?code=ABC123` → ✅ `"Product code: ABC123"`
 
-   - 3. Make optional with `required=false`
+   - Make optional with `required=false`
      ```java
      @GetMapping("/orders")
      public String getOrder(@RequestParam(required = false) Long id) {
@@ -371,7 +371,7 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      Request: `GET /orders` → `"All orders"`  
      Request: `GET /orders?id=55` → `"Order ID: 55"`
 
-   - 4. Provide fallback with `defaultValue`
+   - Provide fallback with `defaultValue`
      ```java
      @GetMapping("/users")
      public String getUsers(@RequestParam(defaultValue = "10") int limit) {
@@ -381,7 +381,7 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      Request: `GET /users` → `"Fetching 10 users"`  
      Request: `GET /users?limit=5` → `"Fetching 5 users"`
 
-   - 5. Best suited for simple inputs
+   - Best suited for simple inputs
      - **Filters** → `/search?keyword=java`  
      - **Flags** → `/users?active=true`  
      - **Pagination** → `/products?page=2&size=20`
