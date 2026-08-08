@@ -6,6 +6,9 @@
 
 ## 1. Core Foundations of Spring Framework
 
+<img width="500" height="366" alt="image" src="https://github.com/user-attachments/assets/d21c3554-a21d-47e4-be19-7a826c763c3f" />
+
+
 ### A. **Dependency Injection (DI) & Inversion of Control (IoC)**
 * **Inversion of Control (IoC)** is the _principle_ in which the framework manages the creation, configuration, and lifecycle of application objects (beans).
 * **Dependency Injection (DI)** is the _mechanism_ Spring uses to implement IoC by automatically providing the required dependencies to objects.
