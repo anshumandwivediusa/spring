@@ -1,6 +1,6 @@
-# 7. Spring Data JPA
+# Spring Data JPA
 
-## 7.1 Overview
+## 1 Overview
 
 **Spring Data JPA** is part of the larger Spring Data family. It simplifies the implementation of data access layers by:
 Spring Data JPA is a module of the larger Spring Data family. It simplifies the implementation of data access layers by providing abstractions over JPA (Java Persistence API).
