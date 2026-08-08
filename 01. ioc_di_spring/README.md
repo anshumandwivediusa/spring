@@ -237,7 +237,7 @@ Spring is divided into ~20 modules grouped into:
 |  | Need embedded servers or Actuator for monitoring | Run apps with ``java ``-jar`` and get health/metrics endpoints out of the box |
 
 
-## 9. Spring ApplicationContext — Complete Notes
+## 9. Spring ApplicationContext 
 
 ### Definition
 - **ApplicationContext** is the **central interface** in Spring for providing configuration information to the application.  
@@ -412,7 +412,7 @@ class DemoController {
 }
 ```
 
-## Spring Bean Lifecycle — Complete Notes
+## Spring Bean Lifecycle 
 
 **The Spring Bean Lifecycle describes the journey of a bean inside the IoC container: from instantiation, dependency injection, initialization, usage, and finally destruction. Understanding this sequence is critical for managing resources, debugging autowiring issues, and customizing bean behavior.**
 
