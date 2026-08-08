@@ -91,6 +91,3 @@ public interface UserRepository extends JpaRepository<User, Long> {
 - **JdbcRepository** → Repository abstraction over JDBC.  
 - **JPA** → ORM, maps objects to tables.  
 - **Spring Data JPA** → High-level abstraction, most widely used in modern Spring apps.  
-
-
-👉 Would you like me to also prepare a **visual layered diagram** (Database → JDBC → JdbcTemplate → JdbcRepository → JPA → Spring Data JPA) so you can see how these technologies stack on top of each other?
