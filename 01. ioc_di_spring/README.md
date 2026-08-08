@@ -298,7 +298,7 @@ service.doWork();
 - Can be used in **unit tests** for lightweight context loading.  
 - Eliminates need for a **full Java EE server**.
 
-## Bean Scopes
+## 10. Bean Scopes
 - Spring manages lifecycle of beans, each bean has its scope
 - Default scope is singleton - one instance per application context
 - If none of the Spring scopes is appropriate, custom scopes can be defined
