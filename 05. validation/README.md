@@ -1,9 +1,9 @@
 # Data Validation in Spring Boot
 
-## Overview
+## 1. Overview
 Data validation ensures that incoming request data is **correct, safe, and meaningful** before it reaches your business logic. Spring Boot integrates with **Jakarta Bean Validation (JSR 380)** using **Hibernate Validator** by default.
 
-## Setup
+## 2. Setup
 Add the dependency (if not already included via Spring Boot Starter Web):
 
 ```xml
@@ -13,7 +13,7 @@ Add the dependency (if not already included via Spring Boot Starter Web):
 </dependency>
 ```
 
-## Common Validation Annotations
+## 3. Common Validation Annotations
 
 | Annotation             | Purpose                                         | Example                                               |
 | ---------------------- | ----------------------------------------------- | ----------------------------------------------------- |
@@ -41,7 +41,7 @@ Add the dependency (if not already included via Spring Boot Starter Web):
 | **`@FutureOrPresent`** | Date/time must be future or present             | `@FutureOrPresent private LocalDate startDate;`       |
 
 
-## Example DTO
+## 4. Example DTO
 ```java
 public class UserDTO {
     @NotNull(message = "ID cannot be null")
@@ -58,7 +58,7 @@ public class UserDTO {
 }
 ```
 
-## Controller Example
+## 5. Controller Example
 ```java
 @RestController
 @RequestMapping("/users")
@@ -72,7 +72,7 @@ public class UserController {
 }
 ```
 
-## Handling Validation Errors
+## 6. Handling Validation Errors
 Spring Boot automatically returns a **400 Bad Request** with error messages.  
 You can customize error handling using `@ControllerAdvice`:
 
@@ -98,7 +98,7 @@ Example Response:
 }
 ```
 
-## Summary
+## 7. Summary
 - Use **Bean Validation annotations** on DTOs/entities.  
 - Apply **@Valid** in controller methods to trigger validation.  
 - Customize error responses with **@ControllerAdvice**.  
