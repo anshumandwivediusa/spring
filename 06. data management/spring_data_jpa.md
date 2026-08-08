@@ -27,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
-## 7.2 How Spring Data JPA and Hibernate are related?
+## 2 How Spring Data JPA and Hibernate are related?
 
 You’ve got the analogy exactly right — JPA is the **specification**, Hibernate is one of the **implementations**, and Spring Data JPA is the **abstraction layer** that makes using JPA/Hibernate much easier in Spring applications. Let’s break it down clearly:
 
@@ -103,7 +103,7 @@ Database
 ```
 
 
-## 7.3 What is ORM Framework?
+## 3 What is ORM Framework?
 
 **ORM = Object-Relational Mapping**
 
@@ -180,7 +180,7 @@ class Order {
 ![ORM Diagram](imgs/orm.png)
 
 
-## 7.4 Entity, Repository, CrudRepository, JpaRepository
+## 4 Entity, Repository, CrudRepository, JpaRepository
 
 ### `@Entity`
 Represents a table in the database.
@@ -212,7 +212,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 ```
 
 
-## 7.5 JPQL and Native Queries
+## 5 JPQL and Native Queries
 
 ### JPQL (Java Persistence Query Language)
 Object-oriented query language — works with entity names & fields.
@@ -231,7 +231,7 @@ User findByEmailNative(String email);
 ```
 
 
-## 7.6 Database Configuration
+## 6 Database Configuration
 
 ### H2 (In-memory database, great for dev/test)
 
@@ -263,7 +263,7 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 ```
 
 
-## 7.7 Spring Boot with Hibernate
+## 7 Spring Boot with Hibernate
 
 Hibernate is the default JPA implementation used in Spring Boot.
 
@@ -281,7 +281,7 @@ Hibernate maps Java objects to relational DB tables and handles:
 - Lazy vs Eager fetching
 
 
-## 7.8 DTOs and Model Mapping
+## 8 DTOs and Model Mapping
 
 ### Why Use DTOs (Data Transfer Objects)?
 - Avoid exposing full entity structure
@@ -320,7 +320,7 @@ Add dependency:
 ```
 
 
-## 7.9 Summary Table
+## 9 Summary Table
 
 | Concept              | Key Role                                      |
 |----------------------|-----------------------------------------------|
@@ -333,7 +333,7 @@ Add dependency:
 | ModelMapper          | Auto-map between Entity & DTO                 |
 
 
-## 7.10 Spring Data JPA Annotations – Detailed Explanation
+## 10 Spring Data JPA Annotations – Detailed Explanation
 
 ### 🔹 `@Entity`
 - **Purpose**: Marks a class as a JPA entity (mapped to a database table).
