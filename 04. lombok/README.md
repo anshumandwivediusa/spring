@@ -974,55 +974,7 @@ public class User {
 ```
 
 
-# 25. Interview Questions
-
-### Q1. What is Lombok?
-
-Lombok is a Java library that reduces boilerplate code using annotations and compile-time annotation processing.
-
-### Q2. What does `@Data` do?
-
-It provides:
-
-```text
-@Getter
-@Setter
-@RequiredArgsConstructor
-@ToString
-@EqualsAndHashCode
-```
-
-### Q3. Difference between `@Data` and `@Value`?
-
-| `@Data`                     | `@Value`      |
-| --------------------------- | ------------- |
-| Mutable by default          | Immutable     |
-| Setters generated           | No setters    |
-| Fields not final by default | Fields final  |
-| Common DTO/model usage      | Value objects |
-
-### Q4. What does `@Builder` provide?
-
-It generates a Builder API for creating objects in a readable way.
-
-### Q5. What does `@RequiredArgsConstructor` generate?
-
-A constructor for required fields, primarily `final` and `@NonNull` fields.
-
-### Q6. Why use `@RequiredArgsConstructor` in Spring?
-
-It supports clean **constructor-based dependency injection** without writing the constructor manually.
-
-### Q7. Is Lombok runtime dependent?
-
-Lombok primarily operates during compilation. Its annotations generate/modify code that becomes part of the compiled class.
-
-### Q8. Should `@Data` be used on JPA entities?
-
-Not blindly. Generated `equals()`, `hashCode()`, and `toString()` can create JPA-specific problems.
-
-
-# 26. Lombok Cheat Sheet ⭐
+# 25. Lombok Cheat Sheet ⭐
 
 ```text
 ╔══════════════════════════════════════════════╗
