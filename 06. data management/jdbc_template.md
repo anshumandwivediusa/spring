@@ -1,0 +1,95 @@
+# JdbcTemplate – Exam Notes
+
+## Definition
+- **JdbcTemplate** is a **Spring abstraction over JDBC**.  
+- It simplifies database access by handling:
+  - Connection management  
+  - Statement creation  
+  - Exception translation  
+  - Resource cleanup  
+
+
+## Key Features
+- **Simplifies JDBC** → Removes boilerplate code.  
+- **Exception Handling** → Converts `SQLException` into Spring’s `DataAccessException`.  
+- **Resource Management** → Automatically closes connections, statements, and result sets.  
+- **Flexible Query Execution** → Supports queries, updates, batch operations, stored procedures.  
+- **Callback Interfaces** → Uses `RowMapper`, `ResultSetExtractor`, `PreparedStatementSetter`.  
+
+
+## Common Methods
+- **query()** → Executes SELECT, maps rows via `RowMapper`.  
+- **queryForObject()** → Returns single object (e.g., count, entity).  
+- **update()** → Executes INSERT/UPDATE/DELETE.  
+- **batchUpdate()** → Executes batch operations.  
+- **execute()** → Executes arbitrary SQL.  
+
+## Example – Fetch User
+```java
+@Repository
+public class UserRepository {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public User findById(Long id) {
+        return jdbcTemplate.queryForObject(
+            "SELECT id, name FROM users WHERE id = ?",
+            (rs, rowNum) -> new User(rs.getLong("id"), rs.getString("name")),
+            id
+        );
+    }
+}
+```
+
+## Callback Interfaces
+- **RowMapper** → Maps each row to an object.  
+- **ResultSetExtractor** → Extracts data from entire ResultSet.  
+- **PreparedStatementSetter** → Sets parameters in PreparedStatement.  
+
+## Batch Processing
+```java
+String sql = "INSERT INTO users(name) VALUES (?)";
+jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+    public void setValues(PreparedStatement ps, int i) throws SQLException {
+        ps.setString(1, names[i]);
+    }
+    public int getBatchSize() { return names.length; }
+});
+```
+
+## Transactions
+- Works seamlessly with **Spring’s transaction management** (`@Transactional`).  
+- No need for manual `commit()` / `rollback()` as in raw JDBC.  
+
+## Advantages
+- Less boilerplate, cleaner code.  
+- Centralized exception handling.  
+- Easy integration with Spring’s DI and transaction management.  
+- Supports both **simple SQL** and **complex queries**.  
+
+## Limitations
+- Still SQL‑driven (no ORM).  
+- Manual mapping required (unlike JPA/Hibernate).  
+- Best suited for **lightweight apps** or when ORM overhead is unnecessary.  
+
+## Comparison
+
+| **Aspect** | **JDBC** | **JdbcTemplate** |
+|------------|----------|------------------|
+| Resource Handling | Manual | Automatic |
+| Exception Handling | SQLException | DataAccessException |
+| Code Length | Verbose | Concise |
+| Mapping | Manual | RowMapper/Extractor |
+| Transactions | Manual | Integrated with Spring |
+
+## Exam Quick Facts
+- **Preferred mapping interface** → `RowMapper`.  
+- **Exception type** → `DataAccessException`.  
+- **Best use case** → When you want SQL control but less boilerplate.  
+- **Batch operations** → `batchUpdate()`.  
+- **Transactions** → Use `@Transactional`.  
+
+
+👉 This is **exam‑ready**: definitions, features, methods, examples, advantages, limitations, and comparisons.  
+Would you like me to also prepare a **cheat sheet diagram (JDBC → JdbcTemplate → Spring Data JDBC → JPA)** so you can visually revise the hierarchy in one glance?
