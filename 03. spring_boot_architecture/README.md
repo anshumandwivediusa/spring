@@ -354,9 +354,7 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
 - **@RequestBody**  
   `@RequestBody` binds the **HTTP request body** (JSON, XML, or plain text) to a Java object, using Spring’s **HttpMessageConverters** (e.g., Jackson for JSON). It is commonly used in **POST, PUT, or PATCH** requests where clients send structured payloads. It supports complex POJOs, lists, and arrays, and can be combined with `@Valid` for automatic validation of incoming data.
 
-Exactly right — your description of **@RequestBody** captures its purpose well. Let’s expand with examples to illustrate each point:
-
-   - 1. Binds HTTP request body
+   - Binds HTTP request body
      ```java
      @PostMapping("/users")
      public ResponseEntity<User> createUser(@RequestBody UserDTO userDto) {
@@ -372,7 +370,7 @@ Exactly right — your description of **@RequestBody** captures its purpose well
      ```
      Spring uses **HttpMessageConverters** (Jackson for JSON) to map this payload into `UserDTO`.
 
-   - 2. Commonly used in POST, PUT, PATCH
+   - Commonly used in POST, PUT, PATCH
      - **POST** → Create new resource  
      - **PUT** → Replace existing resource  
      - **PATCH** → Update part of a resource  
@@ -385,7 +383,7 @@ Exactly right — your description of **@RequestBody** captures its purpose well
     }
     ```
 
-   - 3. Supports complex POJOs, lists, arrays
+   - Supports complex POJOs, lists, arrays
    ```java
    @PostMapping("/bulkUsers")
    public ResponseEntity<List<User>> createUsers(@RequestBody List<UserDTO> users) {
@@ -402,7 +400,7 @@ Exactly right — your description of **@RequestBody** captures its purpose well
   ]
   ```
 
-   - 4. Combine with `@Valid` for validation
+   - Combine with `@Valid` for validation
    ```java
    @PostMapping("/users")
    public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDto) {
