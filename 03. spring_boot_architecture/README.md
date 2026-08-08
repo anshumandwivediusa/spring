@@ -524,7 +524,114 @@ public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidExcep
 
 ## Presentation Layer Components: Response
 
+### ResponseBody 
 
+In Spring MVC, **@ResponseBody** is used to tell the framework that the return value of a controller method should be written directly into the **HTTP response body** instead of being resolved to a view (like a JSP or Thymeleaf template). It’s essentially the opposite of `@RequestBody`, which binds incoming payloads.  
+
+- **Direct Response** → Converts the returned object into JSON or XML using **HttpMessageConverters** (Jackson for JSON).  
+- **No View Resolution** → Skips the view resolver; the response goes straight to the client.  
+- **Automatic in RestController** → In a class annotated with **@RestController**, `@ResponseBody` is implied for all methods, so you don’t need to write it explicitly.  
+- **Flexible Return Types** → Can return strings, objects, lists, or even custom DTOs.  
+
+-  Examples
+
+   -  With `@ResponseBody`
+      ```java
+      @Controller
+      public class UserController {
+      
+          @GetMapping("/user")
+          @ResponseBody
+          public User getUser() {
+              return new User(1, "John");
+          }
+      }
+      ```
+      Response JSON:
+      ```json
+      {
+        "id": 1,
+        "name": "John"
+      }
+      ```
+
+   -  Without `@ResponseBody` (view resolution)
+      ```java
+      @Controller
+      public class UserController {
+      
+          @GetMapping("/user")
+          public String getUser() {
+              return "userView"; // resolves to a template named userView.html/jsp
+          }
+      }
+      ```
+
+   -  Automatic in `@RestController`
+      ```java
+      @RestController
+      public class UserController {
+      
+          @GetMapping("/user")
+          public User getUser() {
+              return new User(1, "John"); // @ResponseBody implied
+          }
+      }
+      ```
+
+   -  Summary
+      - `@ResponseBody` → Sends method return directly as HTTP response.  
+      - In `@Controller`, you need it explicitly.  
+      - In `@RestController`, it’s automatically applied.  
+      - Ideal for **REST APIs** where you want JSON/XML responses instead of views.  
+
+### ResponseEntity 
+
+   -  Example: Structured Response DTO
+      ```java
+      @Data
+      @AllArgsConstructor
+      public class ApiResponse<T> {
+          private String status;
+          private String message;
+          private T data;
+          private LocalDateTime timestamp;
+      }
+      ```
+
+   - Controller
+      ```java
+      @PostMapping("/users")
+      public ResponseEntity<ApiResponse<User>> createUser(@RequestBody UserDTO userDto) {
+          User user = userService.save(userDto);
+          ApiResponse<User> response = new ApiResponse<>(
+              "success",
+              "User created successfully",
+              user,
+              LocalDateTime.now()
+          );
+          return ResponseEntity.status(HttpStatus.CREATED).body(response);
+      }
+      ```
+
+   - JSON Response
+      ```json
+      {
+        "status": "success",
+        "message": "User created successfully",
+        "data": {
+          "id": 1,
+          "name": "John"
+        },
+        "timestamp": "2026-08-08T12:17:00"
+      }
+      ```
+
+   - Benefits
+      - **Clarity** → Clients get status, message, and data in one object.  
+      - **Consistency** → Every endpoint can follow the same response format.  
+      - **Extensibility** → Easy to add fields like `errorCode`, `pagination`, or `links`.  
+      - **Best Practice** → Makes APIs more predictable and easier to consume.  
 
 ## Business Layer
 In a typical **Spring Boot layered architecture**, the **Business Layer** (also called the **Service Layer**) sits between the **Controller Layer** and the **Data Access Layer (Repository/DAO)**. Its role is to encapsulate the **business logic** of the application — the rules, workflows, and operations that define how data should be processed beyond simple CRUD.
