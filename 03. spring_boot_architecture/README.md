@@ -410,10 +410,10 @@ Exactly — your summary of **@RequestParam** is spot‑on. Let me illustrate ea
      If `userDto` violates constraints (`@NotBlank`, `@Email`, etc.), Spring automatically returns **400 Bad Request** with validation errors.
 
    - Summary
-    - `@RequestBody` binds **payload → Java object**.  
-    - Essential for **structured data** in POST/PUT/PATCH.  
-    - Works with **POJOs, lists, arrays**.  
-    - Combine with **@Valid** for automatic validation.  
+     - `@RequestBody` binds **payload → Java object**.  
+     - Essential for **structured data** in POST/PUT/PATCH.  
+     - Works with **POJOs, lists, arrays**.  
+     - Combine with **@Valid** for automatic validation.  
 
 
 | **Aspect** | **[@RequestParam](ca://s?q=RequestParam_annotation)** | **[@RequestBody](ca://s?q=RequestBody_annotation)** |
