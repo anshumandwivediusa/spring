@@ -15,7 +15,7 @@ public class MyApplication {
 
 The call to `SpringApplication.run()` initiates the Spring Boot startup process. It creates and configures the Spring application, initializes the Spring IoC container, applies auto-configuration, and starts the application.
 
-## 2. Step-by-Step Startup Process
+_Step-by-Step Startup Process_
 
 ### Step 1: `@SpringBootApplication`
 
