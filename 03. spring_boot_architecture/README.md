@@ -216,6 +216,66 @@ Database / External System
 - **@PathVariable**  
   `@PathVariable` is used to bind values directly from the **URI path** into method parameters, making RESTful endpoints expressive by embedding identifiers in the URL (e.g., `/users/10`). By default, it is **required**, but can be marked optional with `required=false` if multiple URL patterns are defined. It is ideal for resource identifiers such as IDs, slugs, or names, and Spring automatically converts the path segment into the correct parameter type.
 
+   - **1. Bind values directly from URI path**
+      ```java
+      @GetMapping("/users/{id}")
+      public String getUser(@PathVariable Long id) {
+          return "User ID: " + id;
+      }
+      ```
+      Request: `GET /users/10`  
+      Response: `"User ID: 10"`
+   
+   - **2. By default, it is required**
+      ```java
+      @GetMapping("/products/{code}")
+      public String getProduct(@PathVariable String code) {
+          return "Product code: " + code;
+      }
+      ```
+      Request: `GET /products` (without `{code}`) → ❌ Error: `MissingPathVariableException`  
+      Request: `GET /products/ABC123` → ✅ `"Product code: ABC123"`
+   
+  
+   - **3. Mark optional with `required=false` (needs multiple URL patterns)**
+      ```java
+      @GetMapping({"/orders", "/orders/{id}"})
+      public String getOrder(@PathVariable(required = false) Long id) {
+          return id != null ? "Order ID: " + id : "All orders";
+      }
+      ```
+      Request: `GET /orders` → `"All orders"`  
+      Request: `GET /orders/55` → `"Order ID: 55"`
+   
+  
+   -  **4. Ideal for resource identifiers (IDs, slugs, names)**
+      ```java
+      @GetMapping("/blog/{slug}")
+      public String getPost(@PathVariable String slug) {
+          return "Fetching blog post: " + slug;
+      }
+      ```
+      Request: `GET /blog/spring-boot-pathvariable`  
+      Response: `"Fetching blog post: spring-boot-pathvariable"`
+   
+   -  **5. Automatic type conversion**
+      ```java
+      @GetMapping("/users/{id}/active/{status}")
+      public String userStatus(@PathVariable Long id, @PathVariable boolean status) {
+          return "User " + id + " active: " + status;
+      }
+      ```
+      Request: `GET /users/10/active/true`  
+      Response: `"User 10 active: true"`
+     
+   -  **Summary**
+      - **Binds path segments** → `/users/10` → `id=10`.  
+      - **Required by default** → must be present unless optional mapping defined.  
+      - **Optional with multiple mappings** → `/orders` vs `/orders/{id}`.  
+      - **Best for identifiers** → IDs, slugs, names.  
+      - **Type conversion** → Strings, numbers, booleans auto‑converted.  
+
+
 - **@RequestParam**  
   `@RequestParam` extracts values from the **query string** (`?id=10&active=true`) or form data and maps them to method parameters. Parameters are required by default, but can be made optional with `required=false` or given a fallback using `defaultValue`. It is best suited for simple inputs like filters, search keywords, or flags, and works seamlessly with primitive types and strings.
 
