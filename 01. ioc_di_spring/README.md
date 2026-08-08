@@ -525,10 +525,86 @@ The **`@Value` annotation** in Spring is used to inject values into fields, meth
 - **SpEL Expressions** → Evaluate Spring Expression Language (SpEL).  
 - **Default Values** → Provide fallback if property is missing.
 
+Perfect — let’s dive into **`@ConfigurationProperties`**, which is the more powerful alternative to `@Value` when you need to bind **structured configuration** (groups of related properties) into strongly typed Java objects.
 
-### Usage Examples
 
-#### 1. **Injecting from `application.properties`**
+## 14. `@ConfigurationProperties` — Complete Notes
+
+### Purpose
+- **Property Binding** → Maps hierarchical properties from `application.properties` or `application.yml` into POJOs.  
+- **Type-Safe Configuration** → Ensures compile-time safety with strongly typed fields.  
+- **Bulk Injection** → Injects groups of related properties at once (instead of multiple `@Value` annotations).  
+- **Profiles Support** → Works seamlessly with Spring profiles.
+
+
+
+### Usage Example
+
+#### 1. **Define Properties**
+```yaml
+app:
+  name: MySpringApp
+  timeout: 5000
+  servers:
+    - server1
+    - server2
+    - server3
+```
+
+#### 2. **Create POJO**
+```java
+@Component
+@ConfigurationProperties(prefix = "app")
+public class AppProperties {
+    private String name;
+    private int timeout;
+    private List<String> servers;
+
+    // getters and setters
+}
+```
+
+#### 3. **Use in Service**
+```java
+@Service
+public class MyService {
+    private final AppProperties appProperties;
+
+    public MyService(AppProperties appProperties) {
+        this.appProperties = appProperties;
+    }
+
+    public void printConfig() {
+        System.out.println(appProperties.getName());
+        System.out.println(appProperties.getTimeout());
+        System.out.println(appProperties.getServers());
+    }
+}
+```
+
+
+
+### Comparison: `@Value` vs `@ConfigurationProperties`
+
+| Feature | **@Value** | **@ConfigurationProperties** |
+|---------|----------------|----------------|
+| Scope | Single property injection | Bulk binding of related properties |
+| Type Safety | Weak (string-based) | Strong (POJO fields) |
+| Structure | Flat | Hierarchical (nested objects, lists, maps) |
+| Best Use | Simple values | Complex configs (DB, API, app settings) |
+
+
+
+### Notes
+- `@ConfigurationProperties` is **preferred** for structured configs.  
+- Requires **getter/setter methods** (or Lombok `@Data`).  
+- Can bind to **nested objects** and **collections**.  
+- Works with **profiles** for environment-specific configs.  
+- More maintainable than scattering multiple `@Value` annotations.  
+
+#### Usage Examples
+
+##### 1. **Injecting from `application.properties`**
 ```properties
 app.name=MySpringApp
 app.timeout=5000
@@ -546,21 +622,21 @@ public class MyService {
 ```
 
 
-#### 2. **Default Values**
+##### 2. **Default Values**
 ```java
 @Value("${app.version:1.0}")
 private String version; // Defaults to 1.0 if not set
 ```
 
 
-#### 3. **Environment Variables**
+##### 3. **Environment Variables**
 ```java
 @Value("${JAVA_HOME}")
 private String javaHome;
 ```
 
 
-#### 4. **SpEL (Spring Expression Language)**
+##### 4. **SpEL (Spring Expression Language)**
 ```java
 @Value("#{2 * 1024}")
 private int bufferSize; // 2048
@@ -570,7 +646,7 @@ private String userName;
 ```
 
 
-#### 5. **Injecting Lists/Arrays**
+##### 5. **Injecting Lists/Arrays**
 ```properties
 app.servers=server1,server2,server3
 ```
