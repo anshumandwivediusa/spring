@@ -3,34 +3,6 @@
 > **Project Lombok** is a Java library that reduces boilerplate code by generating common Java methods and constructs automatically through annotations.
 
 
-## Table of Contents
-
-* [1. What is Lombok?](#1-what-is-lombok)
-* [2. Why Lombok?](#2-why-lombok)
-* [3. How Lombok Works](#3-how-lombok-works)
-* [4. Setup](#4-setup)
-* [5. Core Annotations](#5-core-annotations)
-* [6. Getters and Setters](#6-getters-and-setters)
-* [7. Constructors](#7-constructors)
-* [8. `@ToString`](#8-tostring)
-* [9. `@EqualsAndHashCode`](#9-equalsandhashcode)
-* [10. `@Data`](#10-data)
-* [11. `@Value`](#11-value)
-* [12. `@Builder`](#12-builder)
-* [13. `@Slf4j`](#13-slf4j)
-* [14. `@NonNull`](#14-nonnull)
-* [15. `@Cleanup`](#15-cleanup)
-* [16. `@SneakyThrows`](#16-sneakythrows)
-* [17. `@With`](#17-with)
-* [18. `@Accessors`](#18-accessors)
-* [19. Lombok with Spring Boot](#19-lombok-with-spring-boot)
-* [20. Entity Best Practices](#20-entity-best-practices)
-* [21. Common Pitfalls](#21-common-pitfalls)
-* [22. Lombok vs Manual Java](#22-lombok-vs-manual-java)
-* [23. Interview Questions](#23-interview-questions)
-* [24. Cheat Sheet](#24-cheat-sheet)
-
-
 # 1. What is Lombok?
 
 **Project Lombok** is a Java library that uses annotations to automatically generate repetitive code during compilation.
