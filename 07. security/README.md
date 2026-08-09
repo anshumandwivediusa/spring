@@ -17,6 +17,36 @@
 - **SAML** → XML-based protocol for exchanging authentication and authorization data between identity providers (IdPs) and service providers (SPs). Commonly used in enterprise SSO with providers like Okta, Azure AD, or ADFS.
 
 
+### Basic Auth Methods
+- **Basic** → Username and password sent with each request (simple but insecure if not over HTTPS).  
+- **Digest** → Improves on Basic by hashing credentials before sending.  
+- **API Keys** → A unique key identifies the client; often used in REST APIs.  
+- **Session** → Server stores session state after login; client holds a session ID (cookie).
+
+
+### Token-Based Auth
+- **Bearer & JWT Tokens** → Tokens are passed in headers; JWTs are self-contained with claims and signatures.  
+- **Access & Refresh Tokens** → Access tokens are short-lived; refresh tokens allow reissuing without re-login.
+
+
+### OAuth2 and OIDC
+- **OAuth2** → Delegated authorization (e.g., “Login with Google”).  
+- **OpenID Connect** → Built on OAuth2, adds identity layer (who the user is, not just what they can access).
+
+
+### SSO & Identity Protocols
+- **SSO** → Single Sign-On lets users access multiple apps with one login.  
+- Protocols like **SAML**, **OIDC**, and **OAuth2** are used to implement enterprise-grade identity federation.
+
+
+### 📊 Evolution Insight
+- Starts with **basic methods** (simple but less secure).  
+- Moves to **tokens** (stateless, scalable).  
+- Advances into **OAuth2/OIDC** (delegated, identity-aware).  
+- Ends with **SSO protocols** (enterprise, cross-application).
+
+
+
 ## Authorization
 - **Role-Based Access Control (RBAC)** → `hasRole("ADMIN")`.  
 - **Permission-Based Access Control** → Fine-grained authorities.  
