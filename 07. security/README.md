@@ -1,11 +1,49 @@
 # Spring Security
 
 ## Core Concepts
-- **Authentication** → Verifies user identity (login, tokens, certificates).  
-- **Authorization** → Grants or denies access based on roles/permissions.  
+### **Authentication**:
+Authentication is the process of proving that the entity (user, service, or system) is who it claims to be.
+It relies on credentials and secrets that can be validated against a trusted source.
+
+| **Concept** | **Description** |
+| --- | --- |
+| **[Principal](ca://s?q=Explain_Principal_in_Authentication)** | The entity being authenticated — usually a user, service account, or system identity. In Java/Spring, represented by ``Authentication.getPrincipal()``. |
+| **[Credentials](ca://s?q=Explain_Credentials_in_Authentication)** | The proof of identity — passwords, tokens, certificates, or API keys. |
+| **[Secrets](ca://s?q=Explain_Secrets_in_Authentication)** | Sensitive data used to verify credentials (e.g., private keys, hashed passwords). Must be stored securely. |
+| **[Identity Provider (IdP)](ca://s?q=Explain_Identity_Provider_IdP)** | The system that validates credentials and issues identity tokens (e.g., Azure Entra, Keycloak). |
+| **[Authentication Token](ca://s?q=Explain_Authentication_Token)** | A representation of successful authentication — JWT, session ID, or OAuth2 access token. |
+| **[Subject](ca://s?q=Explain_Subject_in_Security_Context)** | The security context holding the authenticated principal and its roles/permissions. |
+
+
+
+- **Authorization** → Grants or denies access based on roles (group of permissions)/permissions.  
 - **Security Filter Chain** → Every HTTP request passes through filters (e.g., `UsernamePasswordAuthenticationFilter`, `BasicAuthenticationFilter`).  
 - **SecurityContext** → Holds authentication details for the current user.  
 - **AuthenticationManager** → Delegates authentication to providers like `DaoAuthenticationProvider` or `JwtAuthenticationProvider`.
+
+## Security Architecture of Spring Boot
+
+<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/c0bf09de-742a-4640-9546-3d70ab677858" />
+
+### Flow Explanation
+1. **Client Request** → The browser/API sends an HTTP request.  
+2. **FilterChain** → General servlet filters (logging, compression, etc.).  
+3. **DelegatingFilterProxy** → Bridges servlet filters with Spring-managed beans.  
+4. **FilterChainProxy** → Entry point into Spring Security. Decides which security chain applies.  
+5. **SecurityFilterChain** → Multiple security filters run in sequence:  
+   - `AuthenticationFilter` → Validates identity.  
+   - `AuthorizationFilter` → Checks roles/permissions.  
+   - `CsrfFilter` → Protects against CSRF attacks.  
+   - `ExceptionTranslationFilter` → Handles security exceptions.  
+   - `FilterSecurityInterceptor` → Final access decision.  
+6. **DispatcherServlet** → If allowed, request reaches Spring MVC controllers.
+7. **SpringController** 
+
+### Key Insight
+- **Authentication** happens early in the chain.  
+- **Authorization** happens after identity is established.  
+- **Other protections** (CSRF, session management, exception handling) are layered in.  
+- This ensures **every request** is consistently checked before hitting your controllers.
 
 
 ## Authentication Mechanisms
