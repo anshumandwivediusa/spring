@@ -426,3 +426,62 @@ public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
 - Map Azure AD groups/roles to Spring Security authorities.  
 - For APIs, use **JWT validation** with `spring-boot-starter-oauth2-resource-server`.
 
+
+## Easy Flow of Validation – OAuth 2.0 + Azure Entra ID
+
+### 1. User Request
+- User tries to access a protected endpoint in your Spring Boot app.  
+- Spring Security sees the request needs authentication.
+
+
+### 2. Redirect to Azure AD
+- Spring Security automatically redirects the user to **Azure Entra ID login page**.  
+- User enters credentials (username/password, MFA, etc.).
+
+
+### 3. Authorization Code
+- After successful login, Azure AD sends back an **authorization code** to your app’s redirect URI (`/login/oauth2/code/azure`).  
+- This code is short‑lived and proves the user authenticated.
+
+
+### 4. Token Exchange
+- Spring Boot (via OAuth2 client) exchanges the code with Azure AD.  
+- Azure AD returns:
+  - **ID Token (JWT)** → contains user identity claims (email, name, tenant).  
+  - **Access Token (JWT)** → used to call APIs.  
+  - (Optional) **Refresh Token** → to get new tokens without re‑login.
+
+
+### 5. Token Validation
+- Spring Security validates the JWT:
+  - Checks **signature** (signed by Azure AD).  
+  - Checks **issuer** (matches your tenant).  
+  - Checks **expiration** (token not expired).  
+- If valid → user is authenticated in Spring Security context.
+
+
+### 6. Access Granted
+- User can now access protected endpoints.  
+- You can inject the authenticated principal:
+```java
+@GetMapping("/user")
+public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+    return principal.getAttributes(); // contains Azure AD claims
+}
+```
+
+
+### Flow Recap
+1. User requests resource → Spring Security redirects to Azure AD.  
+2. User logs in → Azure AD sends authorization code.  
+3. Spring Boot exchanges code → gets JWT tokens.  
+4. Spring Security validates tokens.  
+5. User gains access → claims available in app.
+
+
+### Best Practices
+- Always use **HTTPS** for redirect URIs.  
+- Store **Client Secret** securely (e.g., Azure Key Vault).  
+- Use **PKCE** for extra protection in public clients.  
+- Map **Azure AD roles/groups** to Spring Security authorities.  
+- For REST APIs → configure as a **Resource Server** to validate JWTs directly.
