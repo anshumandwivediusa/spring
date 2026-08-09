@@ -60,7 +60,7 @@ public String adminDashboard() {
 - **SecurityContext** → Holds authentication details for the current user.  
 - **AuthenticationManager** → Delegates authentication to providers like `DaoAuthenticationProvider` or `JwtAuthenticationProvider`.
 
-## Security Architecture of Spring Boot
+## 2. Security Architecture of Spring Boot
 
 <img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/c0bf09de-742a-4640-9546-3d70ab677858" />
 
