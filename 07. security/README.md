@@ -179,6 +179,71 @@ protected void configure(HttpSecurity http) throws Exception {
 - Rotate and expire CSRF tokens regularly.  
 - Combine with **XSS protection** to prevent token theft.
 
+## CORS
+- **CORS (Cross‑Origin Resource Sharing)** is a browser security feature that controls how resources can be requested from a different domain (origin).  
+- Prevents malicious sites from making unauthorized requests to another domain using a logged‑in user’s credentials.  
+- Example: `frontend.com` calling APIs hosted on `backend.com`.
+
+### Why CORS Matters
+- Browsers enforce **Same‑Origin Policy** → requests allowed only if protocol, domain, and port match.  
+- CORS relaxes this restriction by allowing servers to specify which origins can access their resources.  
+- Without proper CORS config, frontend apps cannot call backend APIs hosted on different domains.
+
+### Spring Boot Implementation
+
+### 1. Global CORS Configuration
+```java
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000") // frontend origin
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+}
+```
+
+
+### 2. Controller‑Level CORS
+```java
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+public class DemoController {
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello World";
+    }
+}
+```
+
+### 3. Security Config with CORS
+```java
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.cors().and().csrf().disable()
+        .authorizeRequests()
+        .anyRequest().authenticated();
+}
+```
+
+## ### Key Headers
+- **Access-Control-Allow-Origin** → which domains can access.  
+- **Access-Control-Allow-Methods** → allowed HTTP methods.  
+- **Access-Control-Allow-Headers** → allowed request headers.  
+- **Access-Control-Allow-Credentials** → whether cookies/credentials are allowed.  
+- **Access-Control-Max-Age** → how long preflight results can be cached.
+
+
+## ### Best Practices
+- Restrict origins to trusted domains (avoid `*` in production).  
+- Allow only necessary methods and headers.  
+- Use HTTPS for secure communication.  
+- Combine with authentication (JWT/OAuth2) for stronger security.  
+
+
 ## Basic Authentication in Spring Boot
 
 ### Overview
