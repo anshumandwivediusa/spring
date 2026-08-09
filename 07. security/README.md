@@ -55,11 +55,6 @@ public String adminDashboard() {
 | **Policy-Based Access Control (PBAC)** | Uses explicit policies (e.g., JSON/YAML rules) for complex conditions. |
 
 
-
-- **Security Filter Chain** → Every HTTP request passes through filters (e.g., `UsernamePasswordAuthenticationFilter`, `BasicAuthenticationFilter`).  
-- **SecurityContext** → Holds authentication details for the current user.  
-- **AuthenticationManager** → Delegates authentication to providers like `DaoAuthenticationProvider` or `JwtAuthenticationProvider`.
-
 ## 2. Security Architecture of Spring Boot
 
 <img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/c0bf09de-742a-4640-9546-3d70ab677858" />
