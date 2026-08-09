@@ -1,6 +1,6 @@
 # Spring Security
 
-## Core Concepts
+## 1. Core Concepts
 ### **Authentication**:
 Authentication is the process of proving that the entity (user, service, or system) is who it claims to be.
 It relies on credentials and secrets that can be validated against a trusted source.
@@ -15,13 +15,13 @@ It relies on credentials and secrets that can be validated against a trusted sou
 | **[Subject](ca://s?q=Explain_Subject_in_Security_Context)** | The security context holding the authenticated principal and its roles/permissions. |
 
 
-## **Authorization**:
+### **Authorization**:
 **Authorization** is the next logical layer after authentication. Once the system knows *who* you are, authorization decides *what you can do*.  
 
 Authorization determines whether an **authenticated principal** has permission to perform a specific action or access a resource.  
 It’s all about **roles**, **permissions**, and **policies**.
 
-### Key Terms
+#### Key Terms
 
 | **Concept** | **Description** |
 |--------------|----------------|
@@ -32,7 +32,7 @@ It’s all about **roles**, **permissions**, and **policies**.
 | **AccessDecisionManager** | The Spring component that evaluates whether access should be granted based on roles/permissions. |
 | **SecurityContext** | Holds the authenticated principal and authorities for the current thread/request. |
 
-### Flow in Spring Security
+#### Flow in Spring Security
 
 1. **Authentication** populates the `SecurityContext` with the `Principal` and its `GrantedAuthorities`.  
 2. When a protected resource is accessed, the **AccessDecisionManager** checks if the principal’s authorities match the required permissions.  
