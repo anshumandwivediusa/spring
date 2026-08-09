@@ -89,6 +89,84 @@ public String adminDashboard() {
 - **SAML** → XML-based protocol for exchanging authentication and authorization data between identity providers (IdPs) and service providers (SPs). Commonly used in enterprise SSO with providers like Okta, Azure AD, or ADFS.
 
 
+
+
+## Authorization
+- **Role-Based Access Control (RBAC)** → `hasRole("ADMIN")`.  
+- **Permission-Based Access Control** → Fine-grained authorities.  
+- **Method-Level Security** → `@PreAuthorize`, `@PostAuthorize`, `@Secured`.  
+- **Domain Object Security (ACLs)** → Access control lists for specific entities.
+
+
+## Password Security
+- **Encoders** → `BCryptPasswordEncoder`, `Argon2PasswordEncoder`.  
+- **DelegatingPasswordEncoder** → Supports multiple algorithms.  
+- **Best Practice** → Always hash + salt passwords.
+
+
+## Session, CSRF, and CORS
+- **Session Management** → Prevent fixation, concurrency issues, use Redis for distributed apps.  
+- **CSRF Protection** → Enabled by default; disable only for stateless APIs.  
+- **CORS Configuration** → Allow cross-origin requests securely.
+
+
+## Advanced Features
+- **Multi-Factor Authentication (MFA)** → TOTP, WebAuthn.  
+- **Security Headers** → CSP, HSTS, X-Frame-Options, Clickjacking protection.  
+- **Brute Force Prevention** → Lock accounts after repeated failed attempts.  
+- **Testing** → `@WithMockUser`, `MockMvc` for security tests.
+
+
+## Quick Reference Table
+
+| Feature | Purpose | Example |
+|---------|---------|---------|
+| **Authentication** | Verify identity | Form login, JWT |
+| **Authorization** | Control access | `@PreAuthorize("hasRole('ADMIN')")` |
+| **CSRF** | Prevent cross-site request forgery | Enabled by default |
+| **CORS** | Cross-origin requests | `http.cors()` |
+| **Password Encoding** | Secure storage | BCrypt |
+
+
+## Best Practices
+- Always use **BCrypt or Argon2** for password encoding.  
+- Prefer **JWT/OAuth2** for stateless APIs.  
+- Keep **CSRF enabled** unless building stateless REST APIs.  
+- Apply **method-level security** for sensitive business logic.  
+- Regularly update dependencies to patch vulnerabilities.  
+
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+            throws Exception {
+
+        http
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().authenticated()
+            )
+            .httpBasic(Customizer.withDefaults());
+
+        return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+
+        UserDetails user = User.builder()
+            .username("user")
+            .password("{noop}password")
+            .roles("USER")
+            .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+}
+
+
 ## Basic Authentication in Spring Boot
 
 ### Overview
@@ -172,51 +250,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 - Advances into **OAuth2/OIDC** (delegated, identity-aware).  
 - Ends with **SSO protocols** (enterprise, cross-application).
 
-
-
-## Authorization
-- **Role-Based Access Control (RBAC)** → `hasRole("ADMIN")`.  
-- **Permission-Based Access Control** → Fine-grained authorities.  
-- **Method-Level Security** → `@PreAuthorize`, `@PostAuthorize`, `@Secured`.  
-- **Domain Object Security (ACLs)** → Access control lists for specific entities.
-
-
-## Password Security
-- **Encoders** → `BCryptPasswordEncoder`, `Argon2PasswordEncoder`.  
-- **DelegatingPasswordEncoder** → Supports multiple algorithms.  
-- **Best Practice** → Always hash + salt passwords.
-
-
-## Session, CSRF, and CORS
-- **Session Management** → Prevent fixation, concurrency issues, use Redis for distributed apps.  
-- **CSRF Protection** → Enabled by default; disable only for stateless APIs.  
-- **CORS Configuration** → Allow cross-origin requests securely.
-
-
-## Advanced Features
-- **Multi-Factor Authentication (MFA)** → TOTP, WebAuthn.  
-- **Security Headers** → CSP, HSTS, X-Frame-Options, Clickjacking protection.  
-- **Brute Force Prevention** → Lock accounts after repeated failed attempts.  
-- **Testing** → `@WithMockUser`, `MockMvc` for security tests.
-
-
-## Quick Reference Table
-
-| Feature | Purpose | Example |
-|---------|---------|---------|
-| **Authentication** | Verify identity | Form login, JWT |
-| **Authorization** | Control access | `@PreAuthorize("hasRole('ADMIN')")` |
-| **CSRF** | Prevent cross-site request forgery | Enabled by default |
-| **CORS** | Cross-origin requests | `http.cors()` |
-| **Password Encoding** | Secure storage | BCrypt |
-
-
-## Best Practices
-- Always use **BCrypt or Argon2** for password encoding.  
-- Prefer **JWT/OAuth2** for stateless APIs.  
-- Keep **CSRF enabled** unless building stateless REST APIs.  
-- Apply **method-level security** for sensitive business logic.  
-- Regularly update dependencies to patch vulnerabilities.  
 
 
 ## OAuth 2.0 with AZ Entra Id
