@@ -89,20 +89,63 @@ public String adminDashboard() {
 - **SAML** → XML-based protocol for exchanging authentication and authorization data between identity providers (IdPs) and service providers (SPs). Commonly used in enterprise SSO with providers like Okta, Azure AD, or ADFS.
 
 
-### Basic Auth Methods
-#### Postman
+## Basic Authentication in Spring Boot
 
-- Basic Auth with UserName and Password:
+### Overview
+Basic Authentication is the simplest form of authentication where the client sends the username and password in the `Authorization` header.  
+The credentials are Base64 encoded (`username:password`) but **not encrypted**, so HTTPS is strongly recommended.
 
-  <img width="600" height="201" alt="image" src="https://github.com/user-attachments/assets/dcae81d3-5dab-4be9-bcfe-773cb0a819db" />
- 
+### 1. Username & Password (Postman UI)
+- In Postman, go to **Authorization** tab.  
+- Select **Basic Auth**.  
+- Enter **Username** and **Password**.  
+- Postman automatically encodes and adds the header.
 
-- Basic Auth with Header:
+<img width="600" height="201" alt="image" src="https://github.com/user-attachments/assets/dcae81d3-5dab-4be9-bcfe-773cb0a819db" />
 
-  <img width="600" height="261" alt="image" src="https://github.com/user-attachments/assets/5413f963-56cd-4402-8bdf-ed57b6be626e" />
+### 2. Authorization Header (Manual)
+- Encode `username:password` in Base64.  
+- Add header:  
+  ```
+  Authorization: Basic dXNlcjpwYXNzd29yZA==
+  ```
+
+<img width="600" height="261" alt="image" src="https://github.com/user-attachments/assets/5413f963-56cd-4402-8bdf-ed57b6be626e" />
+
+### Spring Boot Implementations
+
+### 1. Security Configuration
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+              .anyRequest().authenticated()
+            .and()
+            .httpBasic(); // Enables Basic Auth
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+            .withUser("user")
+            .password("{noop}password") // {noop} means plain text
+            .roles("USER");
+    }
+}
+```
+
+### 2. Testing with Postman
+- Send a request with **Basic Auth** credentials.  
+- Spring Security validates against the in-memory user.  
+- If valid → returns response.  
+- If invalid → returns `401 Unauthorized`.
 
 
-- **Basic** → Username and password sent with each request (simple but insecure if not over HTTPS).  
 - **Digest** → Improves on Basic by hashing credentials before sending.  
 - **API Keys** → A unique key identifies the client; often used in REST APIs.  
 - **Session** → Server stores session state after login; client holds a session ID (cookie).
