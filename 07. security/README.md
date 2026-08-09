@@ -90,6 +90,20 @@ public String adminDashboard() {
 
 
 ### Basic Auth Methods
+#### Postman
+
+- Basic Auth with UserName and Password:
+
+  <img width="600" height="201" alt="image" src="https://github.com/user-attachments/assets/dcae81d3-5dab-4be9-bcfe-773cb0a819db" />
+ 
+
+- Basic Auth with Header:
+  <img width="600" height="261" alt="image" src="https://github.com/user-attachments/assets/5413f963-56cd-4402-8bdf-ed57b6be626e" />
+
+
+<img width="600" height="201" alt="image" src="https://github.com/user-attachments/assets/f77f9205-0768-4fb5-adb7-c02dcd1c993a" />
+
+
 - **Basic** → Username and password sent with each request (simple but insecure if not over HTTPS).  
 - **Digest** → Improves on Basic by hashing credentials before sending.  
 - **API Keys** → A unique key identifies the client; often used in REST APIs.  
