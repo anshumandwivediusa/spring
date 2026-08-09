@@ -15,8 +15,47 @@ It relies on credentials and secrets that can be validated against a trusted sou
 | **[Subject](ca://s?q=Explain_Subject_in_Security_Context)** | The security context holding the authenticated principal and its roles/permissions. |
 
 
+## **Authorization**:
+**Authorization** is the next logical layer after authentication. Once the system knows *who* you are, authorization decides *what you can do*.  
 
-- **Authorization** → Grants or denies access based on roles (group of permissions)/permissions.  
+Authorization determines whether an **authenticated principal** has permission to perform a specific action or access a resource.  
+It’s all about **roles**, **permissions**, and **policies**.
+
+### Key Terms
+
+| **Concept** | **Description** |
+|--------------|----------------|
+| **Principal** | The authenticated identity (user/service) whose access is being checked. |
+| **Authorities** | The granted rights or roles (e.g., `ROLE_ADMIN`, `READ_REPORTS`). |
+| **Access Control** | The mechanism enforcing who can access what — often via annotations or URL rules. |
+| **Policy** | A defined rule that maps principals to permissions (e.g., “Admins can delete users”). |
+| **AccessDecisionManager** | The Spring component that evaluates whether access should be granted based on roles/permissions. |
+| **SecurityContext** | Holds the authenticated principal and authorities for the current thread/request. |
+
+### Flow in Spring Security
+
+1. **Authentication** populates the `SecurityContext` with the `Principal` and its `GrantedAuthorities`.  
+2. When a protected resource is accessed, the **AccessDecisionManager** checks if the principal’s authorities match the required permissions.  
+3. If authorized, the request proceeds; otherwise, a `403 Forbidden` is returned.
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+@GetMapping("/admin/dashboard")
+public String adminDashboard() {
+    return "Welcome, Admin!";
+}
+```
+
+### Authorization Models
+
+| **Model** | **Description** |
+|------------|----------------|
+| **Role-Based Access Control (RBAC)** | Users are assigned roles; roles define permissions. |
+| **Attribute-Based Access Control (ABAC)** | Decisions based on attributes (user, resource, environment). |
+| **Policy-Based Access Control (PBAC)** | Uses explicit policies (e.g., JSON/YAML rules) for complex conditions. |
+
+
+
 - **Security Filter Chain** → Every HTTP request passes through filters (e.g., `UsernamePasswordAuthenticationFilter`, `BasicAuthenticationFilter`).  
 - **SecurityContext** → Holds authentication details for the current user.  
 - **AuthenticationManager** → Delegates authentication to providers like `DaoAuthenticationProvider` or `JwtAuthenticationProvider`.
