@@ -98,10 +98,8 @@ public String adminDashboard() {
  
 
 - Basic Auth with Header:
+
   <img width="600" height="261" alt="image" src="https://github.com/user-attachments/assets/5413f963-56cd-4402-8bdf-ed57b6be626e" />
-
-
-<img width="600" height="201" alt="image" src="https://github.com/user-attachments/assets/f77f9205-0768-4fb5-adb7-c02dcd1c993a" />
 
 
 - **Basic** → Username and password sent with each request (simple but insecure if not over HTTPS).  
