@@ -9,7 +9,7 @@ It relies on credentials and secrets that can be validated against a trusted sou
 | --- | --- |
 | **[Principal](ca://s?q=Explain_Principal_in_Authentication)** | The entity being authenticated — usually a user, service account, or system identity. In Java/Spring, represented by ``Authentication.getPrincipal()``. |
 | **[Credentials](ca://s?q=Explain_Credentials_in_Authentication)** | The proof of identity — passwords, tokens, certificates, or API keys. |
-| **[Secrets](ca://s?q=Explain_Secrets_in_Authentication)** | Sensitive data used to verify credentials (e.g., private keys, hashed passwords). Must be stored securely. |
+| **[Secrets](ca://s?q=Explain_Secrets_in_Authentication)** | Sensitive data used to verify credentials (e.g., private keys, hashed passwords). Must be stored securely. They are never shared directly with the client; only used by the server to check authenticity. |
 | **[Identity Provider (IdP)](ca://s?q=Explain_Identity_Provider_IdP)** | The system that validates credentials and issues identity tokens (e.g., Azure Entra, Keycloak). |
 | **[Authentication Token](ca://s?q=Explain_Authentication_Token)** | A representation of successful authentication — JWT, session ID, or OAuth2 access token. |
 | **[Subject](ca://s?q=Explain_Subject_in_Security_Context)** | The security context holding the authenticated principal and its roles/permissions. |
