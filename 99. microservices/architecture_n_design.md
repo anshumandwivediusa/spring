@@ -3,7 +3,7 @@
 ## 📌 Overview
 Microservices architecture is about building applications as a collection of **small, independent services** that communicate over lightweight protocols. Each service is designed around a **business capability** and can be developed, deployed, and scaled independently.
 
-_**Independent executable program that represents the specific Business Domain.**_
+_**Independent executable program that represents the specific Business goal.**_
 
 ## 🔑 Core Principles
 
