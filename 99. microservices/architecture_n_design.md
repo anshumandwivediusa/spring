@@ -166,7 +166,7 @@ Domain-Driven Design (DDD) is a software design approach that models software ar
 # Domain-Driven Design (DDD)
 Transitioning from **Domain-Driven Design (DDD)** to a **Solution Architecture** means converting your conceptual domain model into real, deployable components — code, services, and infrastructure. Let’s break this down step-by-step so you can see how your *Customer* and *Order* aggregates evolve into a working system.  
 
-<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/6f9469b1-5c42-4f65-95a5-acf215ed3b8b" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/c72f1cdb-620f-4a2f-bf32-bf1dd4941b2f" />
 
 ## Step 1: **Define Bounded Contexts**
 Each context becomes a microservice or module:
