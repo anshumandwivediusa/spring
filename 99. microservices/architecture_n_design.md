@@ -247,7 +247,7 @@ Use **event-driven architecture**:
 In **Domain-Driven Design (DDD)**, the **Strangler Fig pattern** is a **modernization strategy** — not a modeling concept like aggregates or entities. It’s used to **incrementally replace a legacy system** with a new domain model or microservice architecture, inspired by how a strangler fig tree grows around its host until it fully replaces it.  
 
 
-## 🔧 How the Strangler Fig Pattern Works
+## How the Strangler Fig Pattern Works
 | Step | Description |
 |------|--------------|
 | **1. Identify legacy boundaries** | Map the existing system’s modules and dependencies. Find seams where new functionality can be introduced. |
@@ -257,14 +257,14 @@ In **Domain-Driven Design (DDD)**, the **Strangler Fig pattern** is a **moderniz
 | **5. Decommission legacy** | Once all functionality is migrated, retire the old system completely. |
 
 
-## 🧩 Why It Fits DDD
+## Why It Fits DDD
 - Enables **bounded context evolution** without a big-bang rewrite.  
 - Supports **event-driven integration** between old and new systems.  
 - Encourages **clean separation** of domain logic and infrastructure.  
 - Works well with **microservices** and **API gateways** for routing.  
 
 
-## 💡 Example
+## Example
 Imagine a legacy **Customer Management System**.  
 You create a new **Customer Aggregate** (like your diagram) in a modern DDD service.  
 The **API Gateway** routes new customer operations to the new service, while legacy operations still go to the old system. Over time, the new service handles all customer logic — the old one fades away.
