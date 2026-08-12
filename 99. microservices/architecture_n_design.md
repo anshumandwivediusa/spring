@@ -268,3 +268,5 @@ In **Domain-Driven Design (DDD)**, the **Strangler Fig pattern** is a **moderniz
 Imagine a legacy **Customer Management System**.  
 You create a new **Customer Aggregate** (like your diagram) in a modern DDD service.  
 The **API Gateway** routes new customer operations to the new service, while legacy operations still go to the old system. Over time, the new service handles all customer logic — the old one fades away.
+
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/71feb1d4-1da9-4260-bc66-ec01ac62fb11" />
