@@ -33,7 +33,13 @@ _**Independent executable program that represents the specific Business goal.**_
 - **Synchronous**:
   | Category | Protocol | Type | Key Features | Best Use Case | Conceptual Reason |
   | --- | --- | --- | --- | --- | --- |
-  | **Synchronous (Request–Response)** | **[REST](ca://s?q=REST_in_microservices)** | HTTP/HTTPS | Human-readable JSON/XML, simple, widely adopted | CRUD APIs, public-facing services | REST was designed to leverage the web’s existing infrastructure (HTTP, URIs, caching). Its simplicity and ubiquity make it the default for exposing resources to external clients. |
+  | **Synchronous (Request–Response)** | **[REST](ca://s?q=REST_in_microservices)** | HTTP/HTTPS | Human-readable JSON/XML, simple, widely adopted | CRUD APIs, public-facing services | Leverage the Web’s Infrastructure: Roy Fielding’s dissertation emphasized that REST should reuse existing web standards — HTTP methods, URIs, caching, statelessness — instead of inventing new transport mechanisms. This made REST simple, scalable, and universally adoptable.
+
+Expose Resource Representations, Not Objects: REST doesn’t pass raw objects (like Java classes) across the wire. Instead, it exposes the representation of a resource’s state (JSON, XML, HTML). This abstraction decouples client and server — the client doesn’t need to know the server’s internal object model.
+
+Uniform Interface Principle: REST enforces a consistent way to interact with resources (GET, POST, PUT, DELETE). This uniformity makes APIs predictable and interoperable.
+
+Statelessness for Scalability: By requiring each request to carry all necessary context, REST avoids server-side session state, enabling horizontal scaling. |
   |  | **[gRPC](ca://s?q=gRPC_in_microservices)** | HTTP/2 + Protobuf | High-performance, strongly typed, streaming | Internal service-to-service calls | gRPC was created to solve REST’s inefficiency in internal calls: it uses compact binary serialization (Protobuf) and multiplexed streams over HTTP/2, making it ideal for low-latency, high-throughput microservice RPC. |
   |  | **[GraphQL](ca://s?q=GraphQL_in_microservices)** | HTTP | Flexible queries, client-driven data fetching | Mobile/web frontends needing tailored data | GraphQL emerged to fix REST’s over-fetching/under-fetching problem. It gives clients control over the shape of the data, reducing payload size and improving frontend efficiency. |
   |  | **[WebSockets](ca://s?q=WebSockets_in_microservices)** | TCP | Full-duplex, real-time | Chat apps, live dashboards | WebSockets were introduced to overcome HTTP’s request-response limitation. They enable persistent, bidirectional communication, essential for real-time apps. |
