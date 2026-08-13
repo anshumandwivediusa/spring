@@ -1,6 +1,6 @@
 # API Composition
 
-**The API Composition pattern is a microservices design approach where a dedicated layer aggregates data from multiple services into a single unified response, reducing client complexity and improving efficiency.** It’s especially useful when clients need data spread across different services, such as order details, customer info, and shipping status.  [GeeksForGeeks](https://www.geeksforgeeks.org/system-design/api-composition-pattern-in-microservices/)  [codelit.io](https://codelit.io/blog/api-composition-pattern)  [blog.singhabhinav.in](https://blog.singhabhinav.in/microservices-patterns-api-composition-1a115c78237a)  
+**The API Composition pattern is a microservices design approach where a dedicated layer aggregates data from multiple services into a single unified response, reducing client complexity and improving efficiency.** It’s especially useful when clients need data spread across different services, such as order details, customer info, and shipping status.
 
 
 ## What is API Composition?
