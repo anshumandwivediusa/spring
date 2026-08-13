@@ -210,7 +210,20 @@ SPRING CORE CONTAINER
 - **BeanFactory** lives in `spring-beans`.  
 - **ApplicationContext** lives in `spring-context`.  
 - Together, they are powered by the **core container modules**.
-
+- The responsibilities of Spring Container (or IoC Container)
+   - Bean Creation:
+     It instantiates objects defined as beans in the configuration file or annotations.
+   - Dependency Injection:
+     It resolves and injects the dependencies required by a bean.
+     Example: Injecting OrderService into UserService.
+   - Bean Configuration Management:
+     It reads metadata (XML, annotations, or Java config) to manage the properties and behavior of beans.
+   - Lifecycle Management:
+     It controls the entire lifecycle of a bean (instantiation, initialization, and destruction).
+   - Scope Management:
+     It manages different bean scopes like singleton, prototype, session, etc.
+   - Event Handling:
+     It supports event-based communication between beans (only in ApplicationContext).
 
 ## 4. Historical Context
 - **Introduced in 2003** to simplify the complexity of J2EE.  
