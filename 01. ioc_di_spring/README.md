@@ -185,8 +185,8 @@ Within these modules, Spring defines **two main container interfaces**:
      ```java
        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
        MyBean bean = (MyBean) context.getBean("myBean");
-     ```
-     ```java
+
+       //Second Example
        @Configuration
        public class AppConfig {
            @Bean
