@@ -31,15 +31,15 @@ _**Independent executable program that represents the specific Business goal.**_
 ## Communication Design
 
 - **Synchronous**:
-  | Category | Protocol | Type | Key Features | Best Use Case |
-  | --- | --- | --- | --- | --- |
-  | **Synchronous (Request–Response)** | **[REST](ca://s?q=REST_in_microservices)** | HTTP/HTTPS | Human-readable JSON/XML, simple, widely adopted | CRUD APIs, public-facing services |
-  |  | **[gRPC](ca://s?q=gRPC_in_microservices)** | HTTP/2 + Protobuf | High-performance, strongly typed, streaming | Internal service-to-service calls |
-  |  | **[GraphQL](ca://s?q=GraphQL_in_microservices)** | HTTP | Flexible queries, client-driven data fetching | Mobile/web frontends needing tailored data |
-  |  | **[WebSockets](ca://s?q=WebSockets_in_microservices)** | TCP | Full-duplex, real-time | Chat apps, live dashboards |
-  |  | **[SOAP](ca://s?q=SOAP_in_microservices)** | HTTP/XML | Strict contracts, WS-* standards | Legacy enterprise integrations |
-  |  | **[RSocket](ca://s?q=RSocket_in_microservices)** | TCP/WebSocket | Reactive streams, multiplexing | Reactive microservices needing backpressure |  
-
+  | Category | Protocol | Type | Key Features | Best Use Case | Conceptual Reason |
+  | --- | --- | --- | --- | --- | --- |
+  | **Synchronous (Request–Response)** | **[REST](ca://s?q=REST_in_microservices)** | HTTP/HTTPS | Human-readable JSON/XML, simple, widely adopted | CRUD APIs, public-facing services | REST was designed to leverage the web’s existing infrastructure (HTTP, URIs, caching). Its simplicity and ubiquity make it the default for exposing resources to external clients. |
+  |  | **[gRPC](ca://s?q=gRPC_in_microservices)** | HTTP/2 + Protobuf | High-performance, strongly typed, streaming | Internal service-to-service calls | gRPC was created to solve REST’s inefficiency in internal calls: it uses compact binary serialization (Protobuf) and multiplexed streams over HTTP/2, making it ideal for low-latency, high-throughput microservice RPC. |
+  |  | **[GraphQL](ca://s?q=GraphQL_in_microservices)** | HTTP | Flexible queries, client-driven data fetching | Mobile/web frontends needing tailored data | GraphQL emerged to fix REST’s over-fetching/under-fetching problem. It gives clients control over the shape of the data, reducing payload size and improving frontend efficiency. |
+  |  | **[WebSockets](ca://s?q=WebSockets_in_microservices)** | TCP | Full-duplex, real-time | Chat apps, live dashboards | WebSockets were introduced to overcome HTTP’s request-response limitation. They enable persistent, bidirectional communication, essential for real-time apps. |
+  |  | **[SOAP](ca://s?q=SOAP_in_microservices)** | HTTP/XML | Strict contracts, WS-* standards | Legacy enterprise integrations | SOAP was designed for enterprise interoperability with strong typing, formal contracts (WSDL), and built-in security standards. It remains in legacy systems where compliance and strict contracts matter. |
+  |  | **[RSocket](ca://s?q=RSocket_in_microservices)** | TCP/WebSocket | Reactive streams, multiplexing | Reactive microservices needing backpressure | RSocket was built for reactive systems, solving the need for backpressure and multiplexed streams. It aligns with modern reactive programming paradigms (Project Reactor, RxJava). |  
+  
 - **Asynchronous** 
   | Category | Protocol | Type | Key Features | Best Use Case |
   | --- | --- | --- | --- | --- |
