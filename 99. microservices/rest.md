@@ -10,6 +10,7 @@
 - **Transfer**: These representations are transferred between client and server over HTTP.  
 
 👉 Together, REST means **transferring the state of resources through their representations**.
+    Related Protocols of That Era - SOAP, COBRA, RMI
 
 
 ## 3. Core Principles
