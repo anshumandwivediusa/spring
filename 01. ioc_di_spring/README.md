@@ -32,12 +32,7 @@
    - Developers can run apps with minimal setup, unlike Servlets/JSP which demand manual `web.xml` configuration and external server deployment.
 
 
-## Interview Takeaway
-Spring and Spring Boot are **modern, enterprise-ready frameworks** that solve the limitations of Servlet/JSP/JSF by offering:  
-- Cleaner architecture (DI, AOP, MVC).  
-- Scalability (WebFlux).  
-- Rich ecosystem (Data, Security, Cloud).  
-- Reduced boilerplate (Spring Boot).  
+
 
 ## 1. Core Foundations of Spring Framework
 
