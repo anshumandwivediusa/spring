@@ -32,6 +32,7 @@
 
 ## 5. Example API Contract
 ### Customer Resource
+
     | **Method** | **Purpose** | **Conceptual Reason** | **Example Use Case** |
     | --- | --- | --- | --- |
     | **[GET](ca://s?q=HTTP_GET_method)** | Retrieve a resource | Safe, idempotent; does not change server state | ``GET ``/customers/123`` → fetch customer details |
