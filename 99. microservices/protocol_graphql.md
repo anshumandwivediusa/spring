@@ -78,7 +78,7 @@ Response:
 - Often paired with **CQRS** for separating queries and mutations.  
 - Useful in **Microservices** and **BFF** architectures.  
 
-# **complete Spring Boot GraphQL example**
+# **Spring Boot GraphQL**
 
 ## Project Structure
 ```
