@@ -48,30 +48,8 @@
 
 ### B. **Modular Architecture**
 Spring is divided into ~20 modules grouped into:
-- **Core Container** → `spring-core`, `spring-context`, `spring-beans` (DI, IoC).  
+- **Core Container** → `Bean Factory`, `Application Context`  
 
-```
-                         SPRING CORE CONTAINER
-                                  │
-          ┌───────────────────────┼───────────────────────┐
-          │                       │                       │
-          ▼                       ▼                       ▼
-     spring-core             spring-beans          spring-context
-     ───────────             ────────────          ──────────────
-     Foundation &            Bean creation,        ApplicationContext,
-     core utilities          configuration &      events, resources
-                             dependency injection  & application features
-          │                       │                       │
-          └───────────────────────┼───────────────────────┘
-                                  │
-                                  ▼
-                         spring-expression
-                              (SpEL)
-                         ────────────────
-                         Expression Language
-                         for dynamic values
-                         & configuration
-```
 - **Data Access/Integration** → JDBC, ORM, Transactions.  
 - **Web** → Spring MVC, WebFlux (reactive).  
 - **AOP** → Aspect-Oriented Programming for cross-cutting concerns.  
