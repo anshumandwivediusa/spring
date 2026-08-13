@@ -199,23 +199,16 @@ SPRING CORE CONTAINER
    └── spring-expression  → SpEL (dynamic values)
 ```
 
-- **BeanFactory** lives in `spring-beans`.  
-- **ApplicationContext** lives in `spring-context`.  
-- Together, they are powered by the **core container modules**.
-- The responsibilities of Spring Container (or IoC Container)
-   - Bean Creation:
-     It instantiates objects defined as beans in the configuration file or annotations.
-   - Dependency Injection:
-     It resolves and injects the dependencies required by a bean.
-     Example: Injecting OrderService into UserService.
-   - Bean Configuration Management:
-     It reads metadata (XML, annotations, or Java config) to manage the properties and behavior of beans.
-   - Lifecycle Management:
-     It controls the entire lifecycle of a bean (instantiation, initialization, and destruction).
-   - Scope Management:
-     It manages different bean scopes like singleton, prototype, session, etc.
-   - Event Handling:
-     It supports event-based communication between beans (only in ApplicationContext).
+| **Aspect** | **[BeanFactory](ca://s?q=Spring_BeanFactory)** | **[ApplicationContext](ca://s?q=Spring_ApplicationContext)** |
+| --- | --- | --- |
+| **Definition** | Basic IoC container; provides core DI features. | Advanced container; extends BeanFactory with enterprise features. |
+| **Usage** | Suitable for small, standalone, lightweight apps. | Suitable for web apps, AOP, ORM, and large enterprise systems. |
+| **Resource Usage** | Low memory footprint; minimal overhead. | Higher memory usage; supports rich features. |
+| **Initialization** | Lazy initialization (beans created only when requested). | Eager initialization (beans created at startup by default). |
+| **Bean Scopes Supported** | Supports only ``singleton`` and ``prototype``. | Supports all scopes, including ``request``, ``session``, ``application`` (web contexts). |
+| **Annotation Support** | No annotation support; XML-based configuration only. | Full annotation support (``@Configuration``, ``@Bean``, ``@Component``, etc.). |
+| **Internationalization (i18n)** | Not supported. | Supported via message sources for multilingual apps. |
+| **Event Handling** | No event handling support. | Supports events via ``ApplicationEvent`` and ``ApplicationListener``. |
 
 ## 4. Historical Context
 - **Introduced in 2003** to simplify the complexity of J2EE.  
