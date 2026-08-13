@@ -188,8 +188,25 @@ Within these modules, Spring defines **two main container interfaces**:
       BeanFactory factory = new XmlBeanFactory(new FileSystemResource("beans.xml"));
       MyBean bean = (MyBean) factory.getBean("myBean");
       ```
-- **ApplicationContext** → Advanced container (events, AOP, i18n, eager loading).  
-
+- **ApplicationContext**:
+   - A superset of BeanFactory with enterprise-level features.
+   - Eagerly loads beans at startup (by default).
+   - Supports event propagation, AOP, internationalization, and message resources.
+   - Provides specialized contexts like WebApplicationContext for web apps.  
+     ```java
+       ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+       MyBean bean = (MyBean) context.getBean("myBean");
+     ```
+     ```java
+       @Configuration
+       public class AppConfig {
+           @Bean
+           public MyBean myBean() {
+               return new MyBean();
+           }
+       }
+       ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+   ```
 The **modules (spring-core, spring-beans, spring-context, spring-expression)** provide the infrastructure, while the **interfaces (BeanFactory, ApplicationContext)** define how you interact with the container.
 
 ```
