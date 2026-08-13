@@ -195,7 +195,7 @@ Within these modules, Spring defines **two main container interfaces**:
            }
        }
        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-   ```
+     ```
 The **modules (spring-core, spring-beans, spring-context, spring-expression)** provide the infrastructure, while the **interfaces (BeanFactory, ApplicationContext)** define how you interact with the container.
 
 ```
