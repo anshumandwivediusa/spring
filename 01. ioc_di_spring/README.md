@@ -578,8 +578,9 @@ public class MyBean implements InitializingBean, DisposableBean {
 
 
 ## 12. Spring Configuration
-- can be XML or java based
-- Externalized from the bean class → separation of concerns
+   - **XML-Based Configuration**: We can use XML File for Spring Configurations to define beans and their dependencies in a file, typically named applicationContext.xml.
+   - **Java-Based Configuration**: We can use Java Class annotated with @Configuration for Spring Configurations. This class contains methods annotated with @Bean to explicitly declare beans.
+   - **Annotation-Based Configuration**: We can use Annotations directly on Java classes for Spring Configurations to define beans and configure dependencies. Common annotations include @Component, @Controller, @Service, @Repository and @Autowired.
 
    | Configuration Type | Example | Usage |
    | --- | --- | --- |
