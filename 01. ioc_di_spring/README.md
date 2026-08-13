@@ -5,7 +5,7 @@
 [docs.spring.io](https://docs.spring.io/spring-framework/reference/overview.html)  [docs.spring.io](https://docs.spring.io/spring-framework/docs/4.3.26.RELEASE/spring-framework-reference/html/overview.html)  
 
 
-## Why Spring & Spring Boot Matter More Than Servlet/JSP/JSF
+## 1. Why Spring & Spring Boot Matter More Than Servlet/JSP/JSF
 
 1. **Modern Development Practices**  
    - Spring emphasizes **Dependency Injection (DI)** and **Aspect-Oriented Programming (AOP)**, leading to modular, testable, and maintainable code.  
@@ -31,14 +31,7 @@
    - Spring Boot simplifies development with **auto-configuration, starter dependencies, and embedded servers (Tomcat/Jetty)**.  
    - Developers can run apps with minimal setup, unlike Servlets/JSP which demand manual `web.xml` configuration and external server deployment.
 
-
-
-
-## 1. Core Foundations of Spring Framework
-
-<p align = "center">
-   <img width="500" height="366" alt="image" src="https://github.com/user-attachments/assets/d21c3554-a21d-47e4-be19-7a826c763c3f" />
-</p>
+## 2. Core Foundations of Spring Framework
 
 ### A. **Dependency Injection (DI) & Inversion of Control (IoC)**
 * **Inversion of Control (IoC)** is the _principle_ in which the framework manages the creation, configuration, and lifecycle of application objects (beans).
@@ -49,7 +42,6 @@
 ### B. **Modular Architecture**
 Spring is divided into ~20 modules grouped into:
 - **Core Container** → `Bean Factory`, `Application Context`  
-
 - **Data Access/Integration** → JDBC, ORM, Transactions.  
 - **Web** → Spring MVC, WebFlux (reactive).  
 - **AOP** → Aspect-Oriented Programming for cross-cutting concerns.  
@@ -68,14 +60,13 @@ Spring is divided into ~20 modules grouped into:
 - Spring complements EE by integrating selected APIs (JPA, JMS, JMX) rather than adopting the full specification.  [docs.spring.io](https://docs.spring.io/spring-framework/reference/overview.html)  
 
 ## 2. Inversion of Control (IoC)
-- **Definition:** A design principle where the control of object creation and dependency management is inverted from the application code to a container/framework.  
-- **Impact:** Instead of classes instantiating their dependencies directly, the framework provides them.
-- **Benefit:** Promotes loose coupling, easier testing, and better separation of concerns.
-
 <p align = "center">
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/44b1f90d-ab49-4ab3-a1cd-fa44cf1edf46" />
 </p>
 
+- **Definition:** A design principle where the control of object creation and dependency management is inverted from the application code to a container/framework.  
+- **Impact:** Instead of classes instantiating their dependencies directly, the framework provides them.
+- **Benefit:** Promotes loose coupling, easier testing, and better separation of concerns.
 
 ### A. Two Main Approaches
 1. **Dependency Injection (DI)**  
@@ -157,6 +148,8 @@ Spring is divided into ~20 modules grouped into:
 - **Factory Pattern:** Still widely used for controlled object creation.  
 
 ## 3. Spring Core Modules
+<img width="760" height="512" alt="image" src="https://github.com/user-attachments/assets/48eb7142-a6b0-4ed0-a4d3-7ed4431080db" />
+
 The **Spring Core Container** is the set of JARs that provide the fundamental IoC/DI functionality:
 
 - **spring-core**  
