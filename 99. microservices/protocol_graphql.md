@@ -1,3 +1,5 @@
+# GraphQL
+
 GraphQL is a **query language and runtime** for APIs that provides a flexible, efficient way for clients to request exactly the data they need—no more, no less. Unlike REST, which exposes fixed endpoints, GraphQL exposes a **single endpoint** with a schema that defines types and relationships.
 
 
