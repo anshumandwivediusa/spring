@@ -151,20 +151,16 @@ Spring is divided into ~20 modules grouped into:
 <img width="760" height="512" alt="image" src="https://github.com/user-attachments/assets/48eb7142-a6b0-4ed0-a4d3-7ed4431080db" />
 
 The **Spring Core Container** is the set of JARs that provide the fundamental IoC/DI functionality:
-
 - **spring-core**  
   - Foundation classes and utilities.  
   - Provides the core framework features (resource loading, type conversion, etc.).
-
 - **spring-beans**  
   - Handles bean creation, wiring, and lifecycle.  
   - Implements Dependency Injection (DI).
-
 - **spring-context**  
   - Provides the `ApplicationContext`.  
   - Adds enterprise features: events, resource loading, internationalization.  
   - Builds on `spring-core` and `spring-beans`.
-
 - **spring-expression (SpEL)**  
   - Expression Language for querying/manipulating objects at runtime.  
   - Used in configuration, annotations, and conditional logic.
