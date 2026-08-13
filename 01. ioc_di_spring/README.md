@@ -20,6 +20,7 @@
 Spring is divided into ~20 modules grouped into:
 - **Core Container** → `spring-core`, `spring-context`, `spring-beans` (DI, IoC).  
 
+```
                          SPRING CORE CONTAINER
                                   │
           ┌───────────────────────┼───────────────────────┐
@@ -40,6 +41,7 @@ Spring is divided into ~20 modules grouped into:
                          Expression Language
                          for dynamic values
                          & configuration
+```
 - **Data Access/Integration** → JDBC, ORM, Transactions.  
 - **Web** → Spring MVC, WebFlux (reactive).  
 - **AOP** → Aspect-Oriented Programming for cross-cutting concerns.  
