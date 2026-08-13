@@ -176,15 +176,21 @@ The **Spring Core Container** is the set of JARs that provide the fundamental Io
   - Expression Language for querying/manipulating objects at runtime.  
   - Used in configuration, annotations, and conditional logic.
 
-## Container Interfaces
+### Container Interfaces
 Within these modules, Spring defines **two main container interfaces**:
 
-- **BeanFactory** → Basic DI container (lazy loading, lightweight).  
+- **BeanFactory**:
+   - The simplest container, providing basic DI functionality.
+   - Lazily loads beans (created only when requested).
+   - Lightweight, suitable for memory-constrained environments.
+   - No support for advanced features like event handling, AOP, or internationalization.
+     ```java
+      BeanFactory factory = new XmlBeanFactory(new FileSystemResource("beans.xml"));
+      MyBean bean = (MyBean) factory.getBean("myBean");
+      ```
 - **ApplicationContext** → Advanced container (events, AOP, i18n, eager loading).  
 
-So the **modules (spring-core, spring-beans, spring-context, spring-expression)** provide the infrastructure, while the **interfaces (BeanFactory, ApplicationContext)** define how you interact with the container.
-
-## Putting It Together
+The **modules (spring-core, spring-beans, spring-context, spring-expression)** provide the infrastructure, while the **interfaces (BeanFactory, ApplicationContext)** define how you interact with the container.
 
 ```
 SPRING CORE CONTAINER
