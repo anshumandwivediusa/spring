@@ -157,15 +157,48 @@ Spring is divided into ~20 modules grouped into:
 - **Factory Pattern:** Still widely used for controlled object creation.  
 
 ## 3. Spring Core Modules
-| **Module Group** | **Key Modules** | **Features** |
-| --- | --- | --- |
-| **Core Container** | Core, Beans, Context, SpEL | IoC, DI, bean lifecycle, runtime expressions |
-| **Data Access** | JDBC, ORM, OXM, JMS, Transactions | Database access, ORM integration, messaging, transactions |
-| **Web** | Web, MVC, WebFlux, WebSocket, Web Services | Traditional & reactive web apps, REST/SOAP, real-time communication |
-| **AOP** | Spring AOP, AspectJ | Cross-cutting concerns, declarative transactions |
-| **Instrumentation** | Instrument | Class instrumentation, classloader support |
-| **Messaging** | Messaging | Async messaging, WebSocket/STOMP |
-| **Testing** | Test | JUnit/TestNG integration, context caching |
+The **Spring Core Container** is the set of JARs that provide the fundamental IoC/DI functionality:
+
+- **spring-core**  
+  - Foundation classes and utilities.  
+  - Provides the core framework features (resource loading, type conversion, etc.).
+
+- **spring-beans**  
+  - Handles bean creation, wiring, and lifecycle.  
+  - Implements Dependency Injection (DI).
+
+- **spring-context**  
+  - Provides the `ApplicationContext`.  
+  - Adds enterprise features: events, resource loading, internationalization.  
+  - Builds on `spring-core` and `spring-beans`.
+
+- **spring-expression (SpEL)**  
+  - Expression Language for querying/manipulating objects at runtime.  
+  - Used in configuration, annotations, and conditional logic.
+
+## Container Interfaces
+Within these modules, Spring defines **two main container interfaces**:
+
+- **BeanFactory** → Basic DI container (lazy loading, lightweight).  
+- **ApplicationContext** → Advanced container (events, AOP, i18n, eager loading).  
+
+So the **modules (spring-core, spring-beans, spring-context, spring-expression)** provide the infrastructure, while the **interfaces (BeanFactory, ApplicationContext)** define how you interact with the container.
+
+## Putting It Together
+
+```
+SPRING CORE CONTAINER
+   │
+   ├── spring-core        → Foundation utilities
+   ├── spring-beans       → Bean creation & DI
+   ├── spring-context     → ApplicationContext, events, resources
+   └── spring-expression  → SpEL (dynamic values)
+```
+
+- **BeanFactory** lives in `spring-beans`.  
+- **ApplicationContext** lives in `spring-context`.  
+- Together, they are powered by the **core container modules**.
+
 
 ## 4. Historical Context
 - **Introduced in 2003** to simplify the complexity of J2EE.  
