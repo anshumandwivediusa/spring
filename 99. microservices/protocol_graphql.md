@@ -77,3 +77,144 @@ Response:
 - GraphQL works well with **API Composition** since resolvers can aggregate data from multiple services.  
 - Often paired with **CQRS** for separating queries and mutations.  
 - Useful in **Microservices** and **BFF** architectures.  
+
+# **complete Spring Boot GraphQL example**
+
+## Project Structure
+```
+src/main/java/com/example/graphql/
+ ├── controller/
+ │    └── GraphQLController.java
+ ├── model/
+ │    └── Customer.java
+ ├── service/
+ │    └── CustomerService.java
+ ├── resolver/
+ │    └── CustomerResolver.java
+ └── GraphqlApplication.java
+src/main/resources/
+ └── schema.graphqls
+```
+
+
+## Schema Definition (`schema.graphqls`)
+```graphql
+type Customer {
+    id: ID!
+    name: String!
+    email: String!
+}
+
+type Query {
+    getCustomerById(id: ID!): Customer
+    listCustomers: [Customer]
+}
+
+type Mutation {
+    createCustomer(name: String!, email: String!): Customer
+}
+```
+
+
+## Model (`Customer.java`)
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Customer {
+    private String id;
+    private String name;
+    private String email;
+}
+```
+
+
+## Service Layer (`CustomerService.java`)
+```java
+@Service
+public class CustomerService {
+
+    private final Map<String, Customer> customerRepo = new HashMap<>();
+
+    public Customer getCustomerById(String id) {
+        return customerRepo.get(id);
+    }
+
+    public List<Customer> listCustomers() {
+        return new ArrayList<>(customerRepo.values());
+    }
+
+    public Customer createCustomer(String name, String email) {
+        String id = UUID.randomUUID().toString();
+        Customer customer = new Customer(id, name, email);
+        customerRepo.put(id, customer);
+        return customer;
+    }
+}
+```
+
+
+## 🔗 Resolver (`CustomerResolver.java`)
+```java
+@Component
+public class CustomerResolver implements GraphQLQueryResolver, GraphQLMutationResolver {
+
+    @Autowired
+    private CustomerService customerService;
+
+    public Customer getCustomerById(String id) {
+        return customerService.getCustomerById(id);
+    }
+
+    public List<Customer> listCustomers() {
+        return customerService.listCustomers();
+    }
+
+    public Customer createCustomer(String name, String email) {
+        return customerService.createCustomer(name, email);
+    }
+}
+```
+
+
+## 🚀 Application (`GraphqlApplication.java`)
+```java
+@SpringBootApplication
+public class GraphqlApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(GraphqlApplication.class, args);
+    }
+}
+```
+
+
+## 📊 Example Queries
+
+### Query
+```graphql
+query {
+  getCustomerById(id: "123") {
+    id
+    name
+    email
+  }
+}
+```
+
+### Mutation
+```graphql
+mutation {
+  createCustomer(name: "Anshuman", email: "anshuman@example.com") {
+    id
+    name
+    email
+  }
+}
+```
+
+
+## Notes
+- Use **GraphQL Java Tools** for schema-to-resolver mapping.  
+- Combine with **Spring Boot Starter GraphQL** for auto-configuration.  
+- Add **Exception Handling** for better error responses.  
+- Integrate with **CQRS** by separating queries and mutations cleanly.  
