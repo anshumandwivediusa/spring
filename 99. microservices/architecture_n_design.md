@@ -30,8 +30,27 @@ _**Independent executable program that represents the specific Business goal.**_
 
 ## Communication Design
 
-- **Synchronous** — REST, gRPC, GraphQL for request-response.  
-- **Asynchronous** — Kafka, RabbitMQ, MQTT for event-driven flows.  
+- **Synchronous**:
+  | Category | Protocol | Type | Key Features | Best Use Case |
+  | --- | --- | --- | --- | --- |
+  | **Synchronous (Request–Response)** | **[REST](ca://s?q=REST_in_microservices)** | HTTP/HTTPS | Human-readable JSON/XML, simple, widely adopted | CRUD APIs, public-facing services |
+  |  | **[gRPC](ca://s?q=gRPC_in_microservices)** | HTTP/2 + Protobuf | High-performance, strongly typed, streaming | Internal service-to-service calls |
+  |  | **[GraphQL](ca://s?q=GraphQL_in_microservices)** | HTTP | Flexible queries, client-driven data fetching | Mobile/web frontends needing tailored data |
+  |  | **[WebSockets](ca://s?q=WebSockets_in_microservices)** | TCP | Full-duplex, real-time | Chat apps, live dashboards |
+  |  | **[SOAP](ca://s?q=SOAP_in_microservices)** | HTTP/XML | Strict contracts, WS-* standards | Legacy enterprise integrations |
+  |  | **[RSocket](ca://s?q=RSocket_in_microservices)** | TCP/WebSocket | Reactive streams, multiplexing | Reactive microservices needing backpressure |  
+
+- **Asynchronous** 
+  | Category | Protocol | Type | Key Features | Best Use Case |
+  | --- | --- | --- | --- | --- |
+  | **Asynchronous (Event-Driven)** | **[Kafka](ca://s?q=Kafka_in_microservices)** | Event streaming | High throughput, partitioned topics | Event-driven workflows, analytics |
+  |  | **[RabbitMQ](ca://s?q=RabbitMQ_in_microservices)** | AMQP | Reliable message queuing, routing | Task distribution, background jobs |
+  |  | **[MQTT](ca://s?q=MQTT_in_microservices)** | TCP | Lightweight, pub/sub, low bandwidth | IoT devices, constrained environments |
+  |  | **[ActiveMQ](ca://s?q=ActiveMQ_in_microservices)** | JMS/AMQP | Enterprise-grade broker | Legacy enterprise messaging |
+  |  | **[AWS SQS](ca://s?q=AWS_SQS_in_microservices)** | Cloud queue | Fully managed, scalable | Cloud-native async workflows |
+  |  | **[NATS](ca://s?q=NATS_in_microservices)** | Pub/Sub | Lightweight, simple, fast | Cloud-native event bus |
+  |  | **[Redis Streams](ca://s?q=Redis_Streams_in_microservices)** | In-memory | Fast, persistent streams | Real-time analytics, caching + events |
+
 - **Service Discovery** — Dynamic lookup of service endpoints via registry (e.g., Eureka, Consul).  
 - **API Gateway** — Central entry point for routing, authentication, rate limiting.  
 
