@@ -109,6 +109,14 @@ Common conditional annotations include:
 * `@ConditionalOnProperty`
 * `@ConditionalOnWebApplication`
 
+| **Annotation** | **Condition** | **Use Case** | **Example Syntax** |
+| --- | --- | --- | --- |
+| **[@ConditionalOnClass](ca://s?q=SpringBoot_ConditionalOnClass)** | Class exists on classpath | Enable config only if dependency is present | ``java ``@Configuration ``@ConditionalOnClass(DataSource.class) ``public ``class ``DataSourceConfig ``{ ``@Bean ``public ``JdbcTemplate ``jdbcTemplate(DataSource ``ds) ``{ ``return ``new ``JdbcTemplate(ds); ``} ``}`` |
+| **[@ConditionalOnMissingBean](ca://s?q=SpringBoot_ConditionalOnMissingBean)** | Bean not defined | Provide default bean | ``java ``@Bean ``@ConditionalOnMissingBean(CustomerService.class) ``public ``CustomerService ``customerService() ``{ ``return ``new ``CustomerService(); ``}`` |
+| **[@ConditionalOnBean](ca://s?q=SpringBoot_ConditionalOnBean)** | Bean exists | Load dependent config | ``java ``@Configuration ``@ConditionalOnBean(DataSource.class) ``public ``class ``JdbcTemplateConfig ``{ ``@Bean ``public ``JdbcTemplate ``jdbcTemplate(DataSource ``ds) ``{ ``return ``new ``JdbcTemplate(ds); ``} ``}`` |
+| **[@ConditionalOnProperty](ca://s?q=SpringBoot_ConditionalOnProperty)** | Property value matches | Feature toggles | ``java ``@Configuration ``@ConditionalOnProperty(name ``= ``"feature.toggle.customer", ``havingValue ``= ``"true") ``public ``class ``CustomerFeatureConfig ``{ ``@Bean ``public ``CustomerService ``customerService() ``{ ``return ``new ``CustomerService(); ``} ``}`` |
+| **[@ConditionalOnWebApplication](ca://s?q=SpringBoot_ConditionalOnWebApplication)** | Running in web app | Web-specific config | ``java ``@Configuration ``@ConditionalOnWebApplication ``public ``class ``WebMvcConfig ``{ ``@Bean ``public ``WebMvcConfigurer ``webConfigurer() ``{ ``return ``new ``WebMvcConfigurer() ``{}; ``} ``}`` |
+
 Example:
 
 ```java
