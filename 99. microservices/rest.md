@@ -33,15 +33,15 @@
 ## 5. Example API Contract
 ### Customer Resource
 
-    | **Method** | **Purpose** | **Conceptual Reason** | **Example Use Case** |
-    | --- | --- | --- | --- |
-    | **[GET](ca://s?q=HTTP_GET_method)** | Retrieve a resource | Safe, idempotent; does not change server state | ``GET ``/customers/123`` → fetch customer details |
-    | **[POST](ca://s?q=HTTP_POST_method)** | Create a new resource | Non-idempotent; each call creates something new | ``POST ``/customers`` → add a new customer |
-    | **[PUT](ca://s?q=HTTP_PUT_method)** | Update/replace a resource | Idempotent; repeated calls yield same result | ``PUT ``/customers/123`` → update customer info |
-    | **[PATCH](ca://s?q=HTTP_PATCH_method)** | Partially update a resource | Idempotent; modifies only specified fields | ``PATCH ``/customers/123`` → update just the email |
-    | **[DELETE](ca://s?q=HTTP_DELETE_method)** | Remove a resource | Idempotent; repeated calls have same effect | ``DELETE ``/customers/123`` → delete customer |
-    | **[HEAD](ca://s?q=HTTP_HEAD_method)** | Retrieve metadata only | Same as GET but without body | ``HEAD ``/customers/123`` → check if resource exists |
-    | **[OPTIONS](ca://s?q=HTTP_OPTIONS_method)** | Discover supported methods | Used for CORS and API introspection | ``OPTIONS ``/customers`` → see allowed operations |
+| **Method** | **Purpose** | **Conceptual Reason** | **Example Use Case** |
+| --- | --- | --- | --- |
+| **[GET](ca://s?q=HTTP_GET_method)** | Retrieve a resource | Safe, idempotent; does not change server state | ``GET ``/customers/123`` → fetch customer details |
+| **[POST](ca://s?q=HTTP_POST_method)** | Create a new resource | Non-idempotent; each call creates something new | ``POST ``/customers`` → add a new customer |
+| **[PUT](ca://s?q=HTTP_PUT_method)** | Update/replace a resource | Idempotent; repeated calls yield same result | ``PUT ``/customers/123`` → update customer info |
+| **[PATCH](ca://s?q=HTTP_PATCH_method)** | Partially update a resource | Idempotent; modifies only specified fields | ``PATCH ``/customers/123`` → update just the email |
+| **[DELETE](ca://s?q=HTTP_DELETE_method)** | Remove a resource | Idempotent; repeated calls have same effect | ``DELETE ``/customers/123`` → delete customer |
+| **[HEAD](ca://s?q=HTTP_HEAD_method)** | Retrieve metadata only | Same as GET but without body | ``HEAD ``/customers/123`` → check if resource exists |
+| **[OPTIONS](ca://s?q=HTTP_OPTIONS_method)** | Discover supported methods | Used for CORS and API introspection | ``OPTIONS ``/customers`` → see allowed operations |
 
 ### Order Resource
 ```http
