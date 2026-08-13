@@ -19,6 +19,7 @@
 ### B. **Modular Architecture**
 Spring is divided into ~20 modules grouped into:
 - **Core Container** → `spring-core`, `spring-context`, `spring-beans` (DI, IoC).  
+
                          SPRING CORE CONTAINER
                                   │
           ┌───────────────────────┼───────────────────────┐
