@@ -592,7 +592,63 @@ public class MyBean implements InitializingBean, DisposableBean {
 The **`@Value` annotation** in Spring is used to inject values into fields, method parameters, or constructor arguments directly from property sources (like `application.properties`, environment variables, or even SpEL expressions). It’s one of the simplest ways to externalize configuration.
 
 
-## 13. `@Value` Annotation — Complete Notes
+## 13. @Configuration vs @Bean
+
+### @Configuration
+- **Definition**: Marks a class as a **configuration class** that declares one or more `@Bean` methods.  
+- **Role**: Tells Spring that this class can be used by the IoC container as a source of bean definitions.  
+- **Features**:
+  - Enables **full class-level configuration**.  
+  - Supports **proxying** of `@Bean` methods to ensure singletons (CGLIB subclassing).  
+  - Often used with `AnnotationConfigApplicationContext` or Spring Boot auto-configuration.  
+- **Example**:
+  ```java
+  @Configuration
+  public class AppConfig {
+      @Bean
+      public CustomerService customerService() {
+          return new CustomerService();
+      }
+  }
+  ```
+
+### @Bean
+- **Definition**: Marks a method inside a `@Configuration` (or `@Component`) class as a **bean producer**.  
+- **Role**: Tells Spring to execute this method and register its return value as a bean in the container.  
+- **Features**:
+  - Used at **method level**.  
+  - Can be applied in any class annotated with `@Configuration` or `@Component`.  
+  - Useful for defining beans that need custom instantiation logic.  
+- **Example**:
+  ```java
+  public class AppConfig {
+      @Bean
+      public OrderService orderService() {
+          return new OrderService();
+      }
+  }
+  ```
+
+
+### Comparison Table
+
+| **Aspect** | **@Configuration** | **@Bean** |
+|------------|---------------------------------|--------------------------------|
+| **Level** | Class-level annotation | Method-level annotation |
+| **Purpose** | Declares a class as a source of bean definitions | Declares a method that produces a bean |
+| **Scope** | Groups multiple `@Bean` methods | Defines a single bean |
+| **Proxying** | Uses CGLIB to ensure singleton beans | Relies on `@Configuration` for proxying |
+| **Usage** | Applied to configuration classes | Applied to factory methods inside config classes |
+| **Example** | `@Configuration public class AppConfig { ... }` | `@Bean public MyService myService() { ... }` |
+
+
+### Key Takeaway
+- **@Configuration** → Think of it as a **container of bean definitions**.  
+- **@Bean** → Think of it as a **factory method** that creates a bean.  
+- Together, they allow you to define beans in **Java code instead of XML**.  
+
+
+## 14. `@Value` Annotation — Complete Notes
 
 ### Purpose
 - **Property Injection** → Inject values from `application.properties` or `application.yml`.  
