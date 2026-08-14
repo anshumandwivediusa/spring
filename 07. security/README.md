@@ -158,8 +158,11 @@ In short: **`JSESSIONID` is the backbone of session tracking in Java web apps, l
 ## CSRF: Cross Site Request Forgery
 
 ### Definition
-- **CSRF** is an attack where a malicious site tricks a logged‑in user’s browser into sending unauthorized requests to a trusted application.  
-- Exploits the fact that browsers automatically attach cookies/session IDs with requests.
+CSRF is an attack where a malicious website tricks your browser into sending a request to another site where you’re already logged in — without your permission.
+
+Imagine you’re logged into your bank.
+You visit a fake site that secretly sends a money‑transfer request to your bank using your active session.
+Your browser automatically includes your cookies/session ID, so the bank thinks you made the request.
 
 ### How CSRF Works
 1. User logs into a trusted site (e.g., banking app).  
