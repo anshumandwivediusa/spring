@@ -53,7 +53,7 @@ It’s all about **roles**, **permissions**, and **policies**.
  - Multiple layers of security controls prevent single points of failure.
    Examples: Firewalls, Intrusion Detection Systems (IDS), Endpoint Security, Cloud Security.
 
-## Encryption (Deep Dive)
+## Encryption
 - **Purpose** → Encryption transforms readable data into an unreadable format using mathematical algorithms, ensuring that even if attackers intercept the data, they cannot understand it without the proper key. It’s the backbone of **confidentiality** in the CIA triad.  
 
 - **Types of Encryption**  
