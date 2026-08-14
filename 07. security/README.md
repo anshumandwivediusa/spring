@@ -87,18 +87,23 @@ In short: **`JSESSIONID` is the backbone of session tracking in Java web apps, l
 
 
 ### Flow Explanation
-1. **Client Request** → The browser/API sends an HTTP request.  
-2. **FilterChain** → General servlet filters (logging, compression, etc.). Different life cycle than Spring Containers.
+1. **Client Request** → Browser/API sends an HTTP request.  
+2. **FilterChain** → General servlet filters (logging, compression, etc.). Different lifecycle than Spring beans.  
 3. **DelegatingFilterProxy** → Bridges servlet filters with Spring-managed beans.  
 4. **FilterChainProxy** → Entry point into Spring Security. Decides which security chain applies.  
-5. **SecurityFilterChain** → Multiple security filters run in sequence:  
-   - `AuthenticationFilter` → Validates identity.  
-   - `AuthorizationFilter` → Checks roles/permissions.  
-   - `CsrfFilter` → Protects against CSRF attacks.  
-   - `ExceptionTranslationFilter` → Handles security exceptions.  
-   - `FilterSecurityInterceptor` → Final access decision.  
-6. **DispatcherServlet** → If allowed, request reaches Spring MVC controllers.
-7. **SpringController** 
+5. **SecurityFilterChain** → Runs multiple security filters in sequence:  
+   - **AuthenticationFilter** → Extracts credentials (username/password, JWT, etc.) and calls the **AuthenticationManager**.  
+   - **AuthenticationManager** → Delegates to one or more **AuthenticationProviders**:  
+     - **DaoAuthenticationProvider** → validates against DB.  
+     - **JwtAuthenticationProvider** → validates JWT tokens.  
+     - **LdapAuthenticationProvider** → validates LDAP credentials.  
+     - Chooses provider based on `supports()` method.  
+   - **AuthorizationFilter** → Checks roles/permissions once identity is confirmed.  
+   - **CsrfFilter** → Protects against CSRF attacks.  
+   - **ExceptionTranslationFilter** → Handles security exceptions.  
+   - **FilterSecurityInterceptor** → Final access decision.  
+6. **DispatcherServlet** → If allowed, request reaches Spring MVC controllers.  
+7. **SpringController** → Executes business logic and returns response.
 
 ### Key Insight
 - **Authentication** happens early in the chain.  
