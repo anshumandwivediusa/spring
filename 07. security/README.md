@@ -83,7 +83,8 @@ In short: **`JSESSIONID` is the backbone of session tracking in Java web apps, l
 
 ## 2. Security Architecture of Spring Boot
 
-<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/c0bf09de-742a-4640-9546-3d70ab677858" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/9f513ddb-567d-4b35-a193-1fc09f3798d8" />
+
 
 ### Flow Explanation
 1. **Client Request** → The browser/API sends an HTTP request.  
