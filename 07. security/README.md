@@ -88,7 +88,7 @@ In short: **`JSESSIONID` is the backbone of session tracking in Java web apps, l
 
 ### Flow Explanation
 1. **Client Request** → The browser/API sends an HTTP request.  
-2. **FilterChain** → General servlet filters (logging, compression, etc.).  
+2. **FilterChain** → General servlet filters (logging, compression, etc.). Different life cycle than Spring Containers.
 3. **DelegatingFilterProxy** → Bridges servlet filters with Spring-managed beans.  
 4. **FilterChainProxy** → Entry point into Spring Security. Decides which security chain applies.  
 5. **SecurityFilterChain** → Multiple security filters run in sequence:  
