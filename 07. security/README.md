@@ -537,3 +537,62 @@ public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
 - Use **PKCE** for extra protection in public clients.  
 - Map **Azure AD roles/groups** to Spring Security authorities.  
 - For REST APIs → configure as a **Resource Server** to validate JWTs directly.
+
+## JWT Authentication
+Here’s a **README draft for JWT Authentication** in your Spring Boot/Spring Security project. It explains the concept, setup, and usage clearly:
+
+
+# JWT Authentication in Spring Security
+
+## Overview
+This project uses **JSON Web Tokens (JWT)** for stateless authentication. Instead of storing session data on the server, each request carries a signed token that proves the user’s identity.  
+
+- **JWT** = compact, URL-safe token containing claims (like username, roles).  
+- **Stateless** = no server-side session; authentication info is inside the token.  
+- **Secure** = token is signed and validated before granting access.  
+
+
+## Key Components
+- **JwtAuthenticationFilter**  
+  - Extends `OncePerRequestFilter`.  
+  - Runs once per request.  
+  - Extracts JWT from cookies.  
+  - Validates token using `AuthService`.  
+  - Loads user details via `UserDetailsService`.  
+  - Sets authentication in `SecurityContextHolder`.  
+
+- **AuthService**  
+  - Validates token signature and expiration.  
+  - Extracts username from token.  
+
+- **UserDetailsService**  
+  - Loads user information (roles, authorities) from DB or other source.  
+
+- **SecurityConfig**  
+  - Registers `JwtAuthenticationFilter` in the `SecurityFilterChain`.  
+  - Example:  
+    ```java
+    http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    ```
+
+
+## Flow of Authentication
+1. **Login** → User authenticates via login endpoint, server issues JWT.  
+2. **Client Request** → JWT stored in cookie or header is sent with each request.  
+3. **JwtAuthenticationFilter** → Validates token, sets authentication in context.  
+4. **Authorization** → Other filters check roles/permissions.  
+5. **Controller Access** → Request reaches controller only if authenticated and authorized.  
+
+
+## Advantages
+- **Stateless** → No server-side session storage.  
+- **Scalable** → Works well in distributed systems.  
+- **Secure** → Signed tokens prevent tampering.  
+- **Flexible** → Can store custom claims (roles, tenant info).  
+
+
+## Usage Notes
+- Do **not** annotate your filter with `@Component` or `@Bean`.  
+- Always register it explicitly in the `SecurityFilterChain`.  
+- Place it **before `UsernamePasswordAuthenticationFilter`** so JWT authentication happens first.  
+- Handle invalid tokens gracefully (return `401 Unauthorized`).  
