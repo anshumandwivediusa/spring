@@ -21,16 +21,8 @@ It relies on credentials and secrets that can be validated against a trusted sou
 Authorization determines whether an **authenticated principal** has permission to perform a specific action or access a resource.  
 It’s all about **roles**, **permissions**, and **policies**.
 
-#### Key Terms
-
-| **Concept** | **Description** |
-|--------------|----------------|
-| **Principal** | The authenticated identity (user/service) whose access is being checked. |
-| **Authorities** | The granted rights or roles (e.g., `ROLE_ADMIN`, `READ_REPORTS`). |
-| **Access Control** | The mechanism enforcing who can access what — often via annotations or URL rules. |
-| **Policy** | A defined rule that maps principals to permissions (e.g., “Admins can delete users”). |
-| **AccessDecisionManager** | The Spring component that evaluates whether access should be granted based on roles/permissions. |
-| **SecurityContext** | Holds the authenticated principal and authorities for the current thread/request. |
+### Stateful vs Stateless Authentications
+<img width="1358" height="905" alt="image" src="https://github.com/user-attachments/assets/9f8a35c1-f205-4a0e-9b21-f333f5f8e960" />
 
 
 ### Authorization Models
