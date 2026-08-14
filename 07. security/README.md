@@ -569,6 +569,47 @@ This project uses **JSON Web Tokens (JWT)** for stateless authentication. Instea
 - **Secure** = token is signed and validated before granting access.  
 
 
+## JWT Header and Validation Process
+
+Header:
+ - Header:
+
+   ```json
+     {
+       "alg": "HS256",
+       "typ": "JWT"
+     }
+   ```
+ 
+ - Payload
+   ```json
+    {
+      "sub": "1234567890",
+      "name": "Anshuman Dwivedi",
+      "admin": true,
+      "iat": 1786799399
+    }
+   ```
+ 
+ - Sign JWT
+   ```
+    HMACSHA256(
+      base64UrlEncode(header) + "." + base64UrlEncode(payload),
+      secretKey
+    )
+   ```
+
+Here’s the JWT verification process summarized in a few clear points:
+
+  - **Token received** → Client sends JWT in header or cookie.
+  - Split parts → Server separates Header, Payload, Signature.
+  - Decode data → Base64Url decode Header & Payload into JSON.
+  - Recompute signature → Server uses its secret key and algorithm (e.g., HS256) to generate a new signature from Header + Payload.
+  - Compare signatures → If recomputed signature matches the token’s signature → token is authentic.
+  - Validate claims → Check expiry (exp), issued time (iat), issuer (iss), audience (aud).
+  - Set authentication → If valid, user identity and roles from payload are trusted and stored in SecurityContextHolder.
+  - Reject if invalid → If signature mismatch or claims invalid → return 401 Unauthorized.
+
 ## Key Components
 - **JwtAuthenticationFilter**  
   - Extends `OncePerRequestFilter`.  
