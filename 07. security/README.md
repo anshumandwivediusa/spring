@@ -49,6 +49,32 @@ It’s all about **roles**, **permissions**, and **policies**.
  - **Availability** → Keeps systems and data accessible when needed.
    Tools: Redundancy, Failover Systems, Backups.
 
+### Defense in Depth
+ - Multiple layers of security controls prevent single points of failure.
+   Examples: Firewalls, Intrusion Detection Systems (IDS), Endpoint Security, Cloud Security.
+
+## Encryption (Deep Dive)
+- **Purpose** → Encryption transforms readable data into an unreadable format using mathematical algorithms, ensuring that even if attackers intercept the data, they cannot understand it without the proper key. It’s the backbone of **confidentiality** in the CIA triad.  
+
+- **Types of Encryption**  
+  - **Symmetric (AES)** → Same key for encryption and decryption. Fast, used for securing large volumes of data (e.g., databases, file systems).  
+  - **Asymmetric (RSA)** → Uses a public/private key pair. Slower but ideal for secure key exchange and digital signatures.  
+  - **Hybrid (TLS/SSL)** → Combines both: RSA for exchanging keys, AES for bulk data transfer.  
+
+- **Applications**  
+  - **Data in Transit** → Protects communication channels (emails, VPNs, HTTPS websites).  
+  - **Data at Rest** → Secures stored information (databases, hard drives, backups).  
+  - **Authentication & Integrity** → Digital signatures and certificates verify identity and prevent tampering.  
+
+- **Real-World Examples**  
+  - Online banking transactions secured with **TLS/SSL**.  
+  - Encrypted messaging apps like **Signal** using end-to-end encryption.  
+  - Cloud storage providers encrypt files at rest with **AES-256**.  
+
+- **Challenges**  
+  - **Key Management** → Losing or leaking keys compromises security.  
+  - **Performance Overhead** → Heavy encryption can slow systems if not optimized.  
+  - **Quantum Threats** → Future quantum computers may break RSA; hence **post-quantum cryptography** is emerging.  
 
 ## 2. Security Architecture of Spring Boot
 
