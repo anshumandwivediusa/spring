@@ -82,6 +82,21 @@ In short: **`JSESSIONID` is the backbone of session tracking in Java web apps, l
   - **Quantum Threats** → Future quantum computers may break RSA; hence **post-quantum cryptography** is emerging.  
 
 ## 2. Security Architecture of Spring Boot
+Spring Security is a powerful framework in the Spring ecosystem that provides comprehensive security services for Java applications, focusing on authentication (identity verification) and authorization (access control). It is the backbone for securing Spring Boot applications, APIs, and microservices. 
+
+### Core Purpose of Spring Security
+ - Authentication → Verifies who the user is (e.g., login with username/password, JWT, OAuth2).
+ - Authorization → Decides what the user can access (roles, permissions).
+ - Protection → Guards against common web threats like CSRF, session fixation, clickjacking, and brute force attacks.
+ - Integration → Works seamlessly with Spring Boot, Spring MVC, and modern protocols like OAuth2/OpenID Connect.
+
+#### Key Features
+ - Security Filter Chain → Every request passes through filters like AuthenticationFilter, AuthorizationFilter, CsrfFilter.
+ - SecurityContextHolder → Stores authentication details for the current user.
+ - AuthenticationManager & Providers → Delegates credential validation to providers (e.g., DB, LDAP, JWT).
+ - Password Encoding → Supports BCrypt, Argon2, and other secure hashing algorithms.
+ - Method-Level Security → Annotations like @PreAuthorize("hasRole('ADMIN')") secure service methods.
+ - Session & CSRF Management → Prevents session hijacking and cross-site request forgery.
 
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/9f513ddb-567d-4b35-a193-1fc09f3798d8" />
 
