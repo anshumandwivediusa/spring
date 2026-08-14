@@ -189,6 +189,13 @@ protected void configure(HttpSecurity http) throws Exception {
           .anyRequest().authenticated();
 }
 ```
+CSRF Token → Spring generates a unique, random token for each user session.
+
+Token attached to forms → Every HTML form or AJAX request includes this hidden token.
+
+Server validation → When the request comes back, Spring checks if the token matches the one stored in the session.
+
+Attack blocked → If a malicious site tries to forge a request, it won’t have the valid token, so the server rejects it.
 
 ### CSRF Token Usage
 - Token available in request attribute `_csrf`.  
