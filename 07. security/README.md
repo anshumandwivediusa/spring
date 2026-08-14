@@ -220,15 +220,14 @@ Attack blocked → If a malicious site tries to forge a request, it won’t have
 - Example: `frontend.com` calling APIs hosted on `backend.com`.
 
 ### How it Works
-Browser request → Your app (say running on http://localhost:3000) tries to call an API on another domain (http://api.example.com).
+- **Browser request** → Your app (say running on http://localhost:3000) tries to call an API on another domain (http://api.example.com).
 
-Server response → The API server includes special headers like:
-
-Access-Control-Allow-Origin: http://localhost:3000
-
-Access-Control-Allow-Methods: GET, POST
-
-Browser check → If headers match, the browser allows the request. Otherwise, it blocks it.
+- **Server response** → The API server includes special headers like:
+  ```http
+   Access-Control-Allow-Origin: http://localhost:3000
+   Access-Control-Allow-Methods: GET, POST
+  ```
+- Browser check → If headers match, the browser allows the request. Otherwise, it blocks it.
 
 ### Why CORS Matters
 - Browsers enforce **Same‑Origin Policy** → requests allowed only if protocol, domain, and port match.  
