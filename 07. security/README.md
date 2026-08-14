@@ -1,7 +1,7 @@
 # Spring Security
 
 ## 1. Core Concepts of Spring Security 
-### **Authentication**:
+### **Authentication**: Identity Verifications
 Authentication is the process of proving that the entity (user, service, or system) is who it claims to be.
 It relies on credentials and secrets that can be validated against a trusted source.
 
@@ -15,7 +15,7 @@ It relies on credentials and secrets that can be validated against a trusted sou
 | **[Subject](ca://s?q=Explain_Subject_in_Security_Context)** | The security context holding the authenticated principal and its roles/permissions. |
 
 
-### **Authorization**:
+### **Authorization**: Access Control
 **Authorization** is the next logical layer after authentication. Once the system knows *who* you are, authorization decides *what you can do*.  
 
 Authorization determines whether an **authenticated principal** has permission to perform a specific action or access a resource.  
