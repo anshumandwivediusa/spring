@@ -156,8 +156,6 @@ In short: **`JSESSIONID` is the backbone of session tracking in Java web apps, l
 
 
 ## CSRF: Cross Site Request Forgery
-
-### Definition
 CSRF is an attack where a malicious website tricks your browser into sending a request to another site where you’re already logged in — without your permission.
 
 Imagine you’re logged into your bank.
