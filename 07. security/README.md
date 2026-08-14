@@ -109,16 +109,18 @@ Spring Security is a powerful framework in the Spring ecosystem that provides co
 5. **SecurityFilterChain** → Runs multiple security filters in sequence:  
    - **AuthenticationFilter** → Extracts credentials (username/password, JWT, etc.) and calls the **AuthenticationManager**.  
    - **AuthenticationManager** → Delegates to one or more **AuthenticationProviders**:  
+     - **BasicAuthenticationProvider** → Validates credentials sent via HTTP Basic Auth header.
      - **DaoAuthenticationProvider** → validates against DB.  
      - **JwtAuthenticationProvider** → validates JWT tokens.  
      - **LdapAuthenticationProvider** → validates LDAP credentials.  
+     - **OAuth2AuthenticationProvider** → Delegates authentication to external OAuth2/OpenID
      - Chooses provider based on `supports()` method.  
    - **AuthorizationFilter** → Checks roles/permissions once identity is confirmed.  
    - **CsrfFilter** → Protects against CSRF attacks.  
    - **ExceptionTranslationFilter** → Handles security exceptions.  
    - **FilterSecurityInterceptor** → Final access decision.  
-6. **DispatcherServlet** → If allowed, request reaches Spring MVC controllers.  
-7. **SpringController** → Executes business logic and returns response.
+7. **DispatcherServlet** → If allowed, request reaches Spring MVC controllers.  
+8. **SpringController** → Executes business logic and returns response.
 
 ### Key Insight
 - **Authentication** happens early in the chain.  
