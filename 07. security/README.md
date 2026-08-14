@@ -1,6 +1,6 @@
 # Spring Security
 
-## 1. Core Concepts
+## 1. Core Concepts of Spring Security 
 ### **Authentication**:
 Authentication is the process of proving that the entity (user, service, or system) is who it claims to be.
 It relies on credentials and secrets that can be validated against a trusted source.
