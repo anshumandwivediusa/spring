@@ -219,6 +219,8 @@ Attack blocked → If a malicious site tries to forge a request, it won’t have
 - Prevents malicious sites from making unauthorized requests to another domain using a logged‑in user’s credentials.  
 - Example: `frontend.com` calling APIs hosted on `backend.com`.
 
+
+_“Yes, I allow this other website to access my resources.”_
 ### How it Works
 - **Browser request** → Your app (say running on http://localhost:3000) tries to call an API on another domain (http://api.example.com).
 
