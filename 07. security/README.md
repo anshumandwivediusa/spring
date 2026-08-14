@@ -32,19 +32,14 @@ It’s all about **roles**, **permissions**, and **policies**.
 | **AccessDecisionManager** | The Spring component that evaluates whether access should be granted based on roles/permissions. |
 | **SecurityContext** | Holds the authenticated principal and authorities for the current thread/request. |
 
-#### Flow in Spring Security
 
-1. **Authentication** populates the `SecurityContext` with the `Principal` and its `GrantedAuthorities`.  
-2. When a protected resource is accessed, the **AccessDecisionManager** checks if the principal’s authorities match the required permissions.  
-3. If authorized, the request proceeds; otherwise, a `403 Forbidden` is returned.
-
-```java
-@PreAuthorize("hasRole('ADMIN')")
-@GetMapping("/admin/dashboard")
-public String adminDashboard() {
-    return "Welcome, Admin!";
-}
-```
+### CIA Triad
+ - **Confidentiality** → Ensures sensitive data is accessible only to authorized users.
+   Tools: Encryption, Access Controls, Multi-Factor Authentication (MFA).
+ - **Integrity** → Protects data from unauthorized modification.
+   Tools: Checksums, Hashes, Audit Logs.
+ - **Availability** → Keeps systems and data accessible when needed.
+   Tools: Redundancy, Failover Systems, Backups.
 
 ### Authorization Models
 
