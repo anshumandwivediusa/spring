@@ -634,22 +634,34 @@ Here’s the JWT verification process summarized in a few clear points:
     ```
 
 
-## Flow of Authentication
-1. **Login** → User authenticates via login endpoint, server issues JWT.  
-2. **Client Request** → JWT stored in cookie or header is sent with each request.  
-3. **JwtAuthenticationFilter** → Validates token, sets authentication in context.  
-4. **Authorization** → Other filters check roles/permissions.  
-5. **Controller Access** → Request reaches controller only if authenticated and authorized.  
+### Flow Explanation
+1. **Client Request** → Browser/API sends an HTTP request.  
+2. **FilterChain** → General servlet filters (logging, compression, etc.). Different lifecycle than Spring beans.  
+3. **DelegatingFilterProxy** → Bridges servlet filters with Spring-managed beans.  
+4. **FilterChainProxy** → Entry point into Spring Security. Decides which security chain applies.  
+5. **SecurityFilterChain** → Runs multiple security filters in sequence:  
+   - **AuthenticationFilter** → Extracts credentials (username/password, JWT, etc.) and calls the **AuthenticationManager**.  
+   - **AuthenticationManager** → Delegates to one or more **AuthenticationProviders**:  
+     - **JwtAuthenticationProvider** → validates JWT tokens.  
+       - Chooses provider based on `supports()` method.  
+
+   - **AuthorizationFilter** → Checks roles/permissions once identity is confirmed.  
+   - **CsrfFilter** → Protects against CSRF attacks.  
+   - **ExceptionTranslationFilter** → Handles security exceptions.  
+   - **FilterSecurityInterceptor** → Final access decision.  
+7. **DispatcherServlet** → If allowed, request reaches Spring MVC controllers.  
+8. **SpringController** → Executes business logic and returns response.
 
 
-## Advantages
+
+### Advantages
 - **Stateless** → No server-side session storage.  
 - **Scalable** → Works well in distributed systems.  
 - **Secure** → Signed tokens prevent tampering.  
 - **Flexible** → Can store custom claims (roles, tenant info).  
 
 
-## Usage Notes
+### Usage Notes
 - Do **not** annotate your filter with `@Component` or `@Bean`.  
 - Always register it explicitly in the `SecurityFilterChain`.  
 - Place it **before `UsernamePasswordAuthenticationFilter`** so JWT authentication happens first.  
