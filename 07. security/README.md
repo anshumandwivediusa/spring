@@ -33,14 +33,6 @@ It’s all about **roles**, **permissions**, and **policies**.
 | **SecurityContext** | Holds the authenticated principal and authorities for the current thread/request. |
 
 
-### CIA Triad
- - **Confidentiality** → Ensures sensitive data is accessible only to authorized users.
-   Tools: Encryption, Access Controls, Multi-Factor Authentication (MFA).
- - **Integrity** → Protects data from unauthorized modification.
-   Tools: Checksums, Hashes, Audit Logs.
- - **Availability** → Keeps systems and data accessible when needed.
-   Tools: Redundancy, Failover Systems, Backups.
-
 ### Authorization Models
 
 | **Model** | **Description** |
@@ -48,6 +40,14 @@ It’s all about **roles**, **permissions**, and **policies**.
 | **Role-Based Access Control (RBAC)** | Users are assigned roles; roles define permissions. |
 | **Attribute-Based Access Control (ABAC)** | Decisions based on attributes (user, resource, environment). |
 | **Policy-Based Access Control (PBAC)** | Uses explicit policies (e.g., JSON/YAML rules) for complex conditions. |
+
+### CIA Triad
+ - **Confidentiality** → Ensures sensitive data is accessible only to authorized users.
+   Tools: Encryption, Access Controls, Multi-Factor Authentication (MFA).
+ - **Integrity** → Protects data from unauthorized modification.
+   Tools: Checksums, Hashes, Audit Logs.
+ - **Availability** → Keeps systems and data accessible when needed.
+   Tools: Redundancy, Failover Systems, Backups.
 
 
 ## 2. Security Architecture of Spring Boot
