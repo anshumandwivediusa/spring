@@ -636,21 +636,69 @@ Here’s the JWT verification process summarized in a few clear points:
 
 ### Flow Explanation
 1. **Client Request** → Browser/API sends an HTTP request.  
-2. **FilterChain** → General servlet filters (logging, compression, etc.). Different lifecycle than Spring beans.  
-3. **DelegatingFilterProxy** → Bridges servlet filters with Spring-managed beans.  
-4. **FilterChainProxy** → Entry point into Spring Security. Decides which security chain applies.  
-5. **SecurityFilterChain** → Runs multiple security filters in sequence:  
-   - **AuthenticationFilter** → Extracts credentials (username/password, JWT, etc.) and calls the **AuthenticationManager**.  
-   - **AuthenticationManager** → Delegates to one or more **AuthenticationProviders**:  
-     - **JwtAuthenticationProvider** → validates JWT tokens.  
-       - Chooses provider based on `supports()` method.  
+Perfect — let’s merge your **SecurityConfig setup** with the **full Spring Security request flow** so you see exactly where `JwtAuthenticationProvider` fits in:
 
-   - **AuthorizationFilter** → Checks roles/permissions once identity is confirmed.  
-   - **CsrfFilter** → Protects against CSRF attacks.  
+---
+
+## 🔑 SecurityConfig (Corrected)
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        SecretKey secretKey = Keys.hmacShaKeyFor("MySuperSecretKey1234567890".getBytes());
+        return NimbusJwtDecoder.withSecretKey(secretKey).build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(JwtDecoder jwtDecoder) {
+        JwtAuthenticationProvider jwtProvider = new JwtAuthenticationProvider(jwtDecoder);
+
+        jwtProvider.setJwtAuthenticationConverter(jwt -> {
+            Collection<GrantedAuthority> authorities =
+                AuthorityUtils.createAuthorityList("ROLE_USER");
+            return new JwtAuthenticationToken(jwt, authorities);
+        });
+
+        return new ProviderManager(jwtProvider);
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtDecoder jwtDecoder) throws Exception {
+        return http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/login", "/auth/refresh").permitAll()
+                .anyRequest().authenticated())
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder)))
+            .build();
+    }
+}
+```
+
+
+## Full Request Flow with `JwtAuthenticationProvider`
+
+1. **Client Request** → Browser/API sends HTTP request with `Authorization: Bearer <jwt>`.  
+2. **FilterChain** → General servlet filters (logging, compression, etc.).  
+3. **DelegatingFilterProxy** → Bridges servlet filters with Spring beans.  
+4. **FilterChainProxy** → Entry point into Spring Security, decides which chain applies.  
+5. **SecurityFilterChain** → Runs multiple filters in sequence:  
+   - **AuthenticationFilter** → Extracts JWT and calls `AuthenticationManager`.  
+   - **AuthenticationManager** → Delegates to providers.  
+   - **JwtAuthenticationProvider** → Validates JWT using `JwtDecoder`.  
+     - **SecurityConfig** wires **JwtAuthenticationProvider** into the chain via AuthenticationManager.
+     - Checks signature.  
+     - Validates claims (`exp`, `iss`, `aud`).  
+     - Converts claims to authorities.   
+   - **AuthorizationFilter** → Checks roles/permissions.  
+   - **CsrfFilter** → Protects against CSRF (disabled for APIs).  
    - **ExceptionTranslationFilter** → Handles security exceptions.  
    - **FilterSecurityInterceptor** → Final access decision.  
-7. **DispatcherServlet** → If allowed, request reaches Spring MVC controllers.  
-8. **SpringController** → Executes business logic and returns response.
+6. **DispatcherServlet** → If allowed, forwards to Spring MVC controllers.  
+7. **SpringController** → Executes business logic and returns response.
 
 
 
