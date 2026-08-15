@@ -717,6 +717,64 @@ Here’s the JWT verification process summarized in a few clear points:
    If valid → Controller issues JWT using a **TokenService**.
    Response → { "token": "eyJhbGciOi..." }.
 
+    ```java
+      @Service
+      public class CustomUserDetailsService implements UserDetailsService {
+      
+          private final UserRepository userRepository;
+          private final PasswordEncoder passwordEncoder;
+      
+          public CustomUserDetailsService(UserRepository userRepository,
+                                          PasswordEncoder passwordEncoder) {
+              this.userRepository = userRepository;
+              this.passwordEncoder = passwordEncoder;
+          }
+      
+          @Override
+          public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+              AppUser user = userRepository.findByUsername(username)
+                  .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+      
+              return User.withUsername(user.getUsername())
+                         .password(user.getPassword()) // already encoded in DB
+                         .roles(user.getRole())        // map DB role to Spring role
+                         .build();
+          }
+      }
+   ```
+
+   ```java
+   @Configuration
+   @EnableWebSecurity
+   public class SecurityConfig {
+   
+       @Bean
+       public PasswordEncoder passwordEncoder() {
+           return new BCryptPasswordEncoder(); // store encoded passwords in DB
+       }
+   
+       @Bean
+       public AuthenticationManager authenticationManager(CustomUserDetailsService userDetailsService,
+                                                          PasswordEncoder passwordEncoder) {
+           DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+           provider.setUserDetailsService(userDetailsService);
+           provider.setPasswordEncoder(passwordEncoder);
+           return new ProviderManager(provider);
+       }
+   
+       @Bean
+       public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+           return http
+               .csrf(csrf -> csrf.disable())
+               .authorizeHttpRequests(auth -> auth
+                   .requestMatchers("/auth/login").permitAll()
+                   .anyRequest().authenticated())
+               .formLogin(Customizer.withDefaults())
+               .build();
+       }
+   }
+   ```
+
 ### Advantages
 - **Stateless** → No server-side session storage.  
 - **Scalable** → Works well in distributed systems.  
