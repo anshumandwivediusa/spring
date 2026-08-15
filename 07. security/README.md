@@ -15,14 +15,14 @@ It relies on credentials and secrets that can be validated against a trusted sou
 | **[Subject](ca://s?q=Explain_Subject_in_Security_Context)** | The security context holding the authenticated principal and its roles/permissions. |
 
 
+### Stateful vs Stateless Authentications
+<img width="1358" height="905" alt="image" src="https://github.com/user-attachments/assets/9f8a35c1-f205-4a0e-9b21-f333f5f8e960" />
+
 ### **Authorization**: Access Control
 **Authorization** is the next logical layer after authentication. Once the system knows *who* you are, authorization decides *what you can do*.  
 
 Authorization determines whether an **authenticated principal** has permission to perform a specific action or access a resource.  
 It’s all about **roles**, **permissions**, and **policies**.
-
-### Stateful vs Stateless Authentications
-<img width="1358" height="905" alt="image" src="https://github.com/user-attachments/assets/9f8a35c1-f205-4a0e-9b21-f333f5f8e960" />
 
 #### Basic vs Form-Based Authentication
  - **Basic Authentication** → The client sends username and password with every request, encoded in **Base64** inside the Authorization header. It’s stateless, meaning the server doesn’t store session data — each request must carry credentials. 
