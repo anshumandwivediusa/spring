@@ -566,6 +566,27 @@ public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
 - Map **Azure AD roles/groups** to Spring Security authorities.  
 - For REST APIs → configure as a **Resource Server** to validate JWTs directly.
 
+
+
+
+- **Client Request** → Browser/API tries to access a protected resource.
+- **FilterChain** → General servlet filters run.
+- **DelegatingFilterProxy** → Bridges servlet filters with Spring beans.
+- **FilterChainProxy** → Decides which SecurityFilterChain applies.
+- **SecurityFilterChain** → For protected endpoints:
+- **OAuth2LoginAuthenticationFilter** → Detects that the user is not authenticated, triggers redirect to Authorization Server.
+- **Authorization Server (external)** → Shows login page, validates credentials.
+- **Authorization Server issues tokens** → Access token (JWT), ID token, refresh token.
+- **OAuth2LoginAuthenticationFilter** → Receives authorization code, exchanges it for tokens.
+- **AuthenticationManager** → Delegates to OAuth2LoginAuthenticationProvider.
+- **JwtAuthenticationProvider** → Validates JWT using JwtDecoder (public keys from JWKS endpoint).
+- **AuthorizationFilter** → Checks roles/permissions from token claims.
+- **CsrfFilter** → Protects against CSRF (disabled for APIs).
+- **ExceptionTranslationFilter** → Handles exceptions.
+- **FilterSecurityInterceptor** → Final access decision.
+- **DispatcherServlet** → If allowed, forwards to Spring MVC controllers.
+- **SpringController** → Executes business logic and returns response.
+
 ## JWT Authentication
 Here’s a **README draft for JWT Authentication** in your Spring Boot/Spring Security project. It explains the concept, setup, and usage clearly:
 
