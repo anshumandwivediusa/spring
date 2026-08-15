@@ -693,6 +693,19 @@ Here’s the JWT verification process summarized in a few clear points:
   }
   ```
 
+
+### JWT with Login Endpoint
+ - **Client Login Request** → Browser/API sends credentials (username, password) to /auth/login.
+ - **FilterChain** → General servlet filters run.
+ - **DelegatingFilterProxy** → Bridges servlet filters with Spring beans.
+ - **FilterChainProxy** → Decides which SecurityFilterChain applies.
+ - **SecurityFilterChain** → For /auth/login:
+ - **UsernamePasswordAuthenticationFilter** → Extracts credentials.
+ - **AuthenticationManager** → Delegates to:
+ - **DaoAuthenticationProvider** → Validates against DB via UserDetailsService.
+   If valid → Controller issues JWT using a **TokenService**.
+   Response → { "token": "eyJhbGciOi..." }.
+
 ### Advantages
 - **Stateless** → No server-side session storage.  
 - **Scalable** → Works well in distributed systems.  
