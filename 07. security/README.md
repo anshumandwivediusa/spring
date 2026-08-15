@@ -634,51 +634,6 @@ Here’s the JWT verification process summarized in a few clear points:
     ```
 
 
-### Flow Explanation
-1. **Client Request** → Browser/API sends an HTTP request.  
-Perfect — let’s merge your **SecurityConfig setup** with the **full Spring Security request flow** so you see exactly where `JwtAuthenticationProvider` fits in:
-
----
-
-## 🔑 SecurityConfig (Corrected)
-```java
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        SecretKey secretKey = Keys.hmacShaKeyFor("MySuperSecretKey1234567890".getBytes());
-        return NimbusJwtDecoder.withSecretKey(secretKey).build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(JwtDecoder jwtDecoder) {
-        JwtAuthenticationProvider jwtProvider = new JwtAuthenticationProvider(jwtDecoder);
-
-        jwtProvider.setJwtAuthenticationConverter(jwt -> {
-            Collection<GrantedAuthority> authorities =
-                AuthorityUtils.createAuthorityList("ROLE_USER");
-            return new JwtAuthenticationToken(jwt, authorities);
-        });
-
-        return new ProviderManager(jwtProvider);
-    }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtDecoder jwtDecoder) throws Exception {
-        return http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/login", "/auth/refresh").permitAll()
-                .anyRequest().authenticated())
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder)))
-            .build();
-    }
-}
-```
-
-
 ## Full Request Flow with `JwtAuthenticationProvider`
 
 1. **Client Request** → Browser/API sends HTTP request with `Authorization: Bearer <jwt>`.  
@@ -701,6 +656,42 @@ public class SecurityConfig {
 7. **SpringController** → Executes business logic and returns response.
 
 
+  ```java
+  @Configuration
+  @EnableWebSecurity
+  public class SecurityConfig {
+  
+      @Bean
+      public JwtDecoder jwtDecoder() {
+          SecretKey secretKey = Keys.hmacShaKeyFor("MySuperSecretKey1234567890".getBytes());
+          return NimbusJwtDecoder.withSecretKey(secretKey).build();
+      }
+  
+      @Bean
+      public AuthenticationManager authenticationManager(JwtDecoder jwtDecoder) {
+          JwtAuthenticationProvider jwtProvider = new JwtAuthenticationProvider(jwtDecoder);
+  
+          jwtProvider.setJwtAuthenticationConverter(jwt -> {
+              Collection<GrantedAuthority> authorities =
+                  AuthorityUtils.createAuthorityList("ROLE_USER");
+              return new JwtAuthenticationToken(jwt, authorities);
+          });
+  
+          return new ProviderManager(jwtProvider);
+      }
+  
+      @Bean
+      public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtDecoder jwtDecoder) throws Exception {
+          return http
+              .csrf(csrf -> csrf.disable())
+              .authorizeHttpRequests(auth -> auth
+                  .requestMatchers("/auth/login", "/auth/refresh").permitAll()
+                  .anyRequest().authenticated())
+              .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder)))
+              .build();
+      }
+  }
+  ```
 
 ### Advantages
 - **Stateless** → No server-side session storage.  
