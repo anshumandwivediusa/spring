@@ -729,3 +729,58 @@ Here’s the JWT verification process summarized in a few clear points:
 - Always register it explicitly in the `SecurityFilterChain`.  
 - Place it **before `UsernamePasswordAuthenticationFilter`** so JWT authentication happens first.  
 - Handle invalid tokens gracefully (return `401 Unauthorized`).  
+
+
+
+
+Great topic — **SecurityContext** and **SecurityContextHolder** are central to how Spring Security manages authentication and authorization state across requests. Let’s break them down clearly:
+
+
+## 🔑 **SecurityContext**
+- **Definition** → An interface that holds the **Authentication object** for the current request.  
+- **Contents** → Stores:
+  - The `Authentication` (principal, credentials, authorities).  
+  - Any additional security-related details.  
+- **Lifecycle** → Created at the beginning of a request and cleared at the end.  
+- **Usage** → Controllers, services, and filters can access the current user’s identity via `SecurityContext`.
+
+👉 Example:
+```java
+Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+String username = auth.getName();
+Collection<? extends GrantedAuthority> roles = auth.getAuthorities();
+```
+
+
+## 🔑 **SecurityContextHolder**
+- **Definition** → A helper class that provides **static access** to the `SecurityContext`.  
+- **Role** → Acts as a **thread-local storage** for the `SecurityContext`.  
+- **Modes** → Can store context in:
+  - **ThreadLocal** (default) → Each thread has its own context.  
+  - **InheritableThreadLocal** → Child threads inherit parent’s context.  
+  - **Global strategy** → Rarely used, shared across all threads.  
+
+👉 Example:
+```java
+SecurityContext context = SecurityContextHolder.getContext();
+Authentication authentication = context.getAuthentication();
+```
+
+
+## 📊 Key Differences
+
+| Aspect | **SecurityContext** | **SecurityContextHolder** |
+|--------|----------------------|---------------------------|
+| **Type** | Interface | Utility class |
+| **Purpose** | Holds authentication info | Provides access to SecurityContext |
+| **Scope** | Per request/thread | Global static access |
+| **Usage** | Stores `Authentication` | Retrieves/sets `SecurityContext` |
+
+
+## ✅ In Short
+- **SecurityContext** = the container holding authentication details.  
+- **SecurityContextHolder** = the static gateway to access that container.  
+- Together, they let Spring Security propagate the authenticated user’s identity across the application.  
+
+
+
