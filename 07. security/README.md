@@ -846,7 +846,7 @@ Authentication authentication = context.getAuthentication();
 ```
 
 
-## 📊 Key Differences
+## Key Differences
 
 | Aspect | **SecurityContext** | **SecurityContextHolder** |
 |--------|----------------------|---------------------------|
@@ -856,10 +856,83 @@ Authentication authentication = context.getAuthentication();
 | **Usage** | Stores `Authentication` | Retrieves/sets `SecurityContext` |
 
 
-## ✅ In Short
+## In Short
 - **SecurityContext** = the container holding authentication details.  
 - **SecurityContextHolder** = the static gateway to access that container.  
 - Together, they let Spring Security propagate the authenticated user’s identity across the application.  
 
 
+## How to Handle Custom Roles in `JwtAuthenticationProvider`
 
+### 1. Configure a Custom Converter
+You override the default claim-to-authority mapping by setting a custom `JwtAuthenticationConverter`.
+
+```java
+@Bean
+public AuthenticationManager authenticationManager(JwtDecoder jwtDecoder) {
+    JwtAuthenticationProvider jwtProvider = new JwtAuthenticationProvider(jwtDecoder);
+
+    jwtProvider.setJwtAuthenticationConverter(jwt -> {
+        // Extract roles from JWT claim
+        Collection<String> roles = jwt.getClaimAsStringList("roles");
+
+        // Map roles to GrantedAuthority
+        Collection<GrantedAuthority> authorities = roles.stream()
+            .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+            .toList();
+
+        return new JwtAuthenticationToken(jwt, authorities);
+    });
+
+    return new ProviderManager(jwtProvider);
+}
+```
+
+
+
+### 2. Example JWT Payload
+Your Authorization Server (or token generator) should include `"HELLO"` in the roles claim:
+
+```json
+{
+  "sub": "anshuman",
+  "roles": ["HELLO"],
+  "exp": 1699999999,
+  "iss": "https://auth-server.example.com"
+}
+```
+
+Spring Security will then map `"HELLO"` → `"ROLE_HELLO"`.
+
+
+
+### 3. Use the Role in Security Config
+```java
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return http
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/hello/**").hasRole("HELLO") // requires ROLE_HELLO
+            .anyRequest().authenticated())
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt())
+        .build();
+}
+```
+
+
+
+## Flow with Custom Role in JWT
+1. **Client Request** → Sends JWT with `"roles": ["HELLO"]`.  
+2. **JwtAuthenticationProvider** → Validates token signature and claims.  
+3. **JwtAuthenticationConverter** → Maps `"HELLO"` → `"ROLE_HELLO"`.  
+4. **SecurityContext** → Stores authenticated user with authorities.  
+5. **AuthorizationFilter** → Checks if endpoint requires `"ROLE_HELLO"`.  
+6. **Controller** → Executes only if user has the role.
+
+
+
+## In Short
+- Add `"HELLO"` to the JWT’s `roles` claim.  
+- Customize `JwtAuthenticationProvider` with a `JwtAuthenticationConverter`.  
+- Map `"HELLO"` → `"ROLE_HELLO"` → enforce with `.hasRole("HELLO")`.  
