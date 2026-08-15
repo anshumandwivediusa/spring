@@ -480,6 +480,17 @@ public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
 
 ### Flow Summary
 
+4. Flow with OAuth2
+ - Client Request → User tries to access a protected resource.
+ - Redirect to Authorization Server → Login page (Google, Azure AD, Keycloak).
+ - Authorization Server → Validates credentials, issues access token (JWT) + optional refresh token.
+ - Spring Security →
+  - BearerTokenAuthenticationFilter extracts token.
+  - JwtAuthenticationProvider validates signature via JWKS endpoint.
+ - Claims (sub, scope, roles) mapped to authorities.
+ - AuthorizationFilter → Checks roles/permissions.
+ - Controller → Executes business logic if authenticated.
+
 | Step | Action |
 |------|--------|
 | **App Registration** | Register app in Azure AD, get Client ID/Secret |
