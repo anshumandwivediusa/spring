@@ -102,6 +102,16 @@ Spring is divided into ~20 modules grouped into:
       | **[Custom init-method](ca://s?q=Spring_custom_init_method_order)** | After afterPropertiesSet | Declared in config |
       | **[Bean Ready](ca://s?q=Spring_Bean_ready_state)** | After init methods | Bean is available for use |
 
+
+
+
+      | Injection Type | Reliability | Testability | Immutability | Lifecycle |
+      | --- | --- | --- | --- | --- |
+      | **Field** | ❌ Unreliable | ❌ Hard to test | ❌ Not immutable | Injected after constructor |
+      | **Constructor** | ✅ Reliable | ✅ Easy to test | ✅ Immutable | Injected at creation |
+      | **Setter** | ⚠️ Moderate | ✅ Testable | ❌ Not immutable | Injected after constructor |
+
+
       ```java
       import org.springframework.beans.factory.annotation.Autowired;
       import org.springframework.stereotype.Component;
