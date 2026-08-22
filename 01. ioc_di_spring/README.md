@@ -85,6 +85,23 @@ Spring is divided into ~20 modules grouped into:
       | **[Setter Injection](ca://s?q=Setter_Injection_in_Spring)** | Dependencies via setter methods | Optional dependencies, reconfiguration | **After construction, during dependency population** |
       | **[Method Injection](ca://s?q=Method_Injection_in_Spring)** | Dependencies via specific method | Rare cases, prototype beans | **On method call (runtime, not at bean creation)** |
 
+
+
+
+      | Step | When Executed | Scope |
+      | --- | --- | --- |
+      | **[Static Fields](ca://s?q=Spring_static_field_initialization_order)** | At class load | One copy per class |
+      | **[Static Blocks](ca://s?q=Spring_static_block_execution_order)** | At class load | Run once |
+      | **[Instance Variables](ca://s?q=Spring_instance_variable_initialization_order)** | At object creation | Per object |
+      | **[Instance Initializer Blocks](ca://s?q=Spring_instance_initializer_block_order)** | Before constructor | Per object |
+      | **[Constructor Injection](ca://s?q=Spring_constructor_injection_order)** | At object creation | Dependencies injected immediately via constructor |
+      | **[Field Injection](ca://s?q=Spring_field_injection_order)** | After constructor | Spring uses reflection to set annotated fields |
+      | **[Setter Injection](ca://s?q=Spring_setter_injection_order)** | After constructor | Spring calls setter methods to inject dependencies |
+      | **[@PostConstruct](ca://s?q=Spring_PostConstruct_annotation_order)** | After all injections | Custom initialization logic |
+      | **[InitializingBean.afterPropertiesSet()](ca://s?q=Spring_InitializingBean_afterPropertiesSet_order)** | After @PostConstruct | Framework callback |
+      | **[Custom init-method](ca://s?q=Spring_custom_init_method_order)** | After afterPropertiesSet | Declared in config |
+      | **[Bean Ready](ca://s?q=Spring_Bean_ready_state)** | After init methods | Bean is available for use |
+
       ```java
       import org.springframework.beans.factory.annotation.Autowired;
       import org.springframework.stereotype.Component;
