@@ -263,6 +263,59 @@ class UserServiceTest {
 }
 ```
 
+```java
+import static org.mockito.Mockito.*;
+import org.mockito.*;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+@Listeners(MockitoTestNGListener.class)   // Integrates Mockito with TestNG
+public class UserServiceTest {
+
+    @Mock
+    private UserRepository repo;       // Mock dependency
+
+    @InjectMocks
+    private UserService service;       // Injects mock into service
+
+    @Spy
+    private java.util.List<String> spyList = new java.util.ArrayList<>();  // Partial mock
+
+    @Captor
+    private ArgumentCaptor<User> userCaptor;           // Captures arguments
+
+    @BeforeClass
+    public void setUp() {
+        MockitoAnnotations.openMocks(this); // Initialize mocks
+    }
+
+    @Test
+    public void testGetUserName() {
+        when(repo.findById(1L)).thenReturn(new User(1L, "TestUser"));
+
+        String result = service.getUserName(1L);
+
+        // Assertion
+        Assert.assertEquals(result, "TestUser");
+
+        // Verify interaction
+        verify(repo).findById(1L);
+
+        // Using captor
+        verify(repo).save(userCaptor.capture());
+        Assert.assertEquals(userCaptor.getValue().getUsername(), "TestUser");
+
+        // Spy usage
+        spyList.add("Hello");
+        verify(spyList).add("Hello");
+    }
+
+    @AfterClass
+    public void tearDown() {
+        // Optional cleanup
+    }
+}
+```
 ## Quick Takeaways
 - **JUnit annotations** → manage test lifecycle and execution.  
 - **Mockito annotations** → simplify mocking, injection, and verification.  
