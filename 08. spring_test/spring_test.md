@@ -118,7 +118,12 @@ class UserServiceTest {
 }
 ```
 
-
+| Concept | **[Assert](ca://s?q=JUnit_assert_usage)** | **[Verify](ca://s?q=Mockito_verify_usage)** |
+| --- | --- | --- |
+| **Purpose** | Checks the **output/result** of a method | Checks the **interaction/behavior** with dependencies |
+| **Scope** | Validates *what* the method returned | Validates *how* the method was used |
+| **Example** | ``assertEquals("TestUser", ``service.getUserName(1L));`` → ensures the service returns correct value | ``verify(mockRepo).findById(1L);`` → ensures the repository was actually called |
+| **Failure Meaning** | Business logic produced wrong result | Service didn’t delegate correctly to dependency |
 
 ## Quick Comparison
 
