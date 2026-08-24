@@ -220,6 +220,48 @@ class UserServiceTest {
 | `@RunWith(MockitoJUnitRunner.class)` | JUnit 4 integration | `@RunWith(MockitoJUnitRunner.class)` |
 | `@ExtendWith(MockitoExtension.class)` | JUnit 5 integration | `@ExtendWith(MockitoExtension.class)` |
 
+```java
+import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+
+@ExtendWith(MockitoExtension.class)   // JUnit 5 + Mockito integration
+class UserServiceTest {
+
+    @Mock
+    private UserRepository repo;       // Mock dependency
+
+    @InjectMocks
+    private UserService service;       // Injects mock into service
+
+    @Spy
+    private List<String> spyList = new ArrayList<>();  // Partial mock
+
+    @Captor
+    private ArgumentCaptor<User> userCaptor;           // Captures arguments
+
+    @Test
+    void testGetUserName() {
+        when(repo.findById(1L)).thenReturn(new User(1L, "TestUser"));
+
+        String result = service.getUserName(1L);
+
+        Assertions.assertEquals("TestUser", result);
+
+        // Verify interaction
+        verify(repo).findById(1L);
+
+        // Using captor
+        verify(repo).save(userCaptor.capture());
+        Assertions.assertEquals("TestUser", userCaptor.getValue().getUsername());
+
+        // Spy usage
+        spyList.add("Hello");
+        verify(spyList).add("Hello");
+    }
+}
+```
 
 ## Quick Takeaways
 - **JUnit annotations** → manage test lifecycle and execution.  
