@@ -140,3 +140,88 @@ class UserServiceTest {
 - **Unit tests** → isolate and validate logic.  
 - **Mockito** → mock dependencies, stub behavior, verify interactions.  
 - Together, they make Spring services **testable, reliable, and fast**.  
+
+# **JUnit and Mockito annotations**
+
+## JUnit Annotations
+
+| **Annotation** | **Purpose** | **Usage Example** |
+|-----------------|-----------------|----------------|
+| `@Test` | Marks a test method | `@Test void testLogic() { ... }` |
+| `@BeforeEach` | Runs before each test | `@BeforeEach void setUp() { ... }` |
+| `@AfterEach` | Runs after each test | `@AfterEach void tearDown() { ... }` |
+| `@BeforeAll` | Runs once before all tests | `@BeforeAll static void initAll() { ... }` |
+| `@AfterAll` | Runs once after all tests | `@AfterAll static void cleanAll() { ... }` |
+| `@Disabled` | Skips a test | `@Disabled("Not ready") @Test void testX() {}` |
+| `@ExtendWith(SpringExtension.class)` | Integrates Spring context | `@ExtendWith(SpringExtension.class) @SpringBootTest class TestApp {}` |
+
+
+```java
+import org.junit.jupiter.api.*;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)   // Integrates Spring context
+class UserServiceTest {
+
+    private static UserRepository mockRepo;
+    private UserService service;
+
+    @BeforeAll
+    static void initAll() {
+        System.out.println(">>> Global setup before all tests");
+        mockRepo = new UserRepository(); // could be a mock in real case
+    }
+
+    @BeforeEach
+    void setUp() {
+        System.out.println(">>> Setup before each test");
+        service = new UserService(mockRepo);
+    }
+
+    @Test
+    void testGetUserName() {
+        System.out.println(">>> Running testGetUserName");
+        User user = new User(1L, "TestUser");
+        mockRepo.save(user);
+
+        Assertions.assertEquals("TestUser", service.getUserName(1L));
+    }
+
+    @Disabled("Not implemented yet")
+    @Test
+    void testFeatureX() {
+        // This test will be skipped
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println(">>> Cleanup after each test");
+        mockRepo.clear(); // hypothetical cleanup
+    }
+
+    @AfterAll
+    static void cleanAll() {
+        System.out.println(">>> Global cleanup after all tests");
+    }
+}
+```
+## Mockito Annotations
+
+| **Annotation** | **Purpose** | **Usage Example** |
+|-----------------|-----------------|----------------|
+| `@Mock` | Creates a mock object | `@Mock UserRepository repo;` |
+| `@InjectMocks` | Injects mocks into tested class | `@InjectMocks UserService service;` |
+| `@Spy` | Partial mock (real methods unless stubbed) | `@Spy List<String> list = new ArrayList<>();` |
+| `@Captor` | Captures arguments | `@Captor ArgumentCaptor<User> captor;` |
+| `@MockBean` | Spring Boot specific mock | `@MockBean UserRepository repo;` |
+| `@RunWith(MockitoJUnitRunner.class)` | JUnit 4 integration | `@RunWith(MockitoJUnitRunner.class)` |
+| `@ExtendWith(MockitoExtension.class)` | JUnit 5 integration | `@ExtendWith(MockitoExtension.class)` |
+
+
+## Quick Takeaways
+- **JUnit annotations** → manage test lifecycle and execution.  
+- **Mockito annotations** → simplify mocking, injection, and verification.  
+- Together, they make tests **clean, maintainable, and Spring‑ready**.  
