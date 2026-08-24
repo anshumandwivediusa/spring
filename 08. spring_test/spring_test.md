@@ -320,3 +320,87 @@ public class UserServiceTest {
 - **JUnit annotations** → manage test lifecycle and execution.  
 - **Mockito annotations** → simplify mocking, injection, and verification.  
 - Together, they make tests **clean, maintainable, and Spring‑ready**.  
+
+
+
+
+A **Spring Integration Test** is designed to validate how different layers of a Spring Boot application work together — loading the full application context, wiring beans, and often connecting to a real or containerized database. Unlike unit tests, integration tests ensure that the system behaves correctly as a whole.
+
+
+## 📌 Key Concepts
+- **SpringBootTest** → Loads the full application context.  
+- **Testcontainers** → Provides real DB/service environments in Docker.  
+- **Transactional** → Rolls back DB changes after each test.  
+- **MockMvc** → Simulates HTTP requests for REST controllers.  
+- **ActiveProfiles** → Runs tests with a specific profile (e.g., `test`).  
+
+
+## 📊 Example: Repository + Service Integration Test
+
+```java
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
+@SpringBootTest   // Loads full Spring Boot context
+class UserServiceIntegrationTest {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    @Transactional
+    @Rollback
+    void testUserServiceIntegration() {
+        // Save entity via repository
+        User user = new User(1L, "IntegrationUser");
+        userRepository.save(user);
+
+        // Call service method
+        String name = userService.getUserName(1L);
+
+        // Assert result
+        assertEquals("IntegrationUser", name);
+    }
+}
+```
+
+
+## 📊 Example: REST Controller Integration Test with MockMvc
+
+```java
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class UserControllerIntegrationTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void testGetUserEndpoint() throws Exception {
+        mockMvc.perform(get("/users/1"))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.username").value("IntegrationUser"));
+    }
+}
+```
+
+
+## ✅ Summary
+- **Unit tests** → isolate logic with mocks.  
+- **Integration tests** → load Spring context, test real DB/services, verify full stack behavior.  
+- Use **`@SpringBootTest` + Testcontainers** for realistic environments, and **MockMvc** for REST APIs.  
