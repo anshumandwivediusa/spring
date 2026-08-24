@@ -37,7 +37,7 @@
   - Mock authenticated users with `@WithMockUser`.  
 
 
-## 📊 Comparison Table
+## Comparison Table
 
 | Layer | Tools/Frameworks | Typical Usage |
 |-------|------------------|---------------|
@@ -48,15 +48,13 @@
 | **Web/API** | MockMvc, TestRestTemplate | REST endpoints, HTTP simulation |
 
 
-## ⚠️ Best Practices & Pitfalls
+## Best Practices & Pitfalls
 - **Keep unit tests fast** → avoid loading full context.  
 - **Use in-memory DBs** for repository tests.  
 - **Leverage context caching** to prevent slow test runs.  
 - **Rollback transactions** to ensure clean state.  
 - **Avoid over-mocking** in integration tests.  
 
-
-Spring Testing spans **unit, slice, integration, and behavioral layers**, supported by frameworks like JUnit, Mockito, Testcontainers, and MockMvc. Mastering these ensures you can test everything from isolated service logic to full-stack behavior in Spring Boot projects.  
 
 # Unit Testing/Mockito
 
