@@ -28,13 +28,17 @@
                                     Email / SMS
  ```                                  
  - **Single Responsibility** → Each service focuses on one business capability, following the SRP (Single Responsibility Principle).
- - **Loosely Coupled** → Services interact via APIs or events, so they can evolve independently without breaking others.
- - **Independent Deployment** → Each service can be deployed, updated, or rolled back without affecting the rest of the system.
+ - **High Cohesion/Loosely Coupled** → Services interact via APIs or events, so they can evolve independently without breaking others.
  - **Polyglot Development** → Teams can use different languages/frameworks (Java, Python, Node.js, Go) depending on the service’s needs.
- - **Scalability** → Scale only the services that need more resources (e.g., scale Order Service without touching User Service).
- - **Resilience** → Failures are isolated; one service crashing doesn’t bring down the whole system.
+
  - **Service Discovery** → Services register themselves dynamically (e.g., Eureka, Consul) so others can find them.
  - **API Gateway** → A single entry point that routes requests, handles authentication, and aggregates responses.
+ 
+ - **Independent Deployment** → Each service can be deployed, updated, or rolled back without affecting the rest of the system.
+ - **Scalability** → Scale only the services that need more resources (e.g., scale Order Service without touching User Service).
+ - **Resilience** → Failures are isolated; one service crashing doesn’t bring down the whole system.
+ 
+ 
  - **Decentralized Data Management** → Each service owns its own database, avoiding a single monolithic schema.
  - **Observability** → Logging, metrics, and distributed tracing (e.g., Prometheus, Jaeger) ensure visibility across services.
  - **Automated CI/CD** → Continuous integration and deployment pipelines allow frequent, safe updates.
