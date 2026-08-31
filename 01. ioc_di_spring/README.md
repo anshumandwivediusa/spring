@@ -105,11 +105,12 @@ Spring is divided into ~20 modules grouped into:
 
 
 
-      | Injection Type | Reliability | Testability | Immutability | Lifecycle |
+      | **Injection Type** | **Reliability** | **Testability** | **Immutability** | **Lifecycle (Creation Concept)** |
       | --- | --- | --- | --- | --- |
-      | **Field** | ❌ Unreliable | ❌ Hard to test | ❌ Not immutable | Injected after constructor |
-      | **Constructor** | ✅ Reliable | ✅ Easy to test | ✅ Immutable | Injected at creation |
-      | **Setter** | ⚠️ Moderate | ✅ Testable | ❌ Not immutable | Injected after constructor |
+      | **[Field Injection](ca://s?q=Spring_field_injection)** | ❌ Unreliable | ❌ Hard to test | ❌ Not immutable | Injected **after constructor** using reflection. Bean may be partially initialized until injection completes. |
+      | **[Constructor Injection](ca://s?q=Spring_constructor_injection)** | ✅ Reliable | ✅ Easy to test | ✅ Immutable | Injected **at creation time**. Dependencies are mandatory and available immediately when the object is instantiated. |
+      | **[Setter Injection](ca://s?q=Spring_setter_injection)** | ⚠️ Moderate | ✅ Testable | ❌ Not immutable | Injected **after constructor** via setter methods. Dependencies can be optional and reconfigured later. |
+      | **[Method Injection](ca://s?q=Spring_method_injection)** | ⚠️ Context-dependent | ⚠️ Testable with mocks | ❌ Not immutable | Injected **only when the method is invoked**. Useful for prototype beans or short-lived dependencies. |
 
 
       ```java
