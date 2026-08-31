@@ -376,39 +376,6 @@ Authorization: Bearer <jwt-token>
 query { user(id:"1"){ name email } }
 ```
 
-41. **What is Apollo Client?**  
-**Answer**: A popular frontend library for managing GraphQL queries and caching.
-
-42. **What is Apollo Server?**  
-**Answer**: A Node.js implementation of a GraphQL server.
-
-43. **What is Relay?**  
-**Answer**: Facebook’s GraphQL client with advanced caching and pagination.
-
-44. **What is Spring Boot GraphQL?**  
-**Answer**: Java integration for GraphQL using resolvers and schema definitions.
-
-45. **What is schema stitching in GraphQL?**  
-**Answer**: Combining multiple schemas into one unified schema.
-
-46. **What is GraphQL federation?**  
-**Answer**: Distributing GraphQL across microservices with a unified gateway.
-
-47. **What is introspection in GraphQL?**  
-**Answer**: Querying the schema itself to discover available types and fields.
-
-48. **What are custom scalars in GraphQL?**  
-**Answer**: User-defined types like `Date`, `UUID`, or `Email`.
-
-49. **What is middleware in GraphQL?**  
-**Answer**: Functions that intercept queries for logging, authentication, or validation.
-
-50. **What is the single endpoint concept in GraphQL?**  
-**Answer**: All queries, mutations, and subscriptions are served through one endpoint (`/graphql`).
-
-Here’s an **elaborated version of Q&A 41–50** with examples and context so they’re more practical and exam‑ready:
-
-
 ### 41. **What is Apollo Client?**  
 **Answer**: Apollo Client is a popular frontend library for managing GraphQL queries, caching, and state. It simplifies data fetching in React, Angular, or Vue apps.  
 **Example:**  
