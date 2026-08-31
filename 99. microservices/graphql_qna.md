@@ -1,7 +1,7 @@
-# GraphQL Questions & Answers (100 Quick Points)
+# GraphQL Questions & **Answer**s (100 Quick Points)
 
 ### 1. **What is GraphQL?**  
-**Answer**: 
+****Answer****: 
 1. **GraphQL** is a **dynamic query language** designed specifically for APIs, allowing clients to describe the exact shape of the data they want.  
 2. It works with a **runtime engine** that validates queries against a schema and executes resolvers to fetch data.  
 3. Unlike REST, which returns fixed payloads, GraphQL avoids **over‑fetching** (extra unused fields) and **under‑fetching** (missing fields requiring multiple calls).  
@@ -25,12 +25,12 @@ This fetches only `name` and `email` instead of the entire user object.
 
 
 ### 2. **How is GraphQL different from REST?**  
-**Answer**: REST exposes fixed endpoints, while GraphQL uses a single endpoint where clients specify fields.  
+****Answer****: REST exposes fixed endpoints, while GraphQL uses a single endpoint where clients specify fields.  
 **Example:** REST → `/users/1` returns all fields. GraphQL → `/graphql` lets you choose only `name` and `email`.
 
 
 ### 3. **What is a GraphQL schema?**  
-**Answer**: A schema defines types, queries, mutations, and subscriptions.  
+****Answer****: A schema defines types, queries, mutations, and subscriptions.  
 **Example:**  
 ```graphql
 # User type definition
@@ -61,31 +61,30 @@ type Subscription {
 }
 ```
 
----
 
-4. **What are resolvers in GraphQL?**  
-Answer: Resolvers are functions that fetch or modify data for a field.  
+
+### 4. **What are resolvers in GraphQL?**  
+**Answer**: Resolvers are backend functions that map schema fields to actual data sources. They execute when a query, mutation, or subscription is called.  
 **Example (Java/Spring Boot):**  
 ```java
 public User getUserById(String id) {
-    return userRepository.findById(id);
+    return userRepository.findById(id)
+                         .orElseThrow(() -> new RuntimeException("User not found"));
 }
 ```
 
----
 
-5. **What is the difference between Query and Mutation?**  
-Answer: Queries fetch data; mutations modify data.  
+### 5. **What is the difference between Query and Mutation?**  
+**Answer**: Queries are used to fetch/read data, while mutations are used to create, update, or delete data.  
 **Example:**  
 ```graphql
 query { user(id: "1") { name } }
 mutation { createUser(name: "Anshuman") { id } }
 ```
 
----
 
-6. **What are GraphQL subscriptions?**  
-Answer: Subscriptions enable real-time updates via WebSockets.  
+### 6. **What are GraphQL subscriptions?**  
+**Answer**: Subscriptions enable real-time communication between client and server, typically using WebSockets.  
 **Example:**  
 ```graphql
 subscription {
@@ -96,10 +95,9 @@ subscription {
 }
 ```
 
----
 
-7. **What are scalar types in GraphQL?**  
-Answer: Built-in primitives like `Int`, `Float`, `String`, `Boolean`, `ID`.  
+### 7. **What are scalar types in GraphQL?**  
+**Answer**: Scalars are built-in primitive types like `Int`, `Float`, `String`, `Boolean`, and `ID`. They represent basic values.  
 **Example:**  
 ```graphql
 type Product {
@@ -109,10 +107,9 @@ type Product {
 }
 ```
 
----
 
-8. **What are object types in GraphQL?**  
-Answer: Custom types grouping related fields.  
+### 8. **What are object types in GraphQL?**  
+**Answer**: Object types group related fields into a structured entity, representing domain models.  
 **Example:**  
 ```graphql
 type Customer {
@@ -122,52 +119,49 @@ type Customer {
 }
 ```
 
----
 
-9. **What are input types in GraphQL?**  
-Answer: Used for structured arguments in mutations.  
+### 9. **What are input types in GraphQL?**  
+**Answer**: Input types allow passing structured arguments into mutations, making them reusable and organized.  
 **Example:**  
 ```graphql
 input CustomerInput {
   name: String!
   email: String!
 }
-mutation { createCustomer(input: {name:"Anshuman", email:"a@b.com"}) { id } }
+mutation {
+  createCustomer(input: {name:"Anshuman", email:"a@b.com"}) { id }
+}
 ```
 
----
 
-10. **What are enums in GraphQL?**  
-Answer: Fixed set of values for a field.  
+### 10. **What are enums in GraphQL?**  
+**Answer**: Enums restrict a field to a fixed set of values, ensuring consistency and validation.  
 **Example:**  
 ```graphql
 enum Status { ACTIVE INACTIVE }
 type User { id: ID! status: Status! }
 ```
 
----
 
-11. **What are interfaces in GraphQL?**  
-Answer: Abstract types implemented by multiple objects.  
+### 11. **What are interfaces in GraphQL?**  
+**Answer**: Abstract types implemented by multiple objects.  
 **Example:**  
 ```graphql
 interface Vehicle { id: ID! speed: Int! }
 type Car implements Vehicle { id: ID! speed: Int! doors: Int! }
 ```
 
----
 
 12. **What are union types in GraphQL?**  
-Answer: A field can return one of several types.  
+**Answer**: A field can return one of several types.  
 **Example:**  
 ```graphql
 union SearchResult = User | Product
 ```
 
----
 
 13. **What is a root query?**  
-Answer: The entry point of a schema for fetching data.  
+**Answer**: The entry point of a schema for fetching data.  
 **Example:**  
 ```graphql
 type Query {
@@ -175,10 +169,9 @@ type Query {
 }
 ```
 
----
 
 14. **What are nested queries in GraphQL?**  
-Answer: Queries that fetch related data in one request.  
+**Answer**: Queries that fetch related data in one request.  
 **Example:**  
 ```graphql
 query {
@@ -189,20 +182,18 @@ query {
 }
 ```
 
----
 
 15. **What are fragments in GraphQL?**  
-Answer: Reusable query parts.  
+**Answer**: Reusable query parts.  
 **Example:**  
 ```graphql
 fragment userFields on User { id name email }
 query { user(id:"1"){ ...userFields } }
 ```
 
----
 
 16. **What are aliases in GraphQL?**  
-Answer: Rename fields in query results.  
+**Answer**: Rename fields in query results.  
 **Example:**  
 ```graphql
 query {
@@ -211,10 +202,9 @@ query {
 }
 ```
 
----
 
 17. **What are directives in GraphQL?**  
-Answer: Control query execution (`@include`, `@skip`).  
+**Answer**: Control query execution (`@include`, `@skip`).  
 **Example:**  
 ```graphql
 query($withEmail: Boolean!) {
@@ -222,19 +212,17 @@ query($withEmail: Boolean!) {
 }
 ```
 
----
 
 18. **What are variables in GraphQL?**  
-Answer: Dynamic values passed into queries.  
+**Answer**: Dynamic values passed into queries.  
 **Example:**  
 ```graphql
 query($id: ID!) { user(id:$id){ name } }
 ```
 
----
 
 19. **What is mutation structure in GraphQL?**  
-Answer: Similar to queries but modifies data.  
+**Answer**: Similar to queries but modifies data.  
 **Example:**  
 ```graphql
 mutation {
@@ -242,10 +230,9 @@ mutation {
 }
 ```
 
----
 
 20. **What is the return type in mutation?**  
-Answer: Mutations must specify return fields, often the modified object.  
+**Answer**: Mutations must specify return fields, often the modified object.  
 **Example:**  
 ```graphql
 mutation {
@@ -253,146 +240,241 @@ mutation {
 }
 ```
 
----
 
-✅ That’s the **first 20 elaborated with examples**.  
+Here’s an **elaborated version of Q&A 21–40** with short examples and context so they’re more practical and exam‑ready:
 
-Would you like me to continue elaborating **21–50 in the same style** so you have a complete, example-rich set?
-21. **What are batch mutations?**  
-Answer: Multiple mutations executed in a single request.
 
-22. **What is the use case of subscriptions?**  
-Answer: Real-time features like chat, notifications, or live dashboards.
+### 21. **What are batch mutations?**  
+**Answer**: Batch mutations allow multiple mutations in a single request, reducing network overhead.  
+**Example:**  
+```graphql
+mutation {
+  createUser(name:"A"){id}
+  updateUser(id:"1", name:"B"){id}
+}
+```
 
-23. **What transport is used for subscriptions?**  
-Answer: Typically WebSockets for persistent connections.
 
-24. **What is a subscription resolver?**  
-Answer: A function that publishes events to subscribed clients.
+### 22. **What is the use case of subscriptions?**  
+**Answer**: Subscriptions enable real‑time features like chat, notifications, or dashboards.  
+**Example:** A stock price app uses subscriptions to push live price updates to clients.
 
-25. **What is the GraphQL execution engine?**  
-Answer: Parses queries, validates against schema, and executes resolvers.
 
-26. **What is batching in GraphQL?**  
-Answer: Combining multiple queries to reduce round trips.
+### 23. **What transport is used for subscriptions?**  
+**Answer**: Typically **WebSockets**, which maintain persistent connections for real‑time communication.  
+**Example:** Apollo Client uses `ws://` connections for GraphQL subscriptions.
 
-27. **What is the N+1 problem in GraphQL?**  
-Answer: Excessive database calls due to nested queries.
 
-28. **What is DataLoader in GraphQL?**  
-Answer: A utility to batch and cache requests, solving the N+1 problem.
+### 24. **What is a subscription resolver?**  
+**Answer**: A resolver that publishes events to subscribed clients when data changes.  
+**Example:**  
+```java
+public Publisher<User> userCreated() {
+    return userPublisher;
+}
+```
 
-29. **What is GraphQL error format?**  
-Answer: Standard JSON response with an `errors` array.
 
-30. **What are partial results in GraphQL?**  
-Answer: GraphQL can return available data along with error details.
+### 25. **What is the GraphQL execution engine?**  
+**Answer**: It parses queries, validates them against the schema, and executes resolvers to fetch data.  
+**Example:** Apollo Server’s execution engine handles query parsing and resolver mapping.
 
-31. **What are custom errors in GraphQL?**  
-Answer: Application-specific errors thrown from resolvers.
 
-32. **What is caching in GraphQL?**  
-Answer: Storing query or field results to improve performance.
+### 26. **What is batching in GraphQL?**  
+**Answer**: Batching combines multiple queries into one request to reduce round trips.  
+**Example:** Instead of two separate queries for `user` and `orders`, both can be batched together.
 
-33. **What are persisted queries in GraphQL?**  
-Answer: Predefined queries stored server-side to reduce payload size.
 
-34. **What is query cost analysis in GraphQL?**  
-Answer: Evaluating query complexity to prevent expensive requests.
+### 27. **What is the N+1 problem in GraphQL?**  
+**Answer**: Occurs when nested queries trigger excessive DB calls (e.g., fetching each user’s orders individually).  
+**Example:** Querying 10 users with orders may cause 11 DB calls instead of 2.
 
-35. **What is pagination in GraphQL?**  
-Answer: Techniques like offset-based or cursor-based to fetch data in chunks.
 
-36. **What is authentication in GraphQL?**  
-Answer: Verifying user identity, often via JWT tokens in headers.
+### 28. **What is DataLoader in GraphQL?**  
+**Answer**: A utility to batch and cache requests, solving the N+1 problem.  
+**Example:** DataLoader groups multiple `getOrdersByUserId` calls into one DB query.
 
-37. **What is authorization in GraphQL?**  
-Answer: Controlling access to fields or operations based on user roles.
 
-38. **What is query depth limiting in GraphQL?**  
-Answer: Restricting nested queries to prevent abuse.
+### 29. **What is GraphQL error format?**  
+**Answer**: Standard JSON response with an `errors` array.  
+**Example:**  
+```json
+{
+  "errors": [{ "message": "User not found" }]
+}
+```
 
-39. **What is rate limiting in GraphQL?**  
-Answer: Limiting requests per client to protect resources.
 
-40. **What is GraphiQL?**  
-Answer: An in-browser IDE for testing GraphQL queries.
+### 30. **What are partial results in GraphQL?**  
+**Answer**: GraphQL can return available data along with error details.  
+**Example:**  
+```json
+{
+  "data": { "user": null },
+  "errors": [{ "message": "User not found" }]
+}
+```
+
+
+### 31. **What are custom errors in GraphQL?**  
+**Answer**: Application‑specific errors thrown from resolvers.  
+**Example:** Throwing `InvalidEmailException` when creating a user with a bad email.
+
+
+### 32. **What is caching in GraphQL?**  
+**Answer**: Storing query or field results to improve performance.  
+**Example:** Apollo Client caches query results locally to avoid repeated server calls.
+
+
+### 33. **What are persisted queries in GraphQL?**  
+**Answer**: Predefined queries stored server‑side to reduce payload size and improve security.  
+**Example:** Client sends a query ID instead of the full query string.
+
+
+### 34. **What is query cost analysis in GraphQL?**  
+**Answer**: Evaluating query complexity to prevent expensive requests.  
+**Example:** Limiting queries that fetch deeply nested data across many nodes.
+
+
+### 35. **What is pagination in GraphQL?**  
+**Answer**: Fetching data in chunks using offset or cursor‑based techniques.  
+**Example:**  
+```graphql
+query {
+  users(first: 10, after:"cursor123") { id name }
+}
+```
+
+
+### 36. **What is authentication in GraphQL?**  
+**Answer**: Verifying user identity, often via JWT tokens in headers.  
+**Example:**  
+```http
+Authorization: Bearer <jwt-token>
+```
+
+
+### 37. **What is authorization in GraphQL?**  
+**Answer**: Controlling access to fields or operations based on user roles.  
+**Example:** Only `admin` role can access `deleteUser` mutation.
+
+
+### 38. **What is query depth limiting in GraphQL?**  
+**Answer**: Restricting how deeply queries can nest to prevent abuse.  
+**Example:** Allow max depth of 5 levels in queries.
+
+
+### 39. **What is rate limiting in GraphQL?**  
+**Answer**: Limiting requests per client to protect resources.  
+**Example:** Allow max 100 queries per minute per user.
+
+
+### 40. **What is GraphiQL?**  
+**Answer**: An in‑browser IDE for testing GraphQL queries interactively.  
+**Example:** Developers use GraphiQL to run queries like:  
+```graphql
+query { user(id:"1"){ name email } }
+```
 
 41. **What is Apollo Client?**  
-Answer: A popular frontend library for managing GraphQL queries and caching.
+**Answer**: A popular frontend library for managing GraphQL queries and caching.
 
 42. **What is Apollo Server?**  
-Answer: A Node.js implementation of a GraphQL server.
+**Answer**: A Node.js implementation of a GraphQL server.
 
 43. **What is Relay?**  
-Answer: Facebook’s GraphQL client with advanced caching and pagination.
+**Answer**: Facebook’s GraphQL client with advanced caching and pagination.
 
 44. **What is Spring Boot GraphQL?**  
-Answer: Java integration for GraphQL using resolvers and schema definitions.
+**Answer**: Java integration for GraphQL using resolvers and schema definitions.
 
 45. **What is schema stitching in GraphQL?**  
-Answer: Combining multiple schemas into one unified schema.
+**Answer**: Combining multiple schemas into one unified schema.
 
 46. **What is GraphQL federation?**  
-Answer: Distributing GraphQL across microservices with a unified gateway.
+**Answer**: Distributing GraphQL across microservices with a unified gateway.
 
 47. **What is introspection in GraphQL?**  
-Answer: Querying the schema itself to discover available types and fields.
+**Answer**: Querying the schema itself to discover available types and fields.
 
 48. **What are custom scalars in GraphQL?**  
-Answer: User-defined types like `Date`, `UUID`, or `Email`.
+**Answer**: User-defined types like `Date`, `UUID`, or `Email`.
 
 49. **What is middleware in GraphQL?**  
-Answer: Functions that intercept queries for logging, authentication, or validation.
+**Answer**: Functions that intercept queries for logging, authentication, or validation.
 
 50. **What is the single endpoint concept in GraphQL?**  
-Answer: All queries, mutations, and subscriptions are served through one endpoint (`/graphql`).
+**Answer**: All queries, mutations, and subscriptions are served through one endpoint (`/graphql`).
 
----
+Here’s an **elaborated version of Q&A 41–50** with examples and context so they’re more practical and exam‑ready:
 
-✅ That’s the **first 50 GraphQL questions with answers** in your requested format.  
 
-Would you like me to continue with the **remaining 50 (51–100)** in the same style so you have the complete set?
-### Execution
-- **Execution engine?** → Parses query, validates against schema, executes resolvers.  
-- **Batching?** → Combine multiple queries to reduce round trips.  
-- **N+1 problem?** → Too many DB calls due to nested queries.  
-- **DataLoader?** → Solves N+1 by batching and caching requests.  
+### 41. **What is Apollo Client?**  
+**Answer**: Apollo Client is a popular frontend library for managing GraphQL queries, caching, and state. It simplifies data fetching in React, Angular, or Vue apps.  
+**Example:**  
+```javascript
+const { data } = useQuery(GET_USER);
+```
 
-### Error Handling
-- **Error format?** → Standard JSON with `errors` array.  
-- **Partial results?** → Returns available data plus errors.  
-- **Custom errors?** → Throw exceptions in resolvers.  
 
-### Performance
-- **Caching?** → At query or field level.  
-- **Persisted queries?** → Predefined queries stored server-side.  
-- **Query cost analysis?** → Prevent expensive queries.  
-- **Pagination?** → Use `limit/offset` or cursor-based.  
+### 42. **What is Apollo Server?**  
+**Answer**: Apollo Server is a Node.js GraphQL server implementation that connects schemas and resolvers to data sources.  
+**Example:**  
+```javascript
+const server = new ApolloServer({ typeDefs, resolvers });
+```
 
-### Security
-- **Authentication?** → Usually via JWT in headers.  
-- **Authorization?** → Field-level access control.  
-- **Query depth limiting?** → Prevent overly nested queries.  
-- **Rate limiting?** → Protect against abuse.  
 
-### Tooling
-- **GraphiQL?** → In-browser IDE for testing queries.  
-- **Apollo Client?** → Popular GraphQL client for frontend.  
-- **Apollo Server?** → Node.js GraphQL server implementation.  
-- **Relay?** → Facebook’s GraphQL client with advanced caching.  
-- **Spring Boot GraphQL?** → Java integration using resolvers.  
+### 43. **What is Relay?**  
+**Answer**: Relay is Facebook’s GraphQL client with advanced caching and pagination, optimized for large apps.  
+**Example:** It uses **cursor-based pagination** for efficient infinite scrolling.
 
-### Advanced Concepts
-- **Schema stitching?** → Combine multiple schemas into one.  
-- **Federation?** → Distributed GraphQL across microservices.  
-- **Introspection?** → Query schema itself for metadata.  
-- **Custom scalars?** → Define types like `Date`, `UUID`.  
-- **Middleware?** → Intercept queries for logging, auth, etc.  
 
----
+### 44. **What is Spring Boot GraphQL?**  
+**Answer**: Spring Boot GraphQL integrates Java applications with GraphQL using resolvers and schema definitions.  
+**Example:**  
+```java
+public class UserResolver implements GraphQLQueryResolver {
+    public User getUserById(String id) { return userService.findById(id); }
+}
+```
 
-## ✅ Quick Recap
-That’s **100 GraphQL Q&A points** across basics, schema, queries, mutations, subscriptions, execution, errors, performance, security, tooling, and advanced concepts. Each answer is short (2–3 lines), exam-ready, and structured for fast recall.  
 
-Would you like me to **format these into flashcards** (question on one side, answer on the other) so you can practice interactively, like a quiz set?
+### 45. **What is schema stitching in GraphQL?**  
+**Answer**: Schema stitching combines multiple GraphQL schemas into one unified schema.  
+**Example:** Merging `UserSchema` and `OrderSchema` so clients query both seamlessly.
+
+
+### 46. **What is GraphQL federation?**  
+**Answer**: Federation distributes GraphQL across microservices, unified by a gateway.  
+**Example:** A `User` type in one service and `Orders` in another, combined via Apollo Federation.
+
+
+### 47. **What is introspection in GraphQL?**  
+**Answer**: Introspection allows querying the schema itself to discover available types and fields.  
+**Example:**  
+```graphql
+query { __schema { types { name } } }
+```
+
+
+### 48. **What are custom scalars in GraphQL?**  
+**Answer**: Custom scalars are user-defined types like `Date`, `UUID`, or `Email` for domain-specific values.  
+**Example:**  
+```graphql
+scalar Date
+type Event { id: ID! date: Date! }
+```
+
+
+### 49. **What is middleware in GraphQL?**  
+**Answer**: Middleware intercepts queries for logging, authentication, or validation before execution.  
+**Example:** Adding a middleware to check JWT tokens before resolver execution.
+
+
+### 50. **What is the single endpoint concept in GraphQL?**  
+**Answer**: GraphQL serves all queries, mutations, and subscriptions through one endpoint (`/graphql`).  
+**Example:** Instead of multiple REST endpoints (`/users`, `/orders`), GraphQL uses one endpoint with flexible queries.
+
+
+Would you like me to **format these into flashcards** (question on one side, **Answer** on the other) so you can practice interactively, like a quiz set?
