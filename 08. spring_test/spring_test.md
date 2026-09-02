@@ -436,6 +436,54 @@ class UserControllerIntegrationTest {
 ```
 
 
+
+
+
+
+'''java
+//Integration Test
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest   // Loads full Spring Boot context
+@Testcontainers   // Enables Testcontainers lifecycle
+class UserServiceIntegrationTest {
+
+    // Spin up PostgreSQL in Docker for test lifecycle
+    @Container
+    @ServiceConnection   // Spring Boot 3.1+ auto-wires datasource from container
+    static PostgreSQLContainer<?> postgres =
+            new PostgreSQLContainer<>("postgres:15-alpine");
+
+    private final UserRepository userRepository;
+    private final UserService userService;
+
+    // Constructor injection of Spring-managed beans
+    UserServiceIntegrationTest(UserRepository userRepository, UserService userService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+    }
+
+    @Test
+    void testSaveAndFetchUser() {
+        // Arrange
+        User user = new User(null, "Anshuman");
+        userRepository.save(user);
+
+        // Act
+        String name = userService.getUserName(user.getId());
+
+        // Assert
+        assertThat(name).isEqualTo("Anshuman");
+    }
+}
+'''
 ## ✅ Summary
 - **Unit tests** → isolate logic with mocks.  
 - **Integration tests** → load Spring context, test real DB/services, verify full stack behavior.  
