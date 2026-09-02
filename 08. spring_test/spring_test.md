@@ -116,6 +116,42 @@ class UserServiceTest {
         verify(mockRepo).findById(1L);
     }
 }
+
+//Second Example
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+// JUnit 5 + Mockito integration
+@ExtendWith(MockitoExtension.class)
+class UserServiceTest {
+
+    @Mock
+    private UserRepository repo;   // Mocked dependency
+
+    @InjectMocks
+    private UserService service;   // Service with injected mock
+
+    @Test
+    void testGetUserName() {
+        // Arrange: define mock behavior
+        when(repo.findById(1L)).thenReturn(new User(1L, "TestUser"));
+
+        // Act: call the service method
+        String result = service.getUserName(1L);
+
+        // Assert: verify result
+        assertEquals("TestUser", result);
+
+        // Verify: ensure repo interaction happened
+        verify(repo).findById(1L);
+    }
+}
 ```
 
 | Concept | **[Assert](ca://s?q=JUnit_assert_usage)** | **[Verify](ca://s?q=Mockito_verify_usage)** |
