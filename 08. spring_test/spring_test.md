@@ -440,7 +440,8 @@ class UserControllerIntegrationTest {
 
 
 
-'''java
+
+```java
 //Integration Test
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -483,7 +484,7 @@ class UserServiceIntegrationTest {
         assertThat(name).isEqualTo("Anshuman");
     }
 }
-'''
+```
 ## ✅ Summary
 - **Unit tests** → isolate logic with mocks.  
 - **Integration tests** → load Spring context, test real DB/services, verify full stack behavior.  
