@@ -1,4 +1,4 @@
-# Representational State Transfer (REST) — Professional Notes
+# Representational State Transfer (REST)
 
 ## 1. Definition
 **REST** is an architectural style for distributed systems, introduced by Roy Fielding in his 2000 PhD dissertation. It defines principles for building scalable, stateless, and resource-oriented web services.
