@@ -388,3 +388,18 @@ Application Ready
 3. Conditional annotations → Auto-config beans created only if conditions match.  
 4. Lifecycle annotations (`@PostConstruct`) → Run during context refresh.  
 5. Runner interfaces → Execute after the app is fully started.  
+
+
+### 8. HTTP Methods and Error Codes
+| Method | Success Code | Meaning | Common Error Codes | Meaning |
+| --- | --- | --- | --- | --- |
+| **[GET](ca://s?q=SpringBoot_GET_response_codes)** | **200 OK** | Resource fetched successfully | **404 Not Found** | Resource doesn’t exist |
+|  |  |  | **400 Bad Request** | Malformed request |
+| **[POST](ca://s?q=SpringBoot_POST_response_codes)** | **201 Created** | Resource created successfully | **400 Bad Request** | Invalid input data |
+|  |  |  | **409 Conflict** | Duplicate resource |
+| **[PUT](ca://s?q=SpringBoot_PUT_response_codes)** | **200 OK** / **204 No Content** | Resource updated/replaced | **404 Not Found** | Resource doesn’t exist |
+|  |  |  | **400 Bad Request** | Invalid update data |
+| **[PATCH](ca://s?q=SpringBoot_PATCH_response_codes)** | **200 OK** | Partial update applied | **404 Not Found** | Resource doesn’t exist |
+|  |  |  | **400 Bad Request** | Invalid patch data |
+| **[DELETE](ca://s?q=SpringBoot_DELETE_response_codes)** | **204 No Content** | Resource deleted successfully | **404 Not Found** | Resource doesn’t exist |
+|  |  |  | **400 Bad Request** | Invalid delete request |
